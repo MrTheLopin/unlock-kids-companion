@@ -357,6 +357,17 @@
     .desktop-icon:hover, .desktop-icon:focus-visible { border-color: rgba(255,255,255,.72); background: rgba(255,255,255,.18); }
     .desktop-icon-glyph { font-size: 34px; line-height: 1.05; filter: drop-shadow(0 2px 3px rgba(0,0,0,.24)); }
     .desktop-icon-label { max-width: 82px; font-size: 11px; font-weight: 700; line-height: 1.15; }
+    .desktop-icon.trash-icon .desktop-icon-glyph { filter: grayscale(.25) drop-shadow(0 2px 3px rgba(0,0,0,.24)); }
+    .explorer-toolbar { display: flex; min-height: 40px; align-items: center; gap: 8px; border-bottom: 1px solid #e0e6ee; background: #fff; padding: 6px 12px; color: #53647a; font-size: 13px; }
+    .explorer-toolbar .crumb { border-radius: 5px; background: #edf3f8; padding: 5px 8px; }
+    .explorer-files { min-height: 235px; padding: 15px; }
+    .explorer-folder { display: grid; width: min(150px,100%); min-height: 110px; justify-items: center; align-content: center; gap: 6px; border: 1px solid transparent; border-radius: 8px; background: transparent; padding: 10px; color: #334860; cursor: pointer; }
+    .explorer-folder:hover { border-color: #9dc8e7; background: #edf7ff; }
+    .explorer-folder-icon { font-size: 42px; }
+    .explorer-folder-name { font-size: 13px; font-weight: 700; text-align: center; }
+    .explorer-folder-detail { color: #6a7b90; font-size: 11px; }
+    .trash-message { max-width: 480px; margin: 15px auto; border: 1px solid #eedcaa; border-radius: 10px; background: #fff8df; padding: 16px; color: #56451d; font-size: 17px; line-height: 1.5; text-align: center; }
+    .trash-message .trash-big { display: block; margin-bottom: 8px; font-size: 48px; }
     .computer-window { position: absolute; z-index: 2; top: 50%; left: 50%; display: flex; width: min(760px, calc(100% - 150px)); max-height: calc(100% - 34px); flex-direction: column; overflow: hidden; transform: translate(-43%, -50%); border: 1px solid rgba(255,255,255,.85); border-radius: 10px; background: #f7f9fc; box-shadow: 0 24px 70px rgba(2,27,54,.38); color: #263650; }
     .computer-window.home-window { display: none; }
     .window-titlebar { display: flex; min-height: 42px; align-items: center; gap: 10px; border-bottom: 1px solid #dfe5ee; background: #f6f8fb; padding: 0 12px; }
@@ -458,6 +469,7 @@
       .desktop-icon { width: 82px; min-height: 74px; }
       .desktop-icon-glyph { font-size: 29px; }
       .desktop-icon-label { font-size: 10px; }
+      .explorer-files { min-height: 180px; padding: 10px; }
       .taskbar { height: 52px; gap: 4px; padding: 4px 6px; }
       .taskbar-button { min-width: 38px; height: 40px; }
       .cards-toggle { min-width: 90px; font-size: 14px; }
@@ -635,7 +647,7 @@
       };
       const sceneVisuals = {
         1: { type: "desktop", title: "Bureau de l’ordinateur", tag: "Bureau", items: [
-          ["📁", "Explorateur", "Fichiers et dossiers", "☀ 2"],
+          ["📁", "Explorateur de fichiers", "Dossier de l’école", "☀ 2"],
           ["⚙️", "Paramètres", "Réseau Wi-Fi", "★ 4"],
           ["📂", "Dossier verrouillé", "Accès protégé", "🌙 1"],
           ["🔑", "Clé-USB", "Périphérique détecté"]
@@ -928,12 +940,31 @@
 
       function renderDesktopIcons() {
         const shortcuts = [
-          ["🖥️", "Ce PC", 2], ["📶", "Réseau Wi-Fi", 7], ["📁", "Dossier de l’école", 3],
-          ["🔑", "Clé USB", 4], ["✉️", "Messages", 5], ["🦎", "Borne Salamandre", 20]
+          { icon: "🖥️", label: "Ce PC", action: "card", cardId: 2 },
+          { icon: "📶", label: "Paramètres Wi-Fi", action: "card", cardId: 2 },
+          { icon: "📁", label: "Explorateur de fichiers", action: "explorer" },
+          { icon: "🔒", label: "Dossier verrouillé", action: "card", cardId: 3 },
+          { icon: "🔑", label: "Clé USB", action: "card", cardId: 4 },
+          { icon: "✉️", label: "Messages", action: "card", cardId: 5 },
+          { icon: "🗑️", label: "Corbeille", action: "trash", trash: true }
         ];
-        $("#desktop-icons").innerHTML = shortcuts.map(([icon, label, cardId]) =>
-          `<button class="desktop-icon${state.availableCards.has(cardId) ? "" : " pixel-locked"}" type="button" data-open-card="${cardId}" aria-label="${label}${state.availableCards.has(cardId) ? "" : ", verrouillé"}" title="${state.availableCards.has(cardId) ? "Ouvrir" : "À découvrir"} : ${label}"><span class="desktop-icon-glyph" aria-hidden="true">${icon}</span><span class="desktop-icon-label">${label}</span></button>`
-        ).join("");
+        $("#desktop-icons").innerHTML = shortcuts.map(({ icon, label, action, cardId, trash }) => {
+          const locked = cardId && !state.availableCards.has(cardId);
+          return `<button class="desktop-icon${locked ? " pixel-locked" : ""}${trash ? " trash-icon" : ""}" type="button" data-desktop-action="${action}"${cardId ? ` data-card-id="${cardId}"` : ""} aria-label="${label}${locked ? ", verrouillé" : ""}" title="${locked ? "À découvrir" : "Ouvrir"} : ${label}"><span class="desktop-icon-glyph" aria-hidden="true">${icon}</span><span class="desktop-icon-label">${label}</span></button>`;
+        }).join("");
+      }
+
+      function openFileExplorer() {
+        state.windowOpen = true;
+        $("#computer-window").style.display = "flex";
+        $("#computer-window").innerHTML = `<header class="window-titlebar"><span class="window-app-icon" aria-hidden="true">📁</span><span class="window-title">Explorateur de fichiers</span><div class="window-controls"><button class="window-control" type="button" data-window-minimize aria-label="Réduire la fenêtre">—</button><button class="window-control close" type="button" data-window-close aria-label="Fermer la fenêtre">×</button></div></header><div class="explorer-toolbar"><span>←</span><span>→</span><span class="crumb">🖥️ Ce PC</span><span>›</span><span class="crumb">Explorateur de fichiers</span></div><div class="explorer-files"><button class="explorer-folder" type="button" data-desktop-action="school-folder" aria-label="Ouvrir le dossier de l’école"><span class="explorer-folder-icon" aria-hidden="true">📁</span><span class="explorer-folder-name">Dossier de l’école</span><span class="explorer-folder-detail">Fichiers protégés</span></button></div>`;
+      }
+
+      function openTrash() {
+        state.windowOpen = true;
+        $("#computer-window").style.display = "flex";
+        $("#computer-window").innerHTML = `<header class="window-titlebar"><span class="window-app-icon" aria-hidden="true">🗑️</span><span class="window-title">Corbeille</span><div class="window-controls"><button class="window-control close" type="button" data-window-close aria-label="Fermer la fenêtre">×</button></div></header><div class="window-content"><div class="trash-message"><span class="trash-big" aria-hidden="true">🗑️</span>Ho mais tu es tombé dans la poubelle ! C’est sale en plus… Ce n’était pas le bon choix !<br><strong>Reviens sur le bureau pour continuer l’aventure.</strong></div><button class="primary-button" type="button" data-window-close>Retour au bureau</button></div>`;
+        $("#announcer").textContent = "Ho mais tu es tombé dans la poubelle ! C’est sale en plus… Ce n’était pas le bon choix ! Reviens sur le bureau pour continuer l’aventure.";
       }
 
       function setCardsMenu(open) {
@@ -965,17 +996,43 @@
       }
 
       $("#scene-display").addEventListener("click", (event) => {
-        const shortcut = event.target.closest("[data-open-card]");
-        if (shortcut) {
-          const id = Number(shortcut.dataset.openCard);
-          if (!state.availableCards.has(id)) {
-            const text = "Cette icône est verrouillée. Continue les cartes découvertes pour l’ouvrir !";
-            message(text);
-            $("#hint-text").innerHTML = `<span class="hint-level">Application verrouillée</span>${text}`;
-            $("#announcer").textContent = text;
+        const desktopAction = event.target.closest("[data-desktop-action]");
+        if (desktopAction) {
+          const action = desktopAction.dataset.desktopAction;
+          if (action === "explorer") {
+            openFileExplorer();
             return;
           }
-          showCard(id);
+          if (action === "trash") {
+            openTrash();
+            return;
+          }
+          if (action === "school-folder") {
+            if (!state.availableCards.has(3)) {
+              const text = "Le dossier de l’école est verrouillé. Trouve les chiffres cachés sur le bureau !";
+              $("#hint-text").innerHTML = `<span class="hint-level">Dossier verrouillé</span>${text}`;
+              $("#announcer").textContent = text;
+              return;
+            }
+            showCard(3);
+            return;
+          }
+          if (action === "card") {
+            const id = Number(desktopAction.dataset.cardId);
+            if (!state.availableCards.has(id)) {
+              const text = "Cette icône est verrouillée. Continue les cartes découvertes pour l’ouvrir !";
+              message(text);
+              $("#hint-text").innerHTML = `<span class="hint-level">Application verrouillée</span>${text}`;
+              $("#announcer").textContent = text;
+              return;
+            }
+            showCard(id);
+            return;
+          }
+        }
+        const oldShortcut = event.target.closest("[data-open-card]");
+        if (oldShortcut) {
+          showCard(Number(oldShortcut.dataset.openCard));
           return;
         }
         if (event.target.closest("[data-window-close], [data-window-minimize]")) {
