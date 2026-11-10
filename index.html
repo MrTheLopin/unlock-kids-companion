@@ -189,7 +189,7 @@
     .hidden-card .tile-content { position: relative; filter: blur(4px); opacity: .7; }
     .hidden-card .tile-content::after { position: absolute; inset: -8px; background: repeating-conic-gradient(rgba(145,161,205,.8) 0% 25%, rgba(80,99,142,.9) 0% 50%) 0 0 / 11px 11px; content: ""; opacity: .68; mix-blend-mode: screen; pointer-events: none; }
     .tile-status { color: #98a5c5; font-size: 7px; }
-    .available-card .tile-status { color: var(--yellow); }
+    .available-card .tile-status { color: #675000; }
     .resolved .tile-status { color: var(--green); }
     .gallery-status { display: flex; justify-content: space-between; gap: 8px; border-top: 1px solid var(--line); padding: 9px 14px; color: var(--muted); font-size: 8px; }
     .gallery-status strong { color: var(--cyan); }
@@ -220,6 +220,13 @@
     .modal p { color: #bbc6e2; font-size: 11px; line-height: 1.65; }
     .modal-actions { justify-content: flex-end; margin-top: 14px; }
     .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; clip-path: inset(50%); }
+    .how-to { margin: -5px 0 18px; padding: 14px 18px; }
+    .how-to summary { color: #5940a4; font-size: 17px; font-weight: 800; cursor: pointer; }
+    .how-to-content { max-width: 900px; padding: 8px 4px 0; color: #344563; font-size: 15px; line-height: 1.55; }
+    .how-to-content p { margin: 8px 0; }
+    .hint-text:not(:empty) { border: 2px solid #d3c8f2; border-radius: 14px; background: #fffdf6; padding: 12px; }
+    .hint-level { display: block; margin-bottom: 4px; color: #5940a4; font-weight: 800; }
+    .complete-card-button { width: 100%; margin-top: 13px; }
 
     @media (max-width: 960px) {
       .layout { grid-template-columns: 190px minmax(0, 1fr); }
@@ -241,92 +248,291 @@
     }
     @media (max-width: 390px) { .tools { grid-template-columns: 1fr; } .tool-section:last-child { grid-column: auto; } .cards-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+
+    :root {
+      --bg: #fff5dc;
+      --panel: #fffdf6;
+      --ink: #263255;
+      --muted: #596887;
+      --purple: #7655c9;
+      --cyan: #087f82;
+      --yellow: #ffd454;
+      --green: #18764b;
+      --line: rgba(57, 75, 120, .2);
+      color-scheme: light;
+      background: var(--bg);
+      color: var(--ink);
+    }
+    body {
+      background: radial-gradient(ellipse at 82% 0, #ffe2a6, transparent 34%),
+        radial-gradient(ellipse at 8% 42%, #c9f3e7, transparent 32%), #fff5dc;
+    }
+    .shell { max-width: 1320px; }
+    .topbar { margin-bottom: 24px; }
+    .brand { color: #263255; font-size: 23px; }
+    .brand small { color: #596887; font-size: 12px; }
+    .top-pill, .session-label { color: #465777; font-size: 14px; }
+    .hero p { color: #394968; font-size: 17px; line-height: 1.55; }
+    .kicker { color: #087f82; font-size: 14px; }
+    .session { background: #fffdf6; }
+    .small-button, .primary-button, .hint-button, .reset-button {
+      min-height: 48px;
+      font-size: 15px;
+    }
+    .small-button { color: #263255; background: #f0edff; }
+    .layout { grid-template-columns: 250px minmax(0, 1fr) 265px; gap: 18px; }
+    .panel { background: #fffdf6; box-shadow: 0 8px 22px rgba(73, 70, 99, .1); }
+    .panel-heading, .progress-label { color: #465777; font-size: 14px; letter-spacing: .04em; }
+    .history-entry { background: #f3f0ff; color: #263255; min-height: 58px; }
+    .history-number { font-size: 11px; }
+    .history-name, .history-state { font-size: 13px; }
+    .note { background: #e8faf4; color: #294d4b; font-size: 14px; line-height: 1.5; }
+    .note strong { color: #087f82; }
+    .catalog h2, .preview-controls h2 { color: #263255; font-size: 27px; }
+    .catalog-intro, .preview-description { color: #465777; font-size: 15px; line-height: 1.5; }
+    .preview-board { gap: 24px; }
+    .scene-display { background: linear-gradient(150deg, #c9f3e7, #b6d7ff); }
+    .scene-screen { border-color: #465777; }
+    .scene-chrome { font-size: 12px; }
+    .scene-chip { font-size: 10px; }
+    .scene-body { min-height: 246px; }
+    .scene-item-icon { font-size: 32px; }
+    .scene-item-name { font-size: 13px; }
+    .scene-item-detail { font-size: 11px; }
+    .scene-clue { font-size: 13px; }
+    .scene-window .scene-item-name, .scene-sheet .scene-item-name,
+    .scene-messages .scene-item-name, .scene-console .scene-item-name { font-size: 12px; }
+    .scene-window .scene-item-detail, .scene-sheet .scene-item-detail,
+    .scene-messages .scene-item-detail, .scene-console .scene-item-detail { font-size: 11px; }
+    .card-entry { border-color: #b7a5ed; background: #f3f0ff; }
+    .entry-label { color: #263255; font-size: 16px; line-height: 1.4; }
+    .card-number-input { width: 100px; background: #fff; color: #263255; font-size: 24px; }
+    .entry-help, .error, .answer-feedback { font-size: 13px; line-height: 1.45; }
+    .preview-action { border-color: #d3c8f2; background: #f6f3ff; }
+    .preview-card-title { color: #5940a4; font-size: 25px; }
+    .preview-card-copy, .preview-message { color: #344563; font-size: 17px; line-height: 1.5; }
+    .preview-message.success { color: #18764b; font-weight: 700; }
+    .answer-input { background: #fff; color: #263255; font-size: 20px; }
+    .cards-grid { gap: 10px; }
+    .card-tile { background: #ece9fa; color: #263255; }
+    .card-tile.discovered, .card-tile.available-card { background: #e0f7ef; }
+    .card-tile.resolved { background: #d1f2df; }
+    .card-tile.hidden-card { background: #e8eaf2; }
+    .tile-number, .tile-title, .tile-status { color: #344563; }
+    .tile-visual { background: #fff; }
+    .tile-title { font-size: 13px; }
+    .tile-kind { color: #465777; font-size: 10px; }
+    .tile-status { font-size: 11px; }
+    .gallery-status { color: #465777; font-size: 13px; }
+    .inventory-empty, .inventory-item, .student, .hint-text { color: #344563; font-size: 14px; line-height: 1.5; }
+    .student.found { color: #18764b; }
+    .hint-button, .reset-button { padding: 12px; color: #4c388c; background: #f3f0ff; text-align: center; }
+    .reset-button { border-color: #a7b3cd; color: #465777; }
+    .progress { height: 10px; background: #e6e9f1; }
+    .progress-fill { background: linear-gradient(90deg, #9b7de4, #42b8ac); }
+    .footer { color: #465777; font-size: 13px; }
+    .modal { background: #fffdf6; }
+    .modal-kicker { color: #087f82; font-size: 13px; }
+    .modal p { color: #344563; font-size: 16px; }
+    .voice-button {
+      width: 100%;
+      min-height: 52px;
+      margin-top: 12px;
+      border: 2px solid #087f82;
+      border-radius: 15px;
+      background: #e1f8f2;
+      color: #174e4c;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .voice-button:hover { background: #c9f3e7; }
+    html, body { width: 100%; height: 100%; overflow: hidden; }
+    body { min-width: 320px; min-height: 100%; background: #0b315c; }
+    .computer { position: relative; width: 100%; height: 100dvh; min-height: 520px; overflow: hidden; background: #087ba2; color: #17243b; }
+    .desktop-wallpaper { position: absolute; inset: 0 0 52px; overflow: hidden; background: radial-gradient(ellipse at 74% 88%, rgba(119,240,229,.8), transparent 25%), radial-gradient(ellipse at 73% 80%, rgba(54,198,219,.75), transparent 37%), radial-gradient(ellipse at 70% 75%, rgba(21,142,191,.9), transparent 48%), linear-gradient(140deg, #0067a8 0%, #148dbd 55%, #51c2cf 100%); }
+    .desktop-wallpaper::before { position: absolute; inset: 0; background: linear-gradient(125deg, transparent 53%, rgba(255,255,255,.13) 53.2%, transparent 54%), linear-gradient(135deg, transparent 58%, rgba(255,255,255,.1) 58.2%, transparent 59%); content: ""; pointer-events: none; }
+    .desktop-icons { position: absolute; z-index: 1; inset: 16px auto 16px 14px; display: grid; width: 92px; grid-auto-rows: 92px; align-content: start; gap: 5px; }
+    .desktop-icon { display: grid; width: 88px; min-height: 84px; justify-items: center; align-content: center; gap: 3px; border: 1px solid transparent; border-radius: 6px; background: transparent; padding: 5px 3px; color: #fff; text-align: center; text-shadow: 0 1px 3px #15395e; cursor: pointer; }
+    .desktop-icon:hover, .desktop-icon:focus-visible { border-color: rgba(255,255,255,.72); background: rgba(255,255,255,.18); }
+    .desktop-icon-glyph { font-size: 34px; line-height: 1.05; filter: drop-shadow(0 2px 3px rgba(0,0,0,.24)); }
+    .desktop-icon-label { max-width: 82px; font-size: 11px; font-weight: 700; line-height: 1.15; }
+    .computer-window { position: absolute; z-index: 2; top: 50%; left: 50%; display: flex; width: min(760px, calc(100% - 150px)); max-height: calc(100% - 34px); flex-direction: column; overflow: hidden; transform: translate(-43%, -50%); border: 1px solid rgba(255,255,255,.85); border-radius: 10px; background: #f7f9fc; box-shadow: 0 24px 70px rgba(2,27,54,.38); color: #263650; }
+    .computer-window.home-window { display: none; }
+    .window-titlebar { display: flex; min-height: 42px; align-items: center; gap: 10px; border-bottom: 1px solid #dfe5ee; background: #f6f8fb; padding: 0 12px; }
+    .window-app-icon { font-size: 19px; }
+    .window-title { overflow: hidden; flex: 1; font-size: 13px; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+    .window-controls { display: flex; height: 100%; align-items: center; gap: 3px; }
+    .window-control { width: 34px; height: 30px; border: 0; border-radius: 5px; background: transparent; color: #47546b; cursor: pointer; }
+    .window-control:hover { background: #e5eaf1; }
+    .window-control.close:hover { background: #d83a4b; color: white; }
+    .window-content { overflow: auto; padding: 18px; }
+    .window-content .scene-screen { min-height: 270px; border: 1px solid #b9c9dc; border-radius: 8px; box-shadow: 0 6px 15px rgba(27,48,78,.12); }
+    .window-content .scene-body { min-height: 220px; }
+    .window-content .scene-item { cursor: pointer; }
+    .window-content .scene-item:hover { outline: 2px solid #1683c5; outline-offset: -2px; }
+    .window-content .preview-action { margin-top: 15px; border: 1px solid #d9e2ef; border-radius: 9px; background: #fff; padding: 16px; }
+    .window-content .preview-card-title { margin: 0 0 8px; color: #145a8d; font: 600 22px "Fredoka", sans-serif; }
+    .window-content .preview-card-copy, .window-content .preview-message { color: #374760; font-size: 16px; line-height: 1.5; }
+    .window-content .primary-button, .window-content .small-button { min-height: 44px; margin-top: 10px; border: 0; border-radius: 7px; background: #0879bd; padding: 10px 16px; color: white; font-size: 15px; font-weight: 700; cursor: pointer; }
+    .window-content .primary-button:hover, .window-content .small-button:hover { background: #05629b; }
+    .window-content .answer-form { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .window-content .answer-input { min-width: 130px; min-height: 44px; border: 1px solid #9aabc1; border-radius: 7px; background: white; padding: 8px 12px; color: #17243b; font-size: 18px; }
+    .window-content .voice-button { width: auto; min-height: 44px; border: 1px solid #0a789e; border-radius: 7px; background: #e1f8f2; padding: 9px 13px; color: #174e4c; cursor: pointer; }
+    .taskbar { position: absolute; z-index: 5; right: 0; bottom: 0; left: 0; display: flex; height: 52px; align-items: center; gap: 8px; border-top: 1px solid rgba(255,255,255,.38); background: rgba(245,248,255,.87); padding: 4px 12px; box-shadow: 0 -3px 14px rgba(7,42,71,.18); backdrop-filter: blur(18px); }
+    .taskbar-button { display: grid; min-width: 42px; height: 42px; place-items: center; border: 0; border-radius: 7px; background: transparent; color: #263650; font-size: 22px; cursor: pointer; }
+    .taskbar-button:hover, .taskbar-button[aria-expanded="true"] { background: rgba(108,150,194,.2); }
+    .start-button { color: #0879bd; font-size: 29px; }
+    .cards-toggle { display: flex; min-width: 102px; gap: 7px; justify-content: center; font-size: 16px; font-weight: 700; }
+    .cards-toggle span:last-child { color: #526882; font-size: 13px; }
+    .arthur-button { border: 1px solid #b5c8dc; background: #fff; font-size: 21px; }
+    .taskbar-tray { display: flex; height: 100%; align-items: center; gap: 5px; margin-left: auto; }
+    .clock-toggle { min-width: 34px; height: 34px; font-size: 17px; }
+    .desktop-clock { min-width: 84px; color: #263650; font: 600 14px "DM Sans", sans-serif; font-variant-numeric: tabular-nums; text-align: center; }
+    .cards-menu { position: absolute; z-index: 8; bottom: 58px; left: 12px; display: flex; width: min(650px, calc(100vw - 24px)); max-height: calc(100dvh - 78px); flex-direction: column; overflow: auto; border: 1px solid rgba(255,255,255,.9); border-radius: 12px; background: rgba(250,252,255,.97); padding: 16px; box-shadow: 0 18px 55px rgba(8,28,58,.38); color: #263650; backdrop-filter: blur(20px); }
+    .cards-menu[hidden] { display: none; }
+    .cards-menu-header { display: flex; align-items: start; justify-content: space-between; gap: 12px; }
+    .cards-menu-header h2 { margin: 0; font: 600 22px "Fredoka", sans-serif; }
+    .cards-menu-header p { margin: 4px 0 0; color: #586b82; font-size: 13px; }
+    .menu-close { width: 38px; height: 38px; border: 0; border-radius: 8px; background: #edf2f8; color: #263650; font-size: 24px; cursor: pointer; }
+    .cards-menu .card-entry { margin: 14px 0 9px; border: 1px solid #d3deeb; border-radius: 9px; background: #f2f7fc; padding: 11px; }
+    .cards-menu .entry-label { display: block; margin-bottom: 6px; color: #334860; font-size: 14px; font-weight: 700; }
+    .cards-menu .entry-row { display: flex; gap: 8px; }
+    .cards-menu .card-number-input { width: 100px; min-height: 42px; border: 1px solid #aebed0; border-radius: 7px; background: #fff; padding: 6px 10px; color: #25364c; font-size: 18px; }
+    .cards-menu .primary-button { min-height: 42px; border: 0; border-radius: 7px; background: #0879bd; padding: 8px 14px; color: #fff; font-weight: 700; cursor: pointer; }
+    .cards-menu .entry-help, .cards-menu .error { margin: 6px 0 0; color: #566a82; font-size: 12px; }
+    .cards-menu .error { color: #a53140; }
+    .cards-menu .cards-grid { display: grid; grid-template-columns: repeat(6,minmax(0,1fr)); gap: 7px; }
+    .cards-menu .card-tile { min-height: 100px; border: 1px solid #d8e2ed; border-radius: 8px; background: #eef4fa; padding: 7px 4px; color: #35485f; cursor: pointer; }
+    .cards-menu .card-tile.discovered, .cards-menu .card-tile.available-card { background: #e3f6ef; }
+    .cards-menu .card-tile.hidden-card:not(.available-card) { filter: blur(.45px); opacity: .66; }
+    .cards-menu .tile-number, .cards-menu .tile-title, .cards-menu .tile-status { color: #394b61; }
+    .cards-menu .tile-number { font-size: 11px; }
+    .cards-menu .tile-art, .cards-menu .tile-visual { font-size: 19px; }
+    .cards-menu .tile-title { font-size: 10px; line-height: 1.2; }
+    .cards-menu .tile-kind { display: none; }
+    .cards-menu .tile-status { font-size: 10px; }
+    .gallery-status { display: flex; justify-content: space-between; margin: 8px 0 12px; color: #526882; font-size: 12px; }
+    .menu-bottom { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; border-top: 1px solid #dce5ee; padding-top: 12px; }
+    .menu-bottom > div { min-width: 0; border: 1px solid #e0e7ef; border-radius: 8px; background: #fff; padding: 10px; }
+    .menu-bottom strong { display: block; margin-bottom: 6px; color: #334860; font-size: 13px; }
+    .inventory, .students { display: flex; flex-wrap: wrap; gap: 5px; }
+    .inventory-item, .inventory-empty, .student { border-radius: 6px; background: #f0f5f9; padding: 5px 7px; color: #40546b; font-size: 11px; }
+    .student.found { background: #e0f5e8; color: #18764b; }
+    .history-list { display: flex; max-height: 110px; flex-wrap: wrap; gap: 4px; overflow: auto; }
+    .history-entry { width: auto; padding: 4px 6px; color: #35485f; }
+    .history-icon { width: 25px; height: 25px; flex-basis: 25px; font-size: 13px; }
+    .history-number { font-size: 8px; }
+    .history-name { font-size: 9px; }
+    .history-state { display: none; }
+    .menu-bottom .mission-students p { margin: 6px 0 0; color: #596c82; font-size: 11px; }
+    .menu-bottom .mission-progress { display: flex; align-items: center; gap: 10px; }
+    .menu-bottom .mission-progress strong { margin: 0; }
+    .mission-progress .progress { flex: 1; }
+    .reset-button { grid-column: 1 / -1; min-height: 40px; border: 1px solid #bfccd9; border-radius: 8px; background: #f4f7fa; color: #465777; font-weight: 700; cursor: pointer; }
+    .cards-menu .how-to { margin-top: 10px; border: 1px solid #dce5ee; border-radius: 8px; padding: 10px; color: #384b61; }
+    .cards-menu .how-to summary { cursor: pointer; font-weight: 700; }
+    .cards-menu .how-to-content { font-size: 13px; line-height: 1.5; }
+    .desktop-hint { position: absolute; z-index: 6; right: 15px; bottom: 62px; display: none; max-width: min(360px,calc(100vw - 30px)); border: 1px solid #c7d7e6; border-radius: 9px; background: #fff; padding: 12px 15px; color: #344860; box-shadow: 0 8px 24px rgba(7,42,71,.2); font-size: 14px; line-height: 1.45; }
+    .desktop-hint:not(:empty) { display: block; }
+    .hint-level { display: block; margin-bottom: 3px; color: #0879bd; font-size: 11px; font-weight: 800; text-transform: uppercase; }
+    .desktop-icons .pixel-locked { filter: grayscale(.85); opacity: .62; }
+    .computer-window .scene-screen { width: 100%; }
+    .computer-window .scene-screen .scene-item { cursor: pointer; }
+    .computer-window .scene-screen .scene-item:focus-visible { outline: 3px solid #0879bd; outline-offset: 2px; }
+    .computer-window .preview-message.success { color: #18764b; font-weight: 700; }
+    .computer-window .route-choices { display: flex; flex-wrap: wrap; gap: 8px; }
+    .computer-window .route-choices .small-button { flex: 1; }
+    .computer-window .answer-feedback { color: #586b82; }
+    .computer-window .answer-feedback.success { color: #18764b; font-weight: 700; }
+    .computer-window .primary-button:disabled { background: #8c9caf; cursor: default; }
+    .cards-menu .progress { height: 8px; overflow: hidden; border-radius: 99px; background: #e3eaf1; }
+    .cards-menu .progress-fill { height: 100%; border-radius: inherit; background: linear-gradient(90deg,#61b8e3,#6ac99c); }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
+    @media (max-width: 640px) {
+      .computer-window { top: 12px; bottom: 64px; left: 102px; width: calc(100% - 112px); max-height: none; transform: none; }
+      .window-content { padding: 10px; }
+      .window-content .scene-body { min-height: 200px; }
+      .window-content .scene-desktop .scene-body { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .desktop-icons { inset: 8px auto 8px 6px; width: 86px; grid-auto-rows: 80px; gap: 2px; }
+      .desktop-icon { width: 82px; min-height: 74px; }
+      .desktop-icon-glyph { font-size: 29px; }
+      .desktop-icon-label { font-size: 10px; }
+      .taskbar { height: 52px; gap: 4px; padding: 4px 6px; }
+      .taskbar-button { min-width: 38px; height: 40px; }
+      .cards-toggle { min-width: 90px; font-size: 14px; }
+      .desktop-clock { min-width: 72px; font-size: 12px; }
+      .cards-menu { bottom: 58px; left: 6px; width: calc(100vw - 12px); max-height: calc(100dvh - 70px); padding: 11px; }
+      .cards-menu .cards-grid { grid-template-columns: repeat(4,minmax(0,1fr)); }
+      .cards-menu .card-tile { min-height: 82px; }
+      .menu-bottom { gap: 7px; }
+    }
+    @media (max-height: 650px) {
+      .desktop-icons { grid-auto-rows: 75px; }
+      .desktop-icon { min-height: 70px; }
+      .cards-menu { max-height: calc(100dvh - 65px); }
+    }
+    @media (max-width: 960px) {
+      .layout { grid-template-columns: 220px minmax(0, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .layout { grid-template-columns: 1fr; }
+      .hero p { font-size: 16px; }
+      .preview-board { padding: 12px; }
+      .cards-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .card-tile { aspect-ratio: .82; }
+    }
   </style>
 </head>
 <body>
-  <main class="shell">
-    <header class="topbar">
-      <a class="brand" href="#" aria-label="UnArtsup, compagnon du jeu de cartes">
-        <span class="brand-icon" aria-hidden="true">🦎</span>
-        <span>UnArtsup<small>Compagnon du jeu de cartes</small></span>
-      </a>
-      <div class="top-right">
-        <span class="top-pill">1 à 4 joueurs</span>
-        <span class="top-pill">Environ 10–20 minutes</span>
+  <main class="computer" id="computer">
+    <div class="desktop-wallpaper" id="scene-display" aria-label="Bureau de l’ordinateur">
+      <div class="desktop-icons" id="desktop-icons"></div>
+      <section class="computer-window" id="computer-window" aria-live="polite"></section>
+    </div>
+    <div class="desktop-hint" id="hint-text" aria-live="polite"></div>
+    <nav class="taskbar" aria-label="Barre des tâches">
+      <button class="taskbar-button start-button" id="start-button" type="button" aria-label="Ouvrir les outils de la mission" title="Outils de la mission">⊞</button>
+      <button class="taskbar-button cards-toggle" id="cards-toggle" type="button" aria-expanded="false" aria-controls="cards-menu">🃏 <span>Cartes</span> <span aria-hidden="true">⌃</span></button>
+      <button class="taskbar-button arthur-button" id="hint-button" type="button" aria-label="Demander un indice à Arthur" title="Arthur — demander un indice">🔊</button>
+      <div class="taskbar-tray">
+        <button class="taskbar-button clock-toggle" id="timer-toggle" type="button" aria-label="Mettre l’horloge en pause" title="Mettre en pause">Ⅱ</button>
+        <time class="desktop-clock" id="clock" aria-label="Heure de l’ordinateur">19:20:00</time>
       </div>
-    </header>
-
-    <section class="hero">
-      <div class="hero-copy">
-        <div class="kicker">🎮 Mission spéciale · Les cartes se jouent sur la table</div>
-        <h1>Panique dans <span>l’ordinateur !</span></h1>
-        <p>Salut, équipe ! Garde tes cartes sur la table et découvre-les une par une. Quand tu trouves une nouvelle carte, entre son numéro ici : elle se dévoilera et rejoindra ton album. Arthur et sa copine la salamandre sont prêts à t’aider à libérer les élèves !</p>
-      </div>
-      <section class="session" aria-label="Chronomètre de la partie">
-        <div class="session-label"><span>⏱ Temps de mission</span><span id="timer-state">En pause</span></div>
-        <div class="clock" id="clock" aria-live="off">20:00</div>
-        <div class="session-controls">
-          <button class="small-button" id="timer-toggle" type="button">▶ Démarrer</button>
-          <button class="small-button" id="timer-reset" type="button">↻ 20 min</button>
+    </nav>
+    <section class="cards-menu" id="cards-menu" hidden aria-label="Menu des cartes">
+      <header class="cards-menu-header">
+        <div><h2>🃏 Les cartes de l’aventure</h2><p>Choisis une carte découverte ou écris son numéro.</p></div>
+        <button class="menu-close" id="cards-close" type="button" aria-label="Fermer le menu des cartes">×</button>
+      </header>
+      <form class="card-entry" id="card-form">
+        <label class="entry-label" for="card-number">Numéro de la carte papier</label>
+        <div class="entry-row">
+          <input class="card-number-input" id="card-number" type="number" inputmode="numeric" min="1" max="24" placeholder="1–24" required aria-describedby="entry-help">
+          <button class="primary-button" type="submit">Ouvrir</button>
         </div>
-      </section>
-    </section>
-
-    <section class="panel preview-board" aria-labelledby="preview-heading">
-      <div class="scene-display" id="scene-display" aria-live="polite"></div>
-      <div class="preview-controls">
-        <h2 id="preview-heading">🖥️ Scène de la carte</h2>
-        <p class="preview-description">Le décor montre les icônes, fichiers et messages de la carte. Ouvre l’œil : les indices sont cachés dedans !</p>
-        <form class="card-entry" id="card-form">
-          <label class="entry-label" for="card-number">✨ Tu viens de trouver une carte ? Entre son numéro !</label>
-          <div class="entry-row">
-            <input class="card-number-input" id="card-number" type="number" inputmode="numeric" min="1" max="24" placeholder="1–24" required aria-describedby="entry-help">
-            <button class="primary-button" type="submit">Voir ma carte !</button>
-          </div>
-          <p class="entry-help" id="entry-help">Le numéro est écrit sur ta carte. Les cartes verrouillées resteront cachées jusqu’à ce que tu les débloques dans l’aventure.</p>
-          <p class="error" id="entry-error" role="status"></p>
-        </form>
-        <div class="preview-action" id="preview-action" aria-live="polite"><h3 class="preview-card-title">Le bureau</h3><p class="preview-card-copy">Repère les indices cachés dans les icônes de l’ordinateur.</p></div>
+        <p class="entry-help" id="entry-help">Les cartes cachées restent pixelisées jusqu’à leur découverte.</p>
+        <p class="error" id="entry-error" role="status"></p>
+      </form>
+      <div class="cards-grid" id="cards-grid" aria-label="Galerie des 24 cartes"></div>
+      <div class="gallery-status" id="gallery-status"><span>Cartes découvertes</span><strong>0 / 24</strong></div>
+      <div class="menu-bottom">
+        <div class="mission-inventory"><strong>🎒 Objets</strong><div class="inventory" id="inventory"></div></div>
+        <div class="mission-students"><strong>🧑‍🎓 Élèves</strong><div class="students" id="students"></div><p id="student-note">Aide tous tes amis à rentrer avec toi !</p></div>
+        <div class="mission-history"><strong>🕘 Cartes jouées</strong><div class="history-list" id="history-list"></div></div>
+        <div class="mission-progress"><strong>⭐ Progression</strong><span id="progress-value">0 / 24</span><div class="progress"><div class="progress-fill" id="progress-fill"></div></div></div>
+        <button class="reset-button" id="reset-button" type="button">↻ Recommencer l’aventure</button>
       </div>
+      <details class="how-to">
+        <summary>📖 Histoire et règles</summary>
+        <div class="how-to-content">
+          <p><strong>La mission :</strong> Kat s’est endormie à e-artsup et s’est réveillée dans l’ordinateur. Elderic y a caché des élèves. Arthur va aider Kat à les retrouver et à rejoindre la borne d’arcade.</p>
+          <p><strong>Jouez en équipe :</strong> posez les cartes face cachée. Regardez la carte papier, cherchez les indices dans l’image et utilisez les objets trouvés. N’associez des cartes que si une carte vous le demande.</p>
+          <p><strong>Pas de mauvaise réponse :</strong> discutez, essayez et demandez l’aide d’Arthur. Une erreur ne fait jamais perdre la partie. L’horloge avance pendant l’aventure ; il n’y a pas de compte à rebours.</p>
+        </div>
+      </details>
     </section>
-
-    <section class="layout" aria-label="Outils pour accompagner le jeu de cartes">
-      <aside class="panel history-panel">
-        <h2 class="panel-heading">📚 Ton aventure</h2>
-        <div class="history-list" id="history-list" aria-label="Cartes utilisées"></div>
-        <div class="note"><strong>Arthur :</strong> « Chaque carte découverte rejoint ton album ! Clique sur une ancienne carte pour revoir son illustration et son aide. »</div>
-      </aside>
-
-      <section class="panel catalog">
-        <header class="catalog-header">
-        <h2>Ton album de 24 cartes</h2>
-        <p class="catalog-intro">Les cartes à trouver sont cachées derrière des pixels magiques. Découvre-les avec ton paquet pour compléter ton album !</p>
-        </header>
-        <div class="cards-grid" id="cards-grid" aria-label="Galerie des 24 cartes"></div>
-        <div class="gallery-status" id="gallery-status"><span>Cartes découvertes</span><strong>0 / 24</strong></div>
-      </section>
-
-      <aside class="panel tools">
-        <section class="tool-section">
-          <div class="panel-heading-row"><h2 class="panel-heading">🎒 Sac à trésors</h2></div>
-          <div class="inventory" id="inventory" aria-live="polite"><div class="inventory-empty">Tes objets magiques apparaîtront ici.</div></div>
-        </section>
-        <section class="tool-section">
-          <h2 class="panel-heading">🧑‍🎓 Tes amis libérés</h2>
-          <div class="students" id="students"></div>
-          <div class="note" id="student-note">Tu peux sortir sans eux, mais ce serait encore mieux de sauver tes amis !</div>
-        </section>
-        <section class="tool-section">
-          <div class="progress-label"><span>⭐ Cartes découvertes</span><strong id="progress-value">0%</strong></div>
-          <div class="progress"><div class="progress-fill" id="progress-fill"></div></div>
-          <button class="hint-button" id="hint-button" type="button" style="margin-top:11px">💡 Arthur, un petit indice ?</button>
-          <p class="hint-text" id="hint-text" aria-live="polite"></p>
-          <button class="reset-button" id="reset-button" type="button" style="margin-top:8px">↻ Recommencer la mission</button>
-        </section>
-      </aside>
-    </section>
-
-    <footer class="footer"><span>UnArtsup · ton compagnon d’aventure 🦎</span><span>Les cartes restent dans tes mains !</span></footer>
+    <div class="sr-only" id="announcer" aria-live="assertive"></div>
   </main>
 
   <div class="overlay" id="overlay" hidden>
@@ -337,74 +543,93 @@
       <div class="modal-actions"><button class="primary-button" id="ending-close" type="button">Super !</button></div>
     </section>
   </div>
-  <div class="sr-only" id="announcer" aria-live="assertive"></div>
 
   <script>
     (() => {
-      const hints = [
-        "Sur le bureau, cherche un chiffre près du soleil, de l’étoile et de la lune.",
-        "La liste Wi-Fi montre quatre appareils d’élèves. Le câble et le répéteur aident à rétablir le signal.",
-        "La Loupe agrandit les détails et le filtre transparent révèle les marques cachées.",
-        "La borne a besoin de la clé USB et du câble réseau. Le document administratif donne le code de la console."
-      ];
+      const hints = {
+        1: ["Regarde les petits symboles.", "Lis-les dans l’ordre soleil, étoile, lune.", "Le code du dossier est 241."],
+        2: ["Regarde la liste des appareils.", "Cherche les appareils qui portent les prénoms des élèves.", "Les appareils des élèves sont Noam, Julien, Liam et Loan."],
+        3: ["Regarde les symboles cachés sur le bureau.", "Lis les chiffres dans l’ordre soleil, étoile, lune.", "Le code du dossier est 241."],
+        4: ["Regarde les fichiers de la clé USB.", "Cherche le papier qui parle de la borne.", "La clé USB et le papier servent plus tard pour la borne."],
+        5: ["Regarde les messages.", "Cherche le message envoyé par Arthur.", "Arthur est l’ami qui te parle de l’autre côté de l’écran."],
+        6: ["Regarde les prénoms dans le tableau.", "Cherche Noam, Julien, Liam et Loan.", "Les quatre prénoms des élèves sont Noam, Julien, Liam et Loan."],
+        7: ["Regarde le port USB.", "Branche la clé USB trouvée dans le dossier.", "La clé USB permet d’ouvrir la liste du réseau."],
+        8: ["Regarde les noms des appareils.", "Relie chaque appareil au prénom affiché.", "Les appareils appartiennent à Noam, Julien, Liam et Loan."],
+        9: ["Cherche qui t’écrit.", "Lis les deux messages d’Arthur.", "Arthur est de l’autre côté de l’écran. Elderic a caché les élèves dans l’ordinateur."],
+        10: ["Regarde le matériel réseau.", "Trouve le câble et le répéteur Wi-Fi.", "Prends le câble et le répéteur pour rétablir le signal."],
+        11: ["L’écran bleu est une erreur.", "Pas de panique : tes objets et tes amis restent en sécurité.", "Le filtre transparent retrouvera l’information perdue."],
+        12: ["Cherche le message de Noam.", "Regarde son petit appareil sur ta carte papier.", "Quand vous avez trouvé Noam sur la carte, confirmez pour le sauver."],
+        13: ["Regarde les outils disponibles.", "Choisis celui qui agrandit l’image.", "C’est la Loupe."],
+        14: ["Regarde les objets sur la carte.", "Cherche l’outil qui se déplace à l’écran.", "C’est la souris."],
+        15: ["Regarde l’objet transparent.", "Il aide à voir les marques cachées.", "Le filtre retrouve aussi l’information perdue par l’écran bleu."],
+        16: ["Regarde les petits détails de l’image.", "Utilise la Loupe et le filtre ensemble.", "Le code de l’image est 4826."],
+        17: ["Regarde les deux chemins.", "Choisis le soleil ou le nuage.", "Les deux chemins sont bons : choisis celui que tu préfères."],
+        18: ["Cherche Julien dans les petits détails.", "Vise sa cachette avec la souris.", "Quand vous avez trouvé Julien sur la carte, confirmez pour le sauver."],
+        19: ["Regarde la porte de l’arcade.", "Suis le chemin choisi sur la carte papier.", "Après l’image réparée, la porte de l’arcade est ouverte."],
+        20: ["Regarde les prises de la borne.", "Branche la clé USB et le câble.", "La clé USB et le câble allument la borne Salamandre."],
+        21: ["Regarde les fichiers de la borne.", "Cherche le fichier de Loan.", "Quand vous avez trouvé Loan, confirmez pour le sauver."],
+        22: ["Cherche le papier trouvé dans la clé USB.", "Lis les chiffres écrits pour la borne.", "Le code de sortie est 4826."],
+        23: ["Regarde les sauvegardes.", "Cherche le fichier de Liam.", "Quand vous avez trouvé Liam, confirmez pour le sauver."],
+        24: ["La borne est prête.", "Vérifie si tu veux encore sauver un ami.", "Joue la carte 23 pour retrouver Liam, puis confirme la carte 24 pour sortir."]
+      };
 
       const cards = {
-        1: { place: 0, name: "Le bureau", kind: "Observation", text: "Explore le bureau de l’ordinateur : l’explorateur de fichiers, les paramètres, le dossier verrouillé et la clé USB cachent des indices.", next: [2, 3] },
-        2: { place: 0, name: "Paramètres Wi-Fi", kind: "Observation", text: "Ouvre la liste des appareils connectés au réseau de l’établissement. Certains noms appartiennent aux élèves coincés dans l’ordinateur.", next: [7, 8, 10, 11] },
-        3: { place: 0, name: "Dossier du proviseur", kind: "Code", text: "Le dossier administratif est protégé par un mot de passe. Repère les trois chiffres dissimulés sur le bureau.", code: "241", hint: "Lis les chiffres cachés dans l’ordre soleil, étoile, lune.", success: "Le dossier sécurisé du proviseur s’ouvre et le mot de passe est ajouté au sac !", item: "password", unlock: 1, next: [4, 5, 6] },
-        4: { place: 0, name: "Dossier Clé-USB", kind: "Fichiers", text: "La clé USB contient plusieurs fichiers : dates de naissance, IBAN et matériel de l’école. Garde la clé et le document administratif pour la borne.", items: ["usb", "admin"], success: "Clé USB et document administratif ajoutés au sac !", next: [7] },
-        5: { place: 0, name: "Contacts et messagerie", kind: "Observation", text: "Ouvre les applications Contacts et Messagerie : Teams et Outlook contiennent plusieurs conversations. Lis-les pour trouver les indices d’Arthur.", next: [9] },
-        6: { place: 0, name: "Fichier des dates de naissance", kind: "Fichier", text: "Dans le tableau, repère les dates qui appartiennent aux élèves : Noam — XX/XX/0X12 ; Julien — XX/XX/0X70 ; Liam — XX/XX/0X56 ; Loan — XX/XX/0X32. Les autres lignes concernent le personnel et le campus.", next: [12] },
-        7: { place: 1, name: "Réseau de l’établissement", kind: "Observation", text: "Le réseau est protégé. Utilise la clé USB pour ouvrir la liste complète des appareils connectés.", requires: ["usb"], success: "La liste du réseau s’affiche. Les appareils des élèves sont repérés.", next: [8, 10, 11] },
-        8: { place: 1, name: "Appareils connectés", kind: "Observation", text: "Les appareils de Noam, Julien, Liam et Loan apparaissent sur le réseau. Note leurs noms : ils te serviront à retrouver chacun de tes amis.", next: [12] },
-        9: { place: 1, name: "Conversation Teams : Arthur", kind: "Histoire", text: "Arthur écrit depuis l’autre côté de l’écran : le directeur a enfermé les élèves et les joueurs jugés médiocres pour protéger la réputation de l’école. Il te guidera pour les libérer.", requires: ["cable"], unlock: 2, next: [13, 14, 15, 17] },
-        10: { place: 1, name: "Câble Ethernet et répéteur", kind: "Objet", text: "Récupère le câble Ethernet et le répéteur Wi-Fi. Ils permettront de rétablir le signal jusqu’à la salle d’arcade.", item: "cable", success: "Câble Ethernet et répéteur ajoutés à l’inventaire.", next: [9] },
-        11: { place: 1, name: "Échec : écran bleu", kind: "Échec", text: "Écran bleu ! Une donnée a été perdue, mais tes objets et tes amis sont en sécurité. Le Filtre antivirus transparent pourra révéler les informations cachées." },
-        12: { place: 1, name: "Noam appelle à l’aide", kind: "Sauvetage", text: "Noam a réussi à envoyer un message depuis le réseau. Retrouve-le sur la carte physique pour le libérer.", student: 0, success: "Noam a rejoint l’équipe !" },
-        13: { place: 2, name: "Application Loupe", kind: "Objet", text: "Ajoute l’application Loupe : elle permet de lire les tout petits détails et chiffres cachés sur les cartes.", item: "magnifier", success: "Loupe ajoutée à l’inventaire." },
-        14: { place: 2, name: "Pointeur souris", kind: "Objet", text: "Récupère le pointeur souris pour viser les cachettes minuscules sur les cartes.", item: "mouse", success: "Pointeur souris ajouté à l’inventaire.", next: [18] },
-        15: { place: 2, name: "Filtre antivirus transparent", kind: "Objet", text: "Le filtre révèle les détails invisibles comme un virus transparent. Il restaure aussi les données effacées par l’écran bleu.", item: "filter", restore: true, success: "Filtre antivirus ajouté. Les données perdues sont restaurées." },
-        16: { place: 2, name: "Fichier pixelisé", kind: "Code", text: "Utilise la Loupe et le Filtre transparent pour examiner l’image. Entre les chiffres qui apparaissent.", code: "4826", requires: ["magnifier", "filter"], requiresRestored: true, hint: "Compare les petites marques révélées par le filtre, puis lis-les avec la Loupe.", success: "Le fichier est réparé ! La salle d’arcade et la borne Salamandre sont accessibles.", unlock: 3, next: [19] },
-        17: { place: 2, name: "Bonus météo : soleil ou nuage", kind: "Bonus", text: "Choisis le mode clair (route A) ou le mode sombre (route B). Les couleurs changent et révèlent un chemin différent. Tu gagnes aussi un jeton bonus pour demander un indice.", item: "heart", routeMode: true, success: "Jeton bonus ajouté. Le mode choisi change la route affichée !" },
-        18: { place: 2, name: "Julien est caché", kind: "Sauvetage", text: "Utilise le pointeur souris pour viser la cachette minuscule de Julien sur la carte.", requires: ["mouse"], student: 1, success: "Julien a rejoint l’équipe !" },
-        19: { place: 3, name: "Porte de la salle d’arcade", kind: "Passage", text: "Le passage s’ouvre après la réparation du fichier pixelisé. Suis la route claire ou sombre que tu as choisie.", requiresCard: 16, success: "La salle d’arcade est accessible.", unlock: 3, next: [20] },
-        20: { place: 3, name: "Borne Salamandre", kind: "Interaction", text: "La borne est le moyen de sortir de l’ordinateur. Branche la clé USB et le câble Ethernet pour l’allumer.", requires: ["usb", "cable"], success: "La borne s’allume et affiche le menu de sortie.", next: [21] },
-        21: { place: 3, name: "Sauvegarde de Loan", kind: "Sauvetage", text: "La borne retrouve le fichier de Loan. Vérifie la liste des appareils puis ajoute Loan à tes amis libérés.", requires: ["usb", "cable"], student: 3, success: "Loan a rejoint l’équipe !", next: [22] },
-        22: { place: 3, name: "Console d’administration", kind: "Code", text: "Entre le code du document administratif pour déverrouiller la console de sortie.", code: "4826", requires: ["admin", "usb", "cable"], requiresRestored: true, hint: "Le code est noté sur le document administratif du dossier Clé-USB.", success: "La console est déverrouillée ! Tu peux sortir maintenant ou libérer tes derniers amis.", next: [23, 24] },
-        23: { place: 3, name: "Sauvegarde de Liam", kind: "Sauvetage", text: "La sauvegarde restaure le fichier de Liam. Ajoute-le à la liste des amis libérés !", requiresCard: 22, student: 2, success: "Liam a rejoint l’équipe !" },
-        24: { place: 3, name: "Écran de sortie", kind: "Sortie", text: "La borne Salamandre te ramène dans le monde réel. Tu peux partir maintenant ou continuer pour libérer tous les élèves.", requiresCard: 22, ending: true }
+        1: { name: "Le bureau", kind: "Observation", text: "Regarde les icônes du bureau. Trois symboles cachent un code ! Quand vous l’avez trouvé sur la carte papier, confirmez ici.", next: [2, 3] },
+        2: { name: "Le Wi-Fi", kind: "Observation", text: "Regarde qui est connecté au Wi-Fi. Cherche les appareils des élèves sur ta carte.", next: [7, 8, 10, 11] },
+        3: { name: "Le dossier fermé", kind: "Code", text: "Le dossier est fermé. Trouve les trois chiffres cachés sur le bureau et entre-les dans l’ordre indiqué.", code: "241", hint: "Lis les chiffres dans cet ordre : soleil, étoile, lune.", success: "Bravo ! Le dossier s’ouvre !", item: "password", next: [4, 5, 6] },
+        4: { name: "La clé USB", kind: "Fichiers", text: "La clé USB contient des fichiers utiles. Trouve la clé et le papier dans les fichiers de ta carte.", items: ["usb", "admin"], success: "Tu as trouvé la clé USB et le papier !", next: [7] },
+        5: { name: "Les messages", kind: "Observation", text: "Ouvre les messages. Arthur t’a écrit et a besoin de ton aide !", next: [9] },
+        6: { name: "Le tableau", kind: "Fichier", text: "Regarde le tableau et trouve les prénoms de tes quatre amis : Noam, Julien, Liam et Loan.", next: [12] },
+        7: { name: "Le réseau", kind: "Observation", text: "Branche la clé USB pour regarder la liste des appareils connectés.", requires: ["usb"], success: "Ça marche ! La liste des appareils apparaît.", next: [8, 10, 11] },
+        8: { name: "Les appareils", kind: "Observation", text: "Relie les appareils aux prénoms des élèves sur ta carte.", next: [12] },
+        9: { name: "Message d’Arthur", kind: "Histoire", text: "Arthur est de l’autre côté de l’écran ! Elderic, le directeur, a caché des élèves dans l’ordinateur. Aidons-les ensemble !", requires: ["cable"], next: [13, 14, 15, 17] },
+        10: { name: "Le câble magique", kind: "Objet", text: "Trouve le câble et le répéteur sur la carte. Ils aident le Wi-Fi à aller plus loin.", item: "cable", success: "Super ! Tu as trouvé le câble et le répéteur.", next: [9] },
+        11: { name: "Oups, écran bleu !", kind: "Échec", text: "Oups ! L’ordinateur a perdu une petite information. Pas grave : le filtre transparent pourra la retrouver. Tu ne peux pas perdre la partie !" },
+        12: { name: "Noam appelle", kind: "Sauvetage", text: "Noam t’appelle ! Cherche son image sur tes cartes. Quand vous l’avez trouvé, confirmez pour le sauver.", student: 0, success: "Hourra ! Noam est avec toi !" },
+        13: { name: "La Loupe", kind: "Objet", text: "La Loupe aide à voir les tout petits détails. Ajoute-la à ton sac !", item: "magnifier", success: "Tu as trouvé la Loupe !" },
+        14: { name: "La souris", kind: "Objet", text: "La souris peut viser les petits endroits. Ajoute-la à ton sac !", item: "mouse", success: "Tu as trouvé la souris !", next: [18] },
+        15: { name: "Le filtre transparent", kind: "Objet", text: "Le filtre transparent montre les choses cachées. Il retrouve aussi l’information perdue !", item: "filter", restore: true, success: "Tu as trouvé le filtre transparent !" },
+        16: { name: "L’image cachée", kind: "Code", text: "Regarde l’image avec la Loupe et le filtre. Trouve les chiffres et entre-les ici.", code: "4826", requires: ["magnifier", "filter"], requiresRestored: true, hint: "Utilise la Loupe et le filtre ensemble.", success: "Bravo ! Le fichier est réparé. La salle d’arcade est ouverte !", next: [19] },
+        17: { name: "Soleil ou nuage ?", kind: "Bonus", text: "Choisis le chemin du soleil ou celui du nuage. Les deux chemins sont bons !", item: "heart", routeMode: true, success: "Tu as gagné un jeton pour demander de l’aide !" },
+        18: { name: "Julien est caché", kind: "Sauvetage", text: "Où est Julien ? Utilise la souris pour viser sa petite cachette. Quand vous l’avez trouvé, confirmez pour le sauver.", requires: ["mouse"], student: 1, success: "Hourra ! Julien est avec toi !" },
+        19: { name: "Porte de l’arcade", kind: "Passage", text: "Suis le chemin du soleil ou du nuage pour rejoindre la salle d’arcade.", requiresCard: 16, success: "La salle d’arcade est ouverte !", next: [20] },
+        20: { name: "Borne Salamandre", kind: "Interaction", text: "Branche la clé USB et le câble sur la borne Salamandre pour l’allumer.", requires: ["usb", "cable"], success: "La borne Salamandre s’allume !", next: [21] },
+        21: { name: "Loan dans la borne", kind: "Sauvetage", text: "La borne a trouvé Loan ! Quand vous l’avez retrouvé sur la carte, confirmez pour le sauver.", requires: ["usb", "cable"], student: 3, success: "Hourra ! Loan est avec toi !", next: [22] },
+        22: { name: "Le code de sortie", kind: "Code", text: "Le papier trouvé dans la clé USB donne le code. Lis-le et entre les chiffres pour ouvrir la sortie.", code: "4826", requires: ["admin", "usb", "cable"], requiresRestored: true, hint: "Demande à un grand de t’aider à lire le papier du dossier USB.", success: "Bravo ! La sortie est ouverte. Tu peux libérer Liam ou sortir maintenant !", next: [23, 24] },
+        23: { name: "Liam est tout près", kind: "Sauvetage", text: "Ouvre la sauvegarde pour retrouver Liam. Quand vous l’avez trouvé, confirmez pour le sauver !", requiresCard: 22, student: 2, success: "Hourra ! Liam est avec toi !" },
+        24: { name: "La sortie", kind: "Sortie", text: "La borne te ramène dehors ! Quand toute l’équipe est prête, confirmez pour sortir de l’ordinateur.", requiresCard: 22, ending: true }
       };
 
       const itemInfo = {
-        usb: ["Clé USB", "🔑"], admin: ["Document administratif", "📄"],
-        password: ["Mot de passe du proviseur", "🔐"],
-        cable: ["Câble Ethernet / répéteur", "🧵"], magnifier: ["Application Loupe", "🔍"],
-        mouse: ["Pointeur souris", "🖱️"], filter: ["Filtre antivirus transparent", "🪟"],
+        usb: ["Clé USB", "🔑"], admin: ["Papier de l’école", "📄"],
+        password: ["Code du dossier", "🔐"],
+        cable: ["Câble et répéteur Wi-Fi", "🧵"], magnifier: ["Loupe", "🔍"],
+        mouse: ["Souris magique", "🖱️"], filter: ["Filtre transparent", "🪟"],
         star: ["Jeton étoile", "⭐"], heart: ["Jeton cœur", "💛"]
       };
       const cardVisuals = {
         1: ["🖥️", "Le bureau rassemble l’explorateur, les paramètres, le dossier verrouillé et la clé USB."],
         2: ["📶", "La liste des appareils Wi-Fi révèle qui est coincé dans l’ordinateur."],
-        3: ["🔐", "Le dossier sécurisé du proviseur attend son mot de passe."],
-        4: ["🔑", "La clé USB contient des fichiers administratifs."],
+        3: ["🔐", "Le dossier fermé attend les chiffres cachés sur le bureau."],
+        4: ["🔑", "La clé USB contient le papier qui aidera à ouvrir la borne."],
         5: ["💬", "Teams et Outlook cachent des conversations utiles."],
         6: ["📊", "Le tableau donne les dates de naissance de quatre élèves."],
         7: ["📡", "Le réseau de l’établissement a besoin de la clé USB."],
         8: ["📱", "Les quatre élèves apparaissent dans la liste des appareils."],
         9: ["💬", "Arthur écrit depuis l’autre côté de l’écran."],
-        10: ["🧵", "Le câble Ethernet et le répéteur rétablissent le signal."],
+        10: ["🧵", "Le câble et le répéteur aident le Wi-Fi à voyager."],
         11: ["🟦", "L’écran bleu efface une donnée : retrouve-la avec le filtre."],
         12: ["🧑‍🎓", "Noam appelle depuis le réseau."],
         13: ["🔍", "La Loupe révèle les détails minuscules."],
         14: ["🖱️", "Le pointeur vise les cachettes minuscules."],
         15: ["🪟", "Le filtre transparent montre les données cachées."],
-        16: ["🧩", "Combine la Loupe et le filtre pour réparer le fichier."],
-        17: ["☀️", "Le mode clair ou sombre ouvre deux routes différentes."],
+        16: ["🧩", "Regarde l’image avec la Loupe et le filtre transparent."],
+        17: ["☀️", "Choisis le chemin du soleil ou celui du nuage."],
         18: ["👀", "Le pointeur permet de retrouver Julien."],
         19: ["🚪", "Suis la route choisie pour rejoindre l’arcade."],
         20: ["🦎", "La borne Salamandre ouvre la sortie de l’ordinateur."],
         21: ["💾", "La borne retrouve le fichier de Loan."],
-        22: ["⌨️", "La console demande le code du document administratif."],
+        22: ["⌨️", "La borne demande le code écrit sur le papier de l’école."],
         23: ["💾", "La sauvegarde restaure le fichier de Liam."],
         24: ["🌅", "La borne te ramène dans le monde réel."]
       };
@@ -415,29 +640,29 @@
           ["📂", "Dossier verrouillé", "Accès protégé", "🌙 1"],
           ["🔑", "Clé-USB", "Périphérique détecté"]
         ] },
-        2: { type: "window", title: "Paramètres · Réseau Wi-Fi", tag: "Connecté", items: [
+        2: { type: "window", title: "Le Wi-Fi de l’école", tag: "Connecté", items: [
           ["📶", "Réseau école", "Connexion active"],
-          ["🖥️", "PC-Proviseur", "Administrateur"],
+          ["🖥️", "Ordinateur d’Elderic", "Directeur"],
           ["📱", "Appareil inconnu", "Élève · signal faible"],
-          ["🔒", "Dossier admin", "Protégé par mot de passe"]
+          ["🔒", "Dossier fermé", "Protégé par un code"]
         ] },
-        3: { type: "console", title: "Accès sécurisé · Proviseur", tag: "Verrouillé", items: [
-          ["👤", "Compte", "Proviseur"],
+        3: { type: "console", title: "Dossier fermé · Elderic", tag: "Verrouillé", items: [
+          ["👤", "Compte", "Elderic · directeur"],
           ["🔐", "Mot de passe", "3 chiffres à trouver"],
-          ["📁", "Dossier Admin", "Fichiers confidentiels"],
-          ["🛡️", "Sécurité", "Accès réservé"]
+          ["📁", "Dossier de l’école", "Fichiers cachés"],
+          ["🛡️", "Sécurité", "Code demandé"]
         ] },
-        4: { type: "window", title: "Clé-USB · Dossier Admin", tag: "4 fichiers", items: [
+        4: { type: "window", title: "Fichiers de la clé USB", tag: "À explorer", items: [
           ["📊", "Dates de naissance", "Tableau des élèves et du personnel"],
-          ["🏦", "IBAN", "Coordonnées administratives"],
+          ["🏦", "Fichier de l’école", "Informations de l’école"],
           ["🏫", "Matériel de l’école", "Inventaire du campus"],
-          ["📄", "Document admin", "Code pour la borne"]
+          ["📄", "Papier de la borne", "Garde-le pour la sortie"]
         ] },
-        5: { type: "window", title: "Applications · Contacts et messages", tag: "Teams · Outlook", items: [
+        5: { type: "window", title: "Les messages de l’ordinateur", tag: "À lire", items: [
           ["🟣", "Teams", "Messages de l’équipe"],
-          ["✉️", "Outlook", "Courriels du proviseur"],
+          ["✉️", "Courriel", "Un message du directeur"],
           ["👥", "Contacts", "Élèves et personnel"],
-          ["💬", "Conversations", "Ouvre chaque sous-carte"]
+          ["💬", "Messages", "Arthur a écrit"]
         ] },
         6: { type: "sheet", title: "Fichier · Dates de naissance.xlsx", tag: "Tableau", items: [
           ["▦", "Nom", "Date de naissance"],
@@ -463,9 +688,9 @@
           ["📱", "Liam-tablet", "Liam · en ligne"],
           ["⌚", "Loan-watch", "Loan · signal faible"]
         ] },
-        9: { type: "messages", title: "Teams · Conversation avec Arthur", tag: "En ligne", items: [
-          ["🧑‍💻", "Arthur", "Je suis de l’autre côté de l’écran ! Le proviseur a enfermé les élèves et les joueurs jugés médiocres."],
-          ["🦎", "Arthur", "Il veut protéger la réputation de l’école. On doit retrouver tout le monde !"]
+        9: { type: "messages", title: "Un message d’Arthur", tag: "En ligne", items: [
+          ["🧑‍💻", "Arthur", "Je suis de l’autre côté de l’écran ! Le directeur Elderic a caché des élèves dans l’ordinateur."],
+          ["🦎", "Arthur", "Il veut protéger l’image de l’école. Aide-moi à retrouver tout le monde !"]
         ] },
         10: { type: "window", title: "Matériel réseau", tag: "À récupérer", items: [
           ["🧵", "Câble Ethernet", "Relie les appareils"],
@@ -505,18 +730,18 @@
           ["🔢", "Code", "4 chiffres à retrouver"]
         ] },
         17: { type: "window", title: "Météo · Apparence du bureau", tag: "Choisis une route", items: [
-          ["☀️", "Mode clair · route A", "Chemin lumineux"],
-          ["☁️", "Mode sombre · route B", "Chemin dans l’ombre"],
-          ["⭐", "Jeton bonus", "Un indice supplémentaire"],
-          ["↔️", "Affichage", "Les couleurs changent les indices"]
+          ["☀️", "Chemin du soleil", "Une route lumineuse"],
+          ["☁️", "Chemin du nuage", "Une route à l’ombre"],
+          ["⭐", "Jeton bonus", "Un indice à demander à Arthur"],
+          ["↔️", "Ton choix", "Les deux chemins sont bons"]
         ] },
         18: { type: "messages", title: "Pointeur détecté · Julien", tag: "Cachette", items: [
           ["🖱️", "Pointeur", "Vise le détail caché"],
           ["👦", "Julien", "Tu m’as trouvé !"]
         ] },
         19: { type: "window", title: "Passage vers l’arcade", tag: "Itinéraire", items: [
-          ["☀️", "Route A", "Mode clair"],
-          ["☁️", "Route B", "Mode sombre"],
+          ["☀️", "Chemin du soleil", "Porte lumineuse"],
+          ["☁️", "Chemin du nuage", "Porte à l’ombre"],
           ["🚪", "Porte", "Verrouillée par le fichier"],
           ["🧩", "Fichier réparé", "Passage débloqué"]
         ] },
@@ -549,10 +774,10 @@
       };
       const studentNames = ["Noam", "Julien", "Liam", "Loan"];
       const state = {
-        unlocked: 0, items: new Set(), consulted: new Set(),
+        items: new Set(), consulted: new Set(),
         resolved: new Set(), students: new Set(), lostData: false,
-        bonusHints: 0, currentCard: 1, routeMode: null, timerSeconds: 1200, timerRunning: false,
-        timerId: null, ended: false, availableCards: new Set([1])
+        bonusHints: 0, hintLevels: new Map(), currentCard: 1, routeMode: null, timerSeconds: 0, timerRunning: true,
+        timerId: null, ended: false, windowOpen: true, availableCards: new Set([1])
       };
       const $ = (selector) => document.querySelector(selector);
       const overlay = $("#overlay");
@@ -561,10 +786,42 @@
         const card = cards[id];
         state.resolved.add(id);
         for (const nextCard of card.next || []) state.availableCards.add(nextCard);
-        if (card.unlock !== undefined) state.unlocked = Math.max(state.unlocked, card.unlock);
         if (state.resolved.has(9) && state.items.has("magnifier") && state.items.has("filter")) {
           state.availableCards.add(16);
         }
+      }
+
+      function completeCard(id) {
+        const card = cards[id];
+        if (state.resolved.has(id)) return;
+        if (id === 11) state.lostData = !state.items.has("filter");
+        const reward = collectCardItems(card);
+        const messages = [reward || (card.student === undefined ? card.success : "") || "Bien joué ! Vous pouvez continuer l’aventure."];
+        if (card.student !== undefined) {
+          if (state.students.has(card.student)) {
+            messages.push(`${studentNames[card.student]} est déjà avec toi.`);
+          } else {
+            state.students.add(card.student);
+            messages.push(card.success);
+          }
+        }
+        resolveCard(id);
+        showResult(card, messages.join(" "));
+        render();
+        $("#announcer").textContent = `Carte ${id} terminée.`;
+        if (!card.ending) return;
+
+        state.ended = true;
+        render();
+        $("#modal-title").textContent = state.students.size === studentNames.length
+          ? "Toute la bande est libre !"
+          : "Bravo, tu es sorti de l’ordinateur !";
+        $("#ending-text").textContent = state.students.size === studentNames.length
+          ? "Kat, Arthur, Noam, Julien, Liam et Loan sont enfin réunis. Vous avez réussi ensemble !"
+          : state.students.size
+            ? `Kat sort de l’ordinateur avec ${state.students.size} ami${state.students.size > 1 ? "s" : ""}. Vous pourrez revenir sauver les autres !`
+            : "Kat a retrouvé le monde réel ! Rejoue avec ton équipe pour aider les élèves restés dans l’ordinateur.";
+        overlay.hidden = false;
       }
 
       function collectCardItems(card) {
@@ -577,11 +834,13 @@
             if (key === "star" || key === "heart") state.bonusHints++;
           }
         }
-        if (card.restore && state.lostData) {
+        const restoredData = card.restore && state.lostData;
+        if (restoredData) {
           state.lostData = false;
           found.push("données restaurées");
         }
-        return found.length ? card.success : "";
+        if (!found.length) return "";
+        return `${card.success}${restoredData ? " Les données sont restaurées !" : ""}`;
       }
 
       function renderScene(id) {
@@ -592,14 +851,21 @@
         };
         const route = id >= 17 && state.routeMode ? ` route-${state.routeMode}` : "";
         const visibleItems = id === 19 && state.routeMode
-          ? scene.items.filter((item) => item[1] !== (state.routeMode === "light" ? "Route B" : "Route A"))
+          ? scene.items.filter((item) => item[1] !== (state.routeMode === "light" ? "Chemin du nuage" : "Chemin du soleil"))
           : scene.items;
         const items = visibleItems.map(([icon, name, detail, clue]) => {
           const clueBadge = clue ? `<span class="scene-clue">${clue}</span>` : "";
           return `<div class="scene-item"><span class="scene-item-icon" aria-hidden="true">${icon}</span><span class="scene-item-name">${name}</span><span class="scene-item-detail">${detail}</span>${clueBadge}</div>`;
         }).join("");
-        const modeTag = id >= 17 && state.routeMode ? `Mode ${state.routeMode === "light" ? "clair · route A" : "sombre · route B"}` : scene.tag;
-        $("#scene-display").innerHTML = `<div class="scene-screen ${classes[scene.type]}${route}"><div class="scene-chrome"><span class="scene-lights" aria-hidden="true"><i></i><i></i><i></i></span><span class="scene-window-title">${scene.title}</span><span class="scene-chip">${modeTag}</span></div><div class="scene-body">${items}</div></div>`;
+        const modeTag = id >= 17 && state.routeMode
+          ? `${state.routeMode === "light" ? "☀️ Chemin du soleil" : "☁️ Chemin du nuage"}`
+          : scene.tag;
+        renderDesktopIcons();
+        const card = cards[id];
+        const appIcon = cardVisuals[id][0];
+        $("#computer-window").classList.toggle("home-window", id === 1 && !state.windowOpen);
+        $("#computer-window").style.display = state.windowOpen ? "flex" : "none";
+        $("#computer-window").innerHTML = `<header class="window-titlebar"><span class="window-app-icon" aria-hidden="true">${appIcon}</span><span class="window-title">${scene.title}</span><div class="window-controls"><button class="window-control" type="button" data-window-minimize aria-label="Réduire la fenêtre">—</button><button class="window-control close" type="button" data-window-close aria-label="Fermer la fenêtre">×</button></div></header><div class="window-content"><div class="scene-screen ${classes[scene.type]}${route}"><div class="scene-chrome"><span class="scene-lights" aria-hidden="true"><i></i><i></i><i></i></span><span class="scene-window-title">${scene.title}</span><span class="scene-chip">${modeTag}</span></div><div class="scene-body">${items}</div></div><div class="preview-action" id="preview-action" aria-live="polite"><h3 class="preview-card-title">Carte ${String(id).padStart(2, "0")} · ${card.name}</h3><p class="preview-card-copy">${card.text}</p></div></div>`;
       }
 
       function render() {
@@ -611,16 +877,19 @@
           const art = cardVisuals[id][0];
           const className = `card-tile${discovered ? " discovered" : " hidden-card"}${!discovered && available ? " available-card" : ""}${resolved ? " resolved" : ""}`;
           if (!discovered) {
-            const status = available ? "Prête à révéler" : "Verrouillée";
+            const status = available ? "À découvrir" : "Cachée";
             if (available) {
               return `<button class="${className}" type="button" data-reveal-card="${id}" aria-label="Révéler la carte ${id}, disponible"><span class="tile-number">#${String(id).padStart(2, "0")}</span><span class="tile-content" aria-hidden="true"><span class="tile-art">🧩</span><span class="tile-title">Carte inconnue</span></span><span class="tile-status">${status}</span></button>`;
             }
             return `<div class="${className}" aria-label="Carte ${id}, verrouillée et pixelisée"><span class="tile-number">#${String(id).padStart(2, "0")}</span><span class="tile-content" aria-hidden="true"><span class="tile-art">🧩</span><span class="tile-title">Carte inconnue</span></span><span class="tile-status">${status}</span></div>`;
           }
-          return `<button class="${className}" type="button" data-reveal-card="${id}" aria-label="Afficher l’aide de la carte ${id} : ${card.name}"><span class="tile-number">#${String(id).padStart(2, "0")}</span><span class="tile-content"><span class="tile-visual" aria-hidden="true">${art}</span><span class="tile-title">${card.name}</span></span><span class="tile-kind">${card.kind}</span><span class="tile-status">${resolved ? "✓ Résolue" : "Découverte"}</span></button>`;
+          return `<button class="${className}" type="button" data-reveal-card="${id}" aria-label="Afficher l’aide de la carte ${id} : ${card.name}"><span class="tile-number">#${String(id).padStart(2, "0")}</span><span class="tile-content"><span class="tile-visual" aria-hidden="true">${art}</span><span class="tile-title">${card.name}</span></span><span class="tile-kind">${card.kind}</span><span class="tile-status">${resolved ? "✓ Jouée" : "Découverte"}</span></button>`;
         }).join("");
         $("#cards-grid").querySelectorAll("[data-reveal-card]").forEach((button) => {
-          button.addEventListener("click", () => showCard(Number(button.dataset.revealCard)));
+          button.addEventListener("click", () => {
+            showCard(Number(button.dataset.revealCard));
+            setCardsMenu(false);
+          });
         });
         $("#gallery-status").innerHTML = `<span>Cartes découvertes</span><strong>${state.consulted.size} / 24</strong>`;
 
@@ -629,54 +898,119 @@
           : '<div class="inventory-empty">Ton sac est encore vide. Trouve des objets sur tes cartes !</div>';
         $("#students").innerHTML = studentNames.map((name, index) => `<span class="student${state.students.has(index) ? " found" : ""}">${state.students.has(index) ? "✓ " : "• "}${name}</span>`).join("");
         $("#student-note").textContent = state.students.size === studentNames.length
-          ? "Tous tes amis sont réunis ! Tu peux maintenant terminer l’aventure."
-          : "Tu peux sortir sans les élèves, mais ce serait encore mieux de sauver tes amis !";
+          ? "Toute la bande est prête à rentrer !"
+          : "Aide tous tes amis à rentrer avec toi !";
 
         const progress = Math.round((state.consulted.size / 24) * 100);
-        $("#progress-value").textContent = `${progress}%`;
+        $("#progress-value").textContent = `${state.consulted.size} / 24`;
         $("#progress-fill").style.width = `${progress}%`;
         $("#history-list").innerHTML = state.consulted.size
-          ? [...state.consulted].reverse().map((id) => `<button class="history-entry${state.resolved.has(id) ? " resolved" : ""}" type="button" data-history-card="${id}" aria-label="Revoir la carte ${id}, ${cards[id].name}"><span class="history-icon" aria-hidden="true">${cardVisuals[id][0]}</span><span><span class="history-number">CARTE ${String(id).padStart(2, "0")}</span><span class="history-name">${cards[id].name}</span><span class="history-state">${state.resolved.has(id) ? "Action effectuée" : "À reprendre"}</span></span></button>`).join("")
+          ? [...state.consulted].reverse().map((id) => `<button class="history-entry${state.resolved.has(id) ? " resolved" : ""}" type="button" data-history-card="${id}" aria-label="Revoir la carte ${id}, ${cards[id].name}"><span class="history-icon" aria-hidden="true">${cardVisuals[id][0]}</span><span><span class="history-number">CARTE ${String(id).padStart(2, "0")}</span><span class="history-name">${cards[id].name}</span><span class="history-state">${state.resolved.has(id) ? "Jouée !" : "À reprendre"}</span></span></button>`).join("")
           : '<span class="inventory-empty">Les cartes utilisées apparaîtront ici, de la plus récente à la première.</span>';
         $("#history-list").querySelectorAll("[data-history-card]").forEach((button) => {
           button.addEventListener("click", () => showCard(Number(button.dataset.historyCard)));
         });
-        $("#timer-toggle").textContent = state.timerRunning ? "Ⅱ Pause" : "▶ Démarrer";
-        $("#timer-state").textContent = state.timerRunning ? "En cours" : "En pause";
+        $("#timer-toggle").textContent = state.timerRunning ? "Ⅱ" : "▶";
+        $("#timer-toggle").setAttribute("aria-label", state.timerRunning ? "Mettre l’horloge en pause" : "Reprendre l’horloge");
+        $("#timer-toggle").title = state.timerRunning ? "Mettre en pause" : "Reprendre";
+        renderClock();
+        renderDesktopIcons();
+      }
+
+      function renderClock() {
+        const total = (19 * 3600) + (20 * 60) + state.timerSeconds;
+        const daySeconds = total % 86400;
+        const hours = Math.floor(daySeconds / 3600);
+        const minutes = Math.floor((daySeconds % 3600) / 60);
+        const seconds = daySeconds % 60;
+        $("#clock").textContent = `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+      }
+
+      function renderDesktopIcons() {
+        const shortcuts = [
+          ["🖥️", "Ce PC", 2], ["📶", "Réseau Wi-Fi", 7], ["📁", "Dossier de l’école", 3],
+          ["🔑", "Clé USB", 4], ["✉️", "Messages", 5], ["🦎", "Borne Salamandre", 20]
+        ];
+        $("#desktop-icons").innerHTML = shortcuts.map(([icon, label, cardId]) =>
+          `<button class="desktop-icon${state.availableCards.has(cardId) ? "" : " pixel-locked"}" type="button" data-open-card="${cardId}" aria-label="${label}${state.availableCards.has(cardId) ? "" : ", verrouillé"}" title="${state.availableCards.has(cardId) ? "Ouvrir" : "À découvrir"} : ${label}"><span class="desktop-icon-glyph" aria-hidden="true">${icon}</span><span class="desktop-icon-label">${label}</span></button>`
+        ).join("");
+      }
+
+      function setCardsMenu(open) {
+        $("#cards-menu").hidden = !open;
+        $("#cards-toggle").setAttribute("aria-expanded", String(open));
+        if (open) $("#card-number").focus();
       }
 
       function showResult(card, text, controls = "") {
         const id = state.currentCard || 1;
         renderScene(id);
         const feedback = text === card.text ? "" : `<p class="preview-message">${text}</p>`;
-        $("#preview-action").innerHTML = `<h3 class="preview-card-title">Carte ${String(id).padStart(2, "0")} · ${card.name}</h3><p class="preview-card-copy">${card.text}</p>${feedback}${controls}`;
+        const voiceButton = "speechSynthesis" in window
+          ? `<button class="voice-button" type="button" data-read-card="${id}">🔊 Écouter avec Arthur</button>`
+          : "";
+        $("#preview-action").innerHTML = `<h3 class="preview-card-title">Carte ${String(id).padStart(2, "0")} · ${card.name}</h3><p class="preview-card-copy">${card.text}</p>${feedback}${controls}${voiceButton}`;
       }
 
       function message(text) {
         $("#entry-error").textContent = text;
       }
 
+      function readCardAloud(id) {
+        const speech = new SpeechSynthesisUtterance(`${cards[id].name}. ${cards[id].text}`);
+        speech.lang = "fr-FR";
+        speech.rate = 0.88;
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.speak(speech);
+      }
+
+      $("#scene-display").addEventListener("click", (event) => {
+        const shortcut = event.target.closest("[data-open-card]");
+        if (shortcut) {
+          const id = Number(shortcut.dataset.openCard);
+          if (!state.availableCards.has(id)) {
+            const text = "Cette icône est verrouillée. Continue les cartes découvertes pour l’ouvrir !";
+            message(text);
+            $("#hint-text").innerHTML = `<span class="hint-level">Application verrouillée</span>${text}`;
+            $("#announcer").textContent = text;
+            return;
+          }
+          showCard(id);
+          return;
+        }
+        if (event.target.closest("[data-window-close], [data-window-minimize]")) {
+          state.windowOpen = false;
+          $("#computer-window").style.display = "none";
+          return;
+        }
+        const button = event.target.closest("[data-read-card]");
+        if (button) {
+          readCardAloud(Number(button.dataset.readCard));
+          return;
+        }
+        const completeButton = event.target.closest("[data-complete-card]");
+        if (completeButton) completeCard(Number(completeButton.dataset.completeCard));
+      });
+
       function showCard(id) {
         const card = cards[id];
+        if (!card) return;
+        if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+        if (!state.availableCards.has(id)) {
+          message("Cette carte est encore cachée. Joue les cartes découvertes pour la trouver !");
+          $("#announcer").textContent = `La carte ${id} est encore verrouillée.`;
+          return;
+        }
         state.currentCard = id;
+        state.windowOpen = true;
+        $("#hint-text").textContent = "";
         $("#card-number").value = id;
         message("");
         if (state.ended) {
-          showResult(card, "La mission est terminée ! Appuie sur « Recommencer la mission » si tu veux rejouer.");
-          return;
-        }
-        if (!state.availableCards.has(id)) {
-          message(`La carte ${id} est encore verrouillée. Réalisez d’abord les actions précédentes pour la débloquer.`);
-          $("#scene-display").innerHTML = '<div class="scene-screen scene-console"><div class="scene-chrome"><span class="scene-lights" aria-hidden="true"><i></i><i></i><i></i></span><span class="scene-window-title">Fichier inaccessible</span><span class="scene-chip">Verrouillé</span></div><div class="scene-body"><div class="scene-item"><span class="scene-item-icon" aria-hidden="true">🔒</span><span class="scene-item-name">Carte verrouillée</span><span class="scene-item-detail">Continue l’aventure pour la découvrir.</span></div></div></div>';
-          $("#preview-action").innerHTML = '<p class="preview-message">Cette carte est encore cachée. Réalise les actions précédentes pour la débloquer.</p>';
+          showResult(card, "L’aventure est finie ! Appuie sur « Recommencer l’aventure » pour rejouer.");
           return;
         }
         state.consulted.add(id);
-        if (card.place > state.unlocked) {
-          showResult(card, "Tu n’as pas encore découvert ce lieu. Continue l’aventure avec les cartes déjà débloquées.");
-          render();
-          return;
-        }
         if (state.resolved.has(id)) {
           showResult(card, "Tu as déjà joué cette carte ! Reprends ton paquet pour continuer l’aventure.");
           render();
@@ -684,22 +1018,22 @@
         }
         const missing = (card.requires || []).filter((key) => !state.items.has(key));
         if (missing.length) {
-          showResult(card, `Il manque à ton équipe : ${missing.map((key) => itemInfo[key][0]).join(", ")}. Garde cette carte et continue l’aventure !`);
+          showResult(card, `Il te faut : ${missing.map((key) => itemInfo[key][0]).join(", ")}. Garde cette carte et cherche l’objet avec les autres cartes !`);
           render();
           return;
         }
         if (card.requiresCard && !state.resolved.has(card.requiresCard)) {
-          showResult(card, `Joue d’abord la carte ${card.requiresCard} avec ton paquet physique.`);
+          showResult(card, `Joue d’abord la carte ${card.requiresCard} avec tes cartes.`);
           render();
           return;
         }
         if (card.requiresRestored && state.lostData) {
-          showResult(card, "Oh non, le code a disparu ! Trouve le Filtre antivirus (carte 15) pour le faire réapparaître.");
+          showResult(card, "Il manque une information. Trouve le filtre transparent pour la retrouver !");
           render();
           return;
         }
         if (card.routeMode) {
-          const choices = '<div class="route-choices"><button class="small-button" type="button" data-route-mode="light">☀️ Mode clair · route A</button><button class="small-button" type="button" data-route-mode="dark">☁️ Mode sombre · route B</button></div>';
+          const choices = '<div class="route-choices"><button class="small-button" type="button" data-route-mode="light">☀️ Le chemin du soleil</button><button class="small-button" type="button" data-route-mode="dark">☁️ Le chemin du nuage</button></div>';
           showResult(card, card.text, choices);
           document.querySelectorAll("[data-route-mode]").forEach((button) => {
             button.addEventListener("click", () => {
@@ -714,13 +1048,13 @@
           return;
         }
         if (card.code) {
-          showResult(card, card.text, `<form class="answer-form" id="answer-form"><label class="sr-only" for="answer-input">Réponse à l’énigme</label><input class="answer-input" id="answer-input" inputmode="numeric" autocomplete="off" placeholder="Code" aria-label="Saisir le code"><button class="primary-button" type="submit">Valider</button></form><p class="answer-feedback" id="answer-feedback" role="status"></p>`);
+          showResult(card, card.text, `<form class="answer-form" id="answer-form"><label class="sr-only" for="answer-input">Réponse à l’énigme</label><input class="answer-input" id="answer-input" inputmode="numeric" autocomplete="off" placeholder="Code" aria-label="Écris les chiffres du code"><button class="primary-button" type="submit">Essayer !</button></form><p class="answer-feedback" id="answer-feedback" role="status"></p>`);
           $("#answer-form").addEventListener("submit", (event) => {
             event.preventDefault();
             const answer = $("#answer-input").value.trim().replace(/\s/g, "").toLowerCase();
             const feedback = $("#answer-feedback");
             if (answer !== card.code.toLowerCase()) {
-              feedback.textContent = card.hint ? "Oups, ce n’est pas le bon code ! " + card.hint : "Oups, ce n’est pas le bon code ! Regarde encore tes cartes et tes objets.";
+              feedback.textContent = card.hint ? `Pas tout à fait. ${card.hint}` : "Pas tout à fait. Regarde encore l’image et tes cartes !";
               return;
             }
             feedback.textContent = card.success;
@@ -736,33 +1070,8 @@
           return;
         }
 
-        let text = card.text;
-        if (id === 11) state.lostData = true;
-        const reward = collectCardItems(card);
-        if (reward) text += `\n\n${reward}`;
-        if (card.student !== undefined) {
-          const newlyRescued = !state.students.has(card.student);
-          state.students.add(card.student);
-          if (newlyRescued) text += `\n\n${card.success}`;
-          else text += `\n\n${studentNames[card.student]} est déjà avec toi.`;
-        }
-        if (card.ending) {
-          state.ended = true;
-          resolveCard(id);
-          render();
-          $("#modal-title").textContent = state.students.size === studentNames.length ? "Toute la bande est libre !" : state.students.size ? "Vous êtes sortis ensemble !" : "Tu as trouvé la sortie !";
-          $("#ending-text").textContent = state.students.size === studentNames.length
-            ? "Noam, Julien, Liam et Loan quittent l’ordinateur avec toi. Arthur vous attend de l’autre côté de l’écran. Bravo, toute la bande est sauvée !"
-            : state.students.size
-              ? `Tu sors de l’ordinateur avec ${state.students.size} ami${state.students.size > 1 ? "s" : ""}. Arthur vous attend de l’autre côté de l’écran.`
-              : "La borne Salamandre te ramène dans le monde réel. Tu pourras rejouer pour sauver les amis oubliés !";
-          overlay.hidden = false;
-        } else {
-          resolveCard(id);
-        }
-        showResult(card, text);
+        showResult(card, card.text, `<button class="primary-button complete-card-button" type="button" data-complete-card="${id}">✅ C’est fait, on continue !</button>`);
         render();
-        $("#announcer").textContent = `Carte ${id}, ${card.name}.`;
       }
 
       $("#card-form").addEventListener("submit", (event) => {
@@ -773,51 +1082,50 @@
           return;
         }
         showCard(value);
+        if (state.availableCards.has(value)) setCardsMenu(false);
       });
 
       $("#hint-button").addEventListener("click", () => {
-        const hintCard = state.currentCard ? cards[state.currentCard] : null;
-        const base = hints[hintCard ? hintCard.place : 0];
+        const hasCurrentCard = state.consulted.has(state.currentCard);
+        const id = hasCurrentCard ? state.currentCard : 1;
+        const hintList = hints[id];
+        const level = Math.min(state.hintLevels.get(id) || 0, hintList.length - 1);
+        const hint = hintList[level];
+        state.hintLevels.set(id, Math.min(level + 1, hintList.length));
         const bonus = state.bonusHints > 0;
         if (bonus) state.bonusHints--;
-        $("#hint-text").textContent = `Arthur : « ${base}${bonus ? " Tu utilises un jeton bonus !" : ""} »`;
+        $("#hint-text").innerHTML = `<span class="hint-level">Indice ${level + 1} sur ${hintList.length}</span>Arthur : « ${hint}${bonus ? " Tu as utilisé ton jeton bonus !" : ""} »`;
+        $("#announcer").textContent = `Arthur donne un indice : ${hint}`;
+        if ("speechSynthesis" in window) {
+          const speech = new SpeechSynthesisUtterance(`Arthur dit : ${hint}`);
+          speech.lang = "fr-FR";
+          speech.rate = 0.9;
+          window.speechSynthesis.cancel();
+          window.speechSynthesis.speak(speech);
+        }
         render();
       });
 
       $("#timer-toggle").addEventListener("click", () => {
         state.timerRunning = !state.timerRunning;
-        if (state.timerRunning) {
-          state.timerId = window.setInterval(() => {
-            if (state.timerSeconds > 0) state.timerSeconds--;
-            const minutes = Math.floor(state.timerSeconds / 60);
-            const seconds = state.timerSeconds % 60;
-            $("#clock").textContent = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
-            if (state.timerSeconds === 0) {
-              state.timerRunning = false;
-              window.clearInterval(state.timerId);
-              $("#timer-state").textContent = "Temps écoulé";
-              $("#announcer").textContent = "Le temps de jeu est écoulé.";
-            }
-          }, 1000);
-        } else {
-          window.clearInterval(state.timerId);
-        }
         render();
       });
 
-      $("#timer-reset").addEventListener("click", () => {
-        state.timerRunning = false;
-        state.timerSeconds = 1200;
-        window.clearInterval(state.timerId);
-        $("#clock").textContent = "20:00";
-        render();
-      });
+      $("#cards-toggle").addEventListener("click", () => setCardsMenu($("#cards-menu").hidden));
+      $("#start-button").addEventListener("click", () => setCardsMenu($("#cards-menu").hidden));
+      $("#cards-close").addEventListener("click", () => setCardsMenu(false));
+      state.timerId = window.setInterval(() => {
+        if (!state.timerRunning) return;
+        state.timerSeconds++;
+        renderClock();
+      }, 1000);
 
       $("#reset-button").addEventListener("click", () => {
-        state.unlocked = 0;
+        if ("speechSynthesis" in window) window.speechSynthesis.cancel();
         state.items.clear();
         state.consulted.clear();
         state.resolved.clear();
+        state.hintLevels.clear();
         state.availableCards = new Set([1]);
         state.students.clear();
         state.lostData = false;
@@ -825,23 +1133,28 @@
         state.currentCard = 1;
         state.routeMode = null;
         state.ended = false;
-        state.timerRunning = false;
-        state.timerSeconds = 1200;
-        window.clearInterval(state.timerId);
-        $("#clock").textContent = "20:00";
+        state.windowOpen = true;
+        state.timerRunning = true;
+        state.timerSeconds = 0;
+        renderClock();
         $("#hint-text").textContent = "";
         $("#card-number").value = "";
         $("#entry-error").textContent = "";
-        showResult(cards[1], cards[1].text);
+        showResult(cards[1], cards[1].text, '<button class="primary-button complete-card-button" type="button" data-complete-card="1">✅ C’est fait, on continue !</button>');
         overlay.hidden = true;
         render();
       });
 
       $("#ending-close").addEventListener("click", () => { overlay.hidden = true; });
       overlay.addEventListener("click", (event) => { if (event.target === overlay) overlay.hidden = true; });
-      document.addEventListener("keydown", (event) => { if (event.key === "Escape") overlay.hidden = true; });
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          overlay.hidden = true;
+          setCardsMenu(false);
+        }
+      });
 
-      showResult(cards[1], cards[1].text);
+      showCard(1);
       render();
     })();
   </script>
