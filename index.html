@@ -10,74 +10,74 @@
 
     :root {
       color-scheme: dark;
-      --bg: #10172b;
-      --panel: #19233d;
-      --ink: #f7f5ff;
-      --muted: #a7b3d2;
-      --purple: #a895ff;
-      --cyan: #66e4ed;
-      --yellow: #ffd76f;
-      --green: #81e3ad;
-      --line: rgba(215, 225, 255, .13);
+      --bg: #13162f;
+      --panel: #20264a;
+      --ink: #fffaf0;
+      --muted: #bac3e3;
+      --purple: #b6a4ff;
+      --cyan: #6ce8e7;
+      --yellow: #ffdf71;
+      --green: #8ce8aa;
+      --line: rgba(225, 228, 255, .18);
       font-family: "DM Sans", sans-serif;
       background: var(--bg);
       color: var(--ink);
     }
 
     * { box-sizing: border-box; }
-    body { min-width: 320px; min-height: 100vh; margin: 0; background: radial-gradient(ellipse at 75% -5%, rgba(116,90,222,.22), transparent 38%), var(--bg); }
+    body { min-width: 320px; min-height: 100vh; margin: 0; background: radial-gradient(ellipse at 78% -8%, rgba(112,91,224,.29), transparent 38%), radial-gradient(ellipse at 6% 45%, rgba(59,201,200,.08), transparent 30%), repeating-linear-gradient(0deg, transparent 0 31px, rgba(255,255,255,.012) 32px 33px), var(--bg); }
     button, input { font: inherit; }
     button:focus-visible, input:focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }
     .shell { max-width: 1180px; margin: auto; padding: 22px clamp(16px, 3vw, 40px) 32px; }
     .topbar, .brand, .top-right, .hero, .panel-heading-row, .place-button, .result-top, .tool-row, .session-controls, .footer { display: flex; align-items: center; }
     .topbar { justify-content: space-between; gap: 16px; margin-bottom: 36px; }
     .brand { gap: 11px; color: var(--ink); font-family: "Fredoka", sans-serif; font-size: 19px; font-weight: 600; text-decoration: none; }
-    .brand-icon { display: grid; width: 36px; height: 36px; place-items: center; border: 1px solid rgba(168,149,255,.55); border-radius: 12px; background: rgba(168,149,255,.16); color: var(--purple); font-size: 19px; }
+    .brand-icon { display: grid; width: 40px; height: 40px; place-items: center; border: 2px solid rgba(108,232,231,.64); border-radius: 14px 14px 14px 5px; background: rgba(108,232,231,.13); color: var(--cyan); font-size: 23px; box-shadow: 0 0 18px rgba(108,232,231,.12); }
     .brand small { display: block; margin-top: 1px; color: var(--muted); font: 10px "DM Sans", sans-serif; letter-spacing: .1em; text-transform: uppercase; }
     .top-right { gap: 10px; }
     .top-pill { border: 1px solid var(--line); border-radius: 99px; padding: 8px 11px; color: var(--muted); font-size: 10px; }
     .hero { justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 24px; }
     .hero-copy { max-width: 720px; }
-    .kicker { color: var(--cyan); font-size: 10px; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
+    .kicker { color: var(--cyan); font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
     h1 { margin: 8px 0; font: 600 clamp(34px, 5vw, 52px)/1.02 "Fredoka", sans-serif; letter-spacing: -.025em; }
     h1 span { color: var(--yellow); }
     .hero p { margin: 0; color: #b8c2df; font-size: 13px; line-height: 1.65; }
-    .session { min-width: 210px; border: 1px solid var(--line); border-radius: 15px; background: rgba(25,35,61,.84); padding: 13px; }
+    .session { min-width: 210px; border: 1px solid rgba(255,223,113,.25); border-radius: 20px; background: linear-gradient(145deg, rgba(49,48,88,.93), rgba(32,38,74,.93)); padding: 14px; box-shadow: 0 9px 22px rgba(5,8,24,.15); }
     .session-label { display: flex; justify-content: space-between; color: var(--muted); font-size: 10px; }
     .clock { margin-top: 5px; color: var(--yellow); font: 600 26px "Fredoka", sans-serif; font-variant-numeric: tabular-nums; }
     .session-controls { gap: 6px; margin-top: 7px; }
-    .small-button { border: 1px solid var(--line); border-radius: 8px; background: rgba(255,255,255,.04); padding: 6px 9px; color: #dce3f7; font-size: 9px; cursor: pointer; }
+    .small-button { border: 1px solid var(--line); border-radius: 11px; background: rgba(255,255,255,.06); padding: 7px 10px; color: #fffaf0; font-size: 9px; cursor: pointer; }
     .small-button:hover { border-color: var(--purple); }
 
     .layout { display: grid; grid-template-columns: 220px minmax(0, 1fr) 235px; align-items: start; gap: 14px; }
-    .panel { border: 1px solid var(--line); border-radius: 16px; background: rgba(25,35,61,.9); }
+    .panel { border: 1px solid var(--line); border-radius: 21px; background: linear-gradient(145deg, rgba(32,38,74,.97), rgba(26,33,65,.97)); box-shadow: 0 12px 30px rgba(4,7,23,.16); }
     .history-panel, .tools { padding: 15px; }
     .panel-heading { margin: 0 0 12px; color: var(--muted); font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
     .history-list { display: grid; max-height: 490px; gap: 6px; overflow-y: auto; }
-    .history-entry { display: flex; width: 100%; align-items: center; gap: 8px; border: 1px solid transparent; border-radius: 10px; background: rgba(255,255,255,.035); padding: 7px; color: #c0cae4; text-align: left; cursor: pointer; }
-    .history-entry:hover { border-color: rgba(168,149,255,.34); background: rgba(168,149,255,.1); color: var(--ink); }
-    .history-icon { display: grid; width: 29px; height: 29px; flex: 0 0 29px; place-items: center; border-radius: 8px; background: rgba(168,149,255,.12); font-size: 14px; }
-    .history-entry.resolved .history-icon { background: rgba(129,227,173,.12); }
+    .history-entry { display: flex; width: 100%; align-items: center; gap: 8px; border: 1px solid transparent; border-radius: 13px; background: rgba(255,255,255,.045); padding: 8px; color: #d8def4; text-align: left; cursor: pointer; transition: .16s ease; }
+    .history-entry:hover { transform: translateX(2px); border-color: rgba(182,164,255,.46); background: rgba(182,164,255,.13); color: var(--ink); }
+    .history-icon { display: grid; width: 31px; height: 31px; flex: 0 0 31px; place-items: center; border-radius: 10px 10px 10px 4px; background: rgba(182,164,255,.16); font-size: 15px; }
+    .history-entry.resolved .history-icon { background: rgba(140,232,170,.15); }
     .history-number { display: block; color: var(--cyan); font-size: 8px; font-weight: 800; }
     .history-name { display: block; margin-top: 2px; font-size: 9px; font-weight: 700; line-height: 1.3; }
     .history-state { display: block; margin-top: 2px; color: var(--muted); font-size: 8px; }
-    .note { margin-top: 12px; border-radius: 11px; background: rgba(102,228,237,.08); padding: 10px; color: #b9dbe5; font-size: 9px; line-height: 1.55; }
+    .note { margin-top: 12px; border: 1px solid rgba(108,232,231,.16); border-radius: 15px; background: rgba(108,232,231,.09); padding: 11px; color: #d2f3ef; font-size: 9px; line-height: 1.6; }
     .note strong { color: var(--cyan); }
 
     .catalog { min-width: 0; overflow: hidden; }
     .catalog-header { padding: 18px 17px 13px; }
     .catalog h2 { margin: 0; font: 600 22px "Fredoka", sans-serif; }
     .catalog-intro { margin: 6px 0 13px; color: var(--muted); font-size: 10px; line-height: 1.55; }
-    .card-entry { border: 1px solid rgba(168,149,255,.27); border-radius: 14px; background: linear-gradient(140deg, rgba(168,149,255,.1), rgba(102,228,237,.045)); padding: 15px; }
+    .card-entry { border: 1px solid rgba(182,164,255,.36); border-radius: 19px; background: linear-gradient(140deg, rgba(182,164,255,.15), rgba(108,232,231,.075)); padding: 15px; }
     .entry-label { display: block; margin-bottom: 8px; color: #dce3f7; font-size: 11px; font-weight: 700; }
     .entry-row { display: flex; gap: 8px; }
-    .card-number-input { width: 88px; border: 1px solid rgba(255,255,255,.17); border-radius: 10px; background: #111a2e; padding: 10px; color: var(--ink); font: 600 20px "Fredoka", sans-serif; text-align: center; }
-    .primary-button { border: 0; border-radius: 10px; background: var(--purple); padding: 10px 15px; color: #17142a; font-size: 11px; font-weight: 800; cursor: pointer; }
-    .primary-button:hover:not(:disabled) { background: #c0b4ff; }
+    .card-number-input { width: 88px; border: 2px solid rgba(255,255,255,.2); border-radius: 13px; background: #151a37; padding: 10px; color: var(--ink); font: 600 20px "Fredoka", sans-serif; text-align: center; }
+    .primary-button { border: 0; border-radius: 13px 13px 13px 5px; background: var(--yellow); padding: 11px 16px; color: #252043; font-size: 11px; font-weight: 800; cursor: pointer; box-shadow: 0 4px 0 #d9ad47; transition: transform .12s, box-shadow .12s, background .15s; }
+    .primary-button:hover:not(:disabled) { transform: translateY(2px); background: #ffe797; box-shadow: 0 2px 0 #d9ad47; }
     .primary-button:disabled { opacity: .45; cursor: not-allowed; }
     .entry-help { margin: 8px 0 0; color: var(--muted); font-size: 9px; line-height: 1.5; }
     .error { min-height: 15px; margin: 6px 0 0; color: #ff9a8f; font-size: 10px; }
-    .result { min-height: 110px; margin: 12px 14px 14px; border: 1px solid var(--line); border-radius: 14px; background: rgba(10,15,28,.26); padding: 14px; }
+    .result { min-height: 110px; margin: 12px 14px 14px; border: 1px solid var(--line); border-radius: 19px; background: rgba(15,21,48,.48); padding: 15px; }
     .result.empty { display: grid; place-items: center; text-align: center; }
     .empty-copy { max-width: 280px; color: #a7b3d2; font-size: 11px; line-height: 1.65; }
     .empty-icon { display: block; margin-bottom: 8px; font-size: 27px; }
@@ -85,8 +85,8 @@
     .result-number { color: var(--cyan); font-size: 9px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
     .result-kind { border: 1px solid var(--line); border-radius: 99px; padding: 4px 7px; color: var(--muted); font-size: 8px; text-transform: uppercase; }
     .result h3 { margin: 9px 0 6px; font: 600 20px "Fredoka", sans-serif; }
-    .card-visual { display: flex; min-height: 75px; align-items: center; gap: 13px; margin: 10px 0; border: 1px solid rgba(168,149,255,.16); border-radius: 12px; background: radial-gradient(ellipse at 18% 50%, rgba(168,149,255,.2), transparent 40%), rgba(255,255,255,.035); padding: 10px 13px; }
-    .visual-icon { display: grid; width: 49px; height: 49px; flex: 0 0 49px; place-items: center; border: 1px solid rgba(102,228,237,.22); border-radius: 14px; background: rgba(102,228,237,.09); font-size: 27px; }
+    .card-visual { display: flex; min-height: 85px; align-items: center; gap: 13px; margin: 10px 0; border: 1px solid rgba(182,164,255,.23); border-radius: 16px; background: radial-gradient(ellipse at 18% 50%, rgba(182,164,255,.22), transparent 43%), rgba(108,232,231,.045); padding: 11px 14px; }
+    .visual-icon { display: grid; width: 55px; height: 55px; flex: 0 0 55px; place-items: center; border: 2px solid rgba(108,232,231,.3); border-radius: 17px 17px 17px 6px; background: linear-gradient(145deg, rgba(108,232,231,.16), rgba(182,164,255,.18)); font-size: 31px; box-shadow: 0 5px 13px rgba(5,8,25,.2); }
     .visual-caption { color: #d3dcf1; font-size: 10px; font-weight: 600; line-height: 1.5; }
     .result-copy { margin: 0; color: #c5cee5; font-size: 11px; line-height: 1.7; white-space: pre-line; }
     .answer-form { display: flex; gap: 7px; margin-top: 13px; }
@@ -97,15 +97,15 @@
     .state-chip { border: 1px solid rgba(129,227,173,.27); border-radius: 99px; padding: 5px 8px; color: var(--green); font-size: 9px; }
     .bonus-chip { border-color: rgba(255,215,111,.3); color: var(--yellow); }
     .cards-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; padding: 12px 14px; }
-    .card-tile { position: relative; display: flex; aspect-ratio: .76; min-width: 0; flex-direction: column; align-items: center; justify-content: space-between; overflow: hidden; border: 1px solid rgba(231,235,255,.13); border-radius: 11px; background: linear-gradient(145deg, #303f66, #202b49); padding: 8px 5px; color: var(--ink); text-align: center; }
-    .card-tile.discovered, .card-tile.available-card { border-color: rgba(102,228,237,.34); background: linear-gradient(145deg, #354973, #202d4d); cursor: pointer; transition: transform .18s ease, border-color .18s ease; }
+    .card-tile { position: relative; display: flex; aspect-ratio: .76; min-width: 0; flex-direction: column; align-items: center; justify-content: space-between; overflow: hidden; border: 2px solid rgba(231,235,255,.15); border-radius: 17px 17px 17px 6px; background: linear-gradient(145deg, #384a79, #252f56); padding: 8px 5px; color: var(--ink); text-align: center; box-shadow: 0 5px 12px rgba(5,8,25,.14); }
+    .card-tile.discovered, .card-tile.available-card { border-color: rgba(108,232,231,.55); background: linear-gradient(145deg, #3e5486, #25375c); cursor: pointer; transition: transform .18s ease, border-color .18s ease; }
     .card-tile.discovered:hover, .card-tile.available-card:hover { transform: translateY(-2px); border-color: var(--cyan); }
-    .card-tile.resolved { border-color: rgba(129,227,173,.4); background: linear-gradient(145deg, #315c5a, #202e4a); }
-    .card-tile.hidden-card { background: linear-gradient(145deg, #252e49, #1d2740); }
+    .card-tile.resolved { border-color: rgba(140,232,170,.62); background: linear-gradient(145deg, #356a66, #253e5a); }
+    .card-tile.hidden-card { background: linear-gradient(145deg, #2a3558, #20294b); }
     .tile-number { z-index: 1; align-self: flex-start; color: #b7c2df; font-size: 9px; font-weight: 800; letter-spacing: .06em; }
     .tile-content { display: flex; flex: 1; flex-direction: column; align-items: center; justify-content: center; width: 100%; gap: 5px; }
     .tile-art { font-size: clamp(18px, 3vw, 29px); }
-    .tile-visual { display: grid; width: clamp(40px, 6vw, 58px); height: clamp(40px, 6vw, 58px); place-items: center; border: 1px solid rgba(102,228,237,.25); border-radius: 17px; background: radial-gradient(circle at 35% 25%, rgba(255,255,255,.2), transparent 38%), rgba(102,228,237,.1); box-shadow: 0 7px 18px rgba(0,0,0,.15); font-size: clamp(22px, 3.5vw, 34px); }
+    .tile-visual { display: grid; width: clamp(40px, 6vw, 58px); height: clamp(40px, 6vw, 58px); place-items: center; border: 2px solid rgba(108,232,231,.32); border-radius: 19px 19px 19px 6px; background: radial-gradient(circle at 35% 25%, rgba(255,255,255,.25), transparent 38%), linear-gradient(145deg, rgba(108,232,231,.17), rgba(182,164,255,.2)); box-shadow: 0 7px 18px rgba(0,0,0,.2); font-size: clamp(22px, 3.5vw, 34px); }
     .tile-title { display: -webkit-box; max-width: 100%; overflow: hidden; color: #e4e9f8; font-size: 8px; font-weight: 700; line-height: 1.25; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
     .tile-kind { z-index: 1; max-width: 100%; overflow: hidden; border: 1px solid rgba(255,255,255,.12); border-radius: 99px; padding: 3px 5px; color: #b9c5e0; font-size: 7px; text-overflow: ellipsis; text-transform: uppercase; white-space: nowrap; }
     .hidden-card .tile-content { position: relative; filter: blur(4px); opacity: .7; }
@@ -126,8 +126,8 @@
     .students { display: flex; flex-wrap: wrap; gap: 5px; }
     .student { border: 1px solid var(--line); border-radius: 99px; padding: 5px 7px; color: var(--muted); font-size: 9px; }
     .student.found { border-color: rgba(129,227,173,.32); background: rgba(129,227,173,.09); color: var(--green); }
-    .hint-button, .reset-button { width: 100%; border: 1px solid rgba(255,215,111,.3); border-radius: 10px; background: rgba(255,215,111,.07); padding: 9px; color: var(--yellow); text-align: left; font-size: 9px; font-weight: 700; cursor: pointer; }
-    .hint-button:hover, .reset-button:hover { background: rgba(255,215,111,.14); }
+    .hint-button, .reset-button { width: 100%; border: 1px solid rgba(255,223,113,.4); border-radius: 13px 13px 13px 5px; background: rgba(255,223,113,.09); padding: 10px; color: var(--yellow); text-align: left; font-size: 9px; font-weight: 700; cursor: pointer; transition: background .15s, transform .15s; }
+    .hint-button:hover, .reset-button:hover { transform: translateY(-1px); background: rgba(255,223,113,.16); }
     .hint-text { margin: 8px 0 0; color: #d9d2bd; font-size: 9px; line-height: 1.55; }
     .hint-text:empty { display: none; }
     .progress { height: 5px; margin-top: 8px; overflow: hidden; border-radius: 9px; background: rgba(255,255,255,.09); }
@@ -169,7 +169,7 @@
   <main class="shell">
     <header class="topbar">
       <a class="brand" href="#" aria-label="UnArtsup, compagnon du jeu de cartes">
-        <span class="brand-icon" aria-hidden="true">⌘</span>
+        <span class="brand-icon" aria-hidden="true">🦎</span>
         <span>UnArtsup<small>Compagnon du jeu de cartes</small></span>
       </a>
       <div class="top-right">
@@ -180,12 +180,12 @@
 
     <section class="hero">
       <div class="hero-copy">
-        <div class="kicker">Compagnon numérique · Les cartes se jouent sur la table</div>
+        <div class="kicker">🎮 Mission spéciale · Les cartes se jouent sur la table</div>
         <h1>Panique dans <span>l’ordinateur !</span></h1>
-        <p>Gardez votre paquet de cartes en main. Quand une carte vous demande un code, une aide ou un suivi, utilisez cet outil avec son numéro. Arthur vous accompagne jusqu’à la sortie — avec ou sans tous les élèves.</p>
+        <p>Salut, équipe ! Garde tes cartes sur la table et découvre-les une par une. Quand tu trouves une nouvelle carte, entre son numéro ici : elle se dévoilera et rejoindra ton album. Arthur et sa copine la salamandre sont prêts à t’aider à libérer les élèves !</p>
       </div>
       <section class="session" aria-label="Chronomètre de la partie">
-        <div class="session-label"><span>Chronomètre de table</span><span id="timer-state">En pause</span></div>
+        <div class="session-label"><span>⏱ Temps de mission</span><span id="timer-state">En pause</span></div>
         <div class="clock" id="clock" aria-live="off">30:00</div>
         <div class="session-controls">
           <button class="small-button" id="timer-toggle" type="button">▶ Démarrer</button>
@@ -196,61 +196,61 @@
 
     <section class="layout" aria-label="Outils pour accompagner le jeu de cartes">
       <aside class="panel history-panel">
-        <h2 class="panel-heading">Historique des cartes utilisées</h2>
+        <h2 class="panel-heading">📚 Ton aventure</h2>
         <div class="history-list" id="history-list" aria-label="Cartes utilisées"></div>
-        <div class="note"><strong>Arthur :</strong> « Chaque fois que tu découvres une carte, elle s’ajoute à ton historique. Clique dessus pour revoir son aide. »</div>
+        <div class="note"><strong>Arthur :</strong> « Chaque carte découverte rejoint ton album ! Clique sur une ancienne carte pour revoir son illustration et son aide. »</div>
       </aside>
 
       <section class="panel catalog">
         <header class="catalog-header">
-        <h2>Les 24 cartes</h2>
-        <p class="catalog-intro">Les cartes que vous n’avez pas encore découvertes restent pixelisées. Saisissez le numéro d’une carte physique pour la révéler ici.</p>
+        <h2>Ton album de 24 cartes</h2>
+        <p class="catalog-intro">Les cartes à trouver sont cachées derrière des pixels magiques. Découvre-les avec ton paquet pour compléter ton album !</p>
         <form class="card-entry" id="card-form">
-          <label class="entry-label" for="card-number">Quelle carte venez-vous de découvrir ?</label>
+          <label class="entry-label" for="card-number">✨ Tu viens de trouver une carte ? Entre son numéro !</label>
           <div class="entry-row">
             <input class="card-number-input" id="card-number" type="number" inputmode="numeric" min="1" max="24" placeholder="1–24" required aria-describedby="entry-help">
-            <button class="primary-button" type="submit">Révéler la carte</button>
+            <button class="primary-button" type="submit">Voir ma carte !</button>
           </div>
-          <p class="entry-help" id="entry-help">Saisissez le numéro imprimé sur votre carte physique (1 à 24). Le contenu des cartes non découvertes reste masqué.</p>
+          <p class="entry-help" id="entry-help">Le numéro est écrit sur ta carte. Les cartes verrouillées resteront cachées jusqu’à ce que tu les débloques dans l’aventure.</p>
           <p class="error" id="entry-error" role="status"></p>
         </form>
         </header>
         <div class="cards-grid" id="cards-grid" aria-label="Galerie des 24 cartes"></div>
         <div class="gallery-status" id="gallery-status"><span>Cartes découvertes</span><strong>0 / 24</strong></div>
         <section class="result empty" id="card-result" aria-live="polite">
-          <div class="empty-copy"><span class="empty-icon" aria-hidden="true">🃏</span>Entrez le numéro d’une carte que vous venez de découvrir avec votre paquet physique.<br><br>Les autres cartes resteront pixelisées.</div>
+          <div class="empty-copy"><span class="empty-icon" aria-hidden="true">🦎</span>Entre le numéro d’une carte que tu viens de trouver.<br><br>Les autres cartes restent cachées jusqu’à ta prochaine découverte !</div>
         </section>
       </section>
 
       <aside class="panel tools">
         <section class="tool-section">
-          <div class="panel-heading-row"><h2 class="panel-heading">Inventaire de l’équipe</h2></div>
-          <div class="inventory" id="inventory" aria-live="polite"><div class="inventory-empty">Les objets trouvés dans le paquet apparaîtront ici.</div></div>
+          <div class="panel-heading-row"><h2 class="panel-heading">🎒 Sac à trésors</h2></div>
+          <div class="inventory" id="inventory" aria-live="polite"><div class="inventory-empty">Tes objets magiques apparaîtront ici.</div></div>
         </section>
         <section class="tool-section">
-          <h2 class="panel-heading">Élèves secourus</h2>
+          <h2 class="panel-heading">🧑‍🎓 Tes amis libérés</h2>
           <div class="students" id="students"></div>
-          <div class="note" id="student-note">La sortie est possible sans les élèves. Les sauver est un objectif bonus.</div>
+          <div class="note" id="student-note">Tu peux sortir sans eux, mais ce serait encore mieux de sauver tes amis !</div>
         </section>
         <section class="tool-section">
-          <div class="progress-label"><span>Progression de l’aventure</span><strong id="progress-value">0%</strong></div>
+          <div class="progress-label"><span>⭐ Cartes découvertes</span><strong id="progress-value">0%</strong></div>
           <div class="progress"><div class="progress-fill" id="progress-fill"></div></div>
-          <button class="hint-button" id="hint-button" type="button" style="margin-top:11px">💡 Demander un indice à Arthur</button>
+          <button class="hint-button" id="hint-button" type="button" style="margin-top:11px">💡 Arthur, un petit indice ?</button>
           <p class="hint-text" id="hint-text" aria-live="polite"></p>
-          <button class="reset-button" id="reset-button" type="button" style="margin-top:8px">↻ Réinitialiser la partie</button>
+          <button class="reset-button" id="reset-button" type="button" style="margin-top:8px">↻ Recommencer la mission</button>
         </section>
       </aside>
     </section>
 
-    <footer class="footer"><span>UnArtsup · compagnon du jeu de cartes</span><span>La page ne remplace pas le paquet physique</span></footer>
+    <footer class="footer"><span>UnArtsup · ton compagnon d’aventure 🦎</span><span>Les cartes restent dans tes mains !</span></footer>
   </main>
 
   <div class="overlay" id="overlay" hidden>
     <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-      <div class="modal-kicker">Fin de l’aventure</div>
+      <div class="modal-kicker">🎉 Mission accomplie !</div>
       <h2 id="modal-title"></h2>
       <p id="ending-text"></p>
-      <div class="modal-actions"><button class="primary-button" id="ending-close" type="button">Terminer</button></div>
+      <div class="modal-actions"><button class="primary-button" id="ending-close" type="button">Super !</button></div>
     </section>
   </div>
   <div class="sr-only" id="announcer" aria-live="assertive"></div>
@@ -266,29 +266,29 @@
 
       const cards = {
         1: { place: 0, name: "Explorateur de fichiers", kind: "Observation", text: "La carte physique montre plusieurs icônes. Trois d’entre elles cachent les chiffres 2, 4 et 1. Notez-les dans l’ordre indiqué sur la carte : le code ouvre le dossier verrouillé.", next: [2] },
-        2: { place: 0, name: "Dossier verrouillé", kind: "Code", text: "Saisissez le code d’observation trouvé sur la carte 1.", code: "241", hint: "Suivez l’ordre soleil, étoile, lune représenté sur la carte.", success: "Le dossier s’ouvre. Le plan du réseau de l’école apparaît. Vous pouvez prendre la carte 3.", unlock: 1, next: [3, 4, 5, 6] },
-        3: { place: 0, name: "Tiroir du bureau", kind: "Objet", text: "Ajoutez la clé USB à l’inventaire de l’équipe.", item: "usb", success: "Clé USB ajoutée à l’inventaire.", next: [7] },
+        2: { place: 0, name: "Dossier verrouillé", kind: "Code", text: "Entre le code d’observation trouvé sur la carte 1.", code: "241", hint: "Suis l’ordre soleil, étoile, lune représenté sur la carte.", success: "Le dossier s’ouvre. Le plan du réseau apparaît ! Tu peux découvrir la carte 3.", unlock: 1, next: [3, 4, 5, 6] },
+        3: { place: 0, name: "Tiroir du bureau", kind: "Objet", text: "Ajoute la clé USB au sac à trésors de l’équipe.", item: "usb", success: "Clé USB ajoutée au sac !", next: [7] },
         4: { place: 0, name: "Document administratif", kind: "Objet", text: "Ajoutez le document administratif à l’inventaire. Le code entouré est 4826.", item: "admin", success: "Document ajouté. Gardez-le : son code servira à la borne Salamandre." },
-        5: { place: 0, name: "Message d’Arthur", kind: "Histoire", text: "Arthur vous parle de l’autre côté de l’écran : le directeur a enfermé des élèves dans l’ordinateur pour cacher leurs résultats. Il vous aidera à les retrouver." },
+        5: { place: 0, name: "Message d’Arthur", kind: "Histoire", text: "Arthur te parle de l’autre côté de l’écran : le directeur a enfermé des élèves dans l’ordinateur pour cacher leurs résultats. Il va t’aider à les retrouver !" },
         6: { place: 0, name: "Carte bonus : étoile", kind: "Bonus", text: "Ajoutez un jeton bonus. Il permet de demander un indice supplémentaire à Arthur.", item: "star", success: "Jeton étoile ajouté. Vous pouvez l’utiliser en demandant un indice." },
         7: { place: 1, name: "Paramètres Wi-Fi", kind: "Observation", text: "La carte montre le réseau de l’établissement. Utilisez la liste des appareils pour repérer les élèves enfermés.", requires: ["usb"], success: "Le réseau est accessible. La liste des appareils connectés est révélée.", next: [8, 10, 11] },
         8: { place: 1, name: "Appareils connectés", kind: "Observation", text: "Trois élèves sont connectés : Lina, Noé et Sam. Leur présence est confirmée, mais il faudra encore les secourir.", next: [12] },
         9: { place: 1, name: "Boîtier réseau", kind: "Interaction", text: "Le port du boîtier est débranché. Il faudra le câble Ethernet pour rétablir la connexion.", requires: ["cable"], success: "Le câble Ethernet est branché. L’atelier des pixels est accessible.", unlock: 2, next: [13, 14, 15, 17] },
         10: { place: 1, name: "Câble Ethernet", kind: "Objet", text: "Ajoutez le câble Ethernet à l’inventaire.", item: "cable", success: "Câble Ethernet ajouté à l’inventaire.", next: [9] },
-        11: { place: 1, name: "Carte échec : perte de données", kind: "Échec", text: "Un indice est effacé ! Notez « donnée perdue ». Les objets et les élèves déjà secourus restent acquis. L’outil affichera que le code administratif est masqué jusqu’à l’utilisation du Filtre antivirus." },
-        12: { place: 1, name: "Lina appelle à l’aide", kind: "Sauvetage", text: "Lina est retrouvée dans le réseau. Ajoutez-la aux élèves secourus.", student: 0, success: "Lina a rejoint l’équipe." },
+        11: { place: 1, name: "Carte échec : perte de données", kind: "Échec", text: "Oh non, un indice a disparu ! Pas de panique : tes objets et tes amis restent avec toi. Le code du document est caché jusqu’à ce que tu trouves le Filtre antivirus." },
+        12: { place: 1, name: "Lina appelle à l’aide", kind: "Sauvetage", text: "Lina appelle depuis le réseau ! Ajoute-la à la liste de tes amis libérés.", student: 0, success: "Lina a rejoint l’équipe !" },
         13: { place: 2, name: "Application Loupe", kind: "Objet", text: "Ajoutez l’application Loupe à l’inventaire. Elle aide à lire les détails sur les cartes physiques.", item: "magnifier", success: "Loupe ajoutée à l’inventaire." },
         14: { place: 2, name: "Pointeur souris", kind: "Objet", text: "Ajoutez le pointeur souris à l’inventaire. Il permettra de viser une cachette minuscule.", item: "mouse", success: "Pointeur souris ajouté à l’inventaire.", next: [18] },
         15: { place: 2, name: "Filtre antivirus", kind: "Objet", text: "Ajoutez le filtre transparent à l’inventaire. Il révèle les détails cachés et restaure le code administratif si la carte échec a été tirée.", item: "filter", restore: true, success: "Filtre antivirus ajouté. Les données perdues sont restaurées." },
-        16: { place: 2, name: "Image pixelisée", kind: "Code", text: "Utilisez la Loupe et le Filtre antivirus sur la carte physique. Saisissez les quatre chiffres révélés.", code: "4826", requires: ["magnifier", "filter"], hint: "Le code à quatre chiffres est aussi indiqué sur le document administratif.", success: "Le code est bon. La salle d’arcade et la borne Salamandre sont accessibles.", unlock: 3, next: [19] },
-        17: { place: 2, name: "Carte bonus : cœur", kind: "Bonus", text: "Ajoutez un jeton bonus. Il donne droit à un indice supplémentaire d’Arthur.", item: "heart", success: "Jeton cœur ajouté. Arthur pourra vous donner un indice supplémentaire." },
-        18: { place: 2, name: "Noé est caché", kind: "Sauvetage", text: "Utilisez le pointeur souris pour trouver Noé sur la carte physique, puis ajoutez-le aux élèves secourus.", requires: ["mouse"], student: 1, success: "Noé a rejoint l’équipe." },
+        16: { place: 2, name: "Image pixelisée", kind: "Code", text: "Utilise la Loupe et le Filtre antivirus sur ta carte physique. Entre ensuite les quatre chiffres révélés.", code: "4826", requires: ["magnifier", "filter"], hint: "Le code à quatre chiffres est aussi écrit sur le document administratif.", success: "Bravo ! La salle d’arcade et la borne Salamandre sont accessibles.", unlock: 3, next: [19] },
+        17: { place: 2, name: "Carte bonus : cœur", kind: "Bonus", text: "Ajoute un jeton bonus au sac. Il te donne droit à un indice supplémentaire d’Arthur.", item: "heart", success: "Jeton cœur ajouté ! Arthur pourra te donner un indice supplémentaire." },
+        18: { place: 2, name: "Noé est caché", kind: "Sauvetage", text: "Utilise le pointeur souris pour trouver Noé sur ta carte physique, puis ajoute-le aux amis libérés.", requires: ["mouse"], student: 1, success: "Noé a rejoint l’équipe !" },
         19: { place: 3, name: "Porte de la salle d’arcade", kind: "Passage", text: "La serrure s’ouvre après la résolution de l’image pixelisée.", requiresCard: 16, success: "La salle d’arcade est accessible.", unlock: 3, next: [20] },
         20: { place: 3, name: "Borne Salamandre", kind: "Interaction", text: "La borne est le moyen de sortir de l’ordinateur. Branchez-y la clé USB et le câble Ethernet.", requires: ["usb", "cable"], success: "La borne s’allume et affiche le menu de sortie.", next: [21] },
         21: { place: 3, name: "Port USB de la borne", kind: "Interaction", text: "La clé USB et le câble sont branchés. La borne demande maintenant le code du document administratif.", requires: ["usb", "cable"], success: "La borne est prête à recevoir le code.", next: [22] },
-        22: { place: 3, name: "Console d’administration", kind: "Code", text: "Saisissez le code du document administratif.", code: "4826", requires: ["admin", "usb", "cable"], requiresRestored: true, hint: "Le code est inscrit sur le document administratif trouvé dans le bureau.", success: "La console est déverrouillée. Vous pouvez sortir maintenant ou secourir les élèves restants.", next: [23, 24] },
-        23: { place: 3, name: "Sauvegarde des élèves", kind: "Sauvetage", text: "La sauvegarde restaure les fichiers des élèves. Ajoutez Sam aux élèves secourus.", requiresCard: 22, student: 2, success: "Sam est libre. Les trois élèves sont réunis !" },
-        24: { place: 3, name: "Écran de sortie", kind: "Sortie", text: "La borne vous permet de quitter l’ordinateur. La partie peut se terminer, même si tous les élèves n’ont pas été secourus.", requiresCard: 22, ending: true }
+        22: { place: 3, name: "Console d’administration", kind: "Code", text: "Entre le code qui est écrit sur le document administratif.", code: "4826", requires: ["admin", "usb", "cable"], requiresRestored: true, hint: "Le code est inscrit sur le document administratif trouvé dans le bureau.", success: "La console est déverrouillée ! Tu peux sortir maintenant ou libérer tes amis.", next: [23, 24] },
+        23: { place: 3, name: "Sauvegarde des élèves", kind: "Sauvetage", text: "La sauvegarde restaure les fichiers des élèves. Ajoute Sam à tes amis libérés !", requiresCard: 22, student: 2, success: "Sam est libre. Toute la bande est réunie !" },
+        24: { place: 3, name: "Écran de sortie", kind: "Sortie", text: "La borne te permet de quitter l’ordinateur. Tu peux sortir même si tous les élèves ne sont pas encore secourus.", requiresCard: 22, ending: true }
       };
 
       const itemInfo = {
@@ -367,11 +367,11 @@
 
         $("#inventory").innerHTML = state.items.size
           ? [...state.items].map((key) => `<div class="inventory-item"><span class="inventory-icon" aria-hidden="true">${itemInfo[key][1]}</span>${itemInfo[key][0]}${key === "admin" && state.lostData ? " · donnée effacée" : ""}</div>`).join("")
-          : '<div class="inventory-empty">Les objets trouvés dans le paquet apparaîtront ici.</div>';
+          : '<div class="inventory-empty">Ton sac est encore vide. Trouve des objets sur tes cartes !</div>';
         $("#students").innerHTML = studentNames.map((name, index) => `<span class="student${state.students.has(index) ? " found" : ""}">${state.students.has(index) ? "✓ " : "• "}${name}</span>`).join("");
         $("#student-note").textContent = state.students.size === 3
-          ? "Toute la classe est réunie. Vous pouvez maintenant terminer l’aventure !"
-          : "La sortie est possible sans les élèves. Les sauver est un objectif bonus.";
+          ? "Tous tes amis sont réunis ! Tu peux maintenant terminer l’aventure."
+          : "Tu peux sortir sans les élèves, mais ce serait encore mieux de sauver tes amis !";
 
         const progress = Math.round((state.consulted.size / 24) * 100);
         $("#progress-value").textContent = `${progress}%`;
@@ -402,39 +402,39 @@
         $("#card-number").value = id;
         message("");
         if (state.ended) {
-          showResult(card, "La partie est terminée. Réinitialisez la partie pour recommencer.");
+          showResult(card, "La mission est terminée ! Appuie sur « Recommencer la mission » si tu veux rejouer.");
           return;
         }
         if (!state.availableCards.has(id)) {
           message(`La carte ${id} est encore verrouillée. Réalisez d’abord les actions précédentes pour la débloquer.`);
           $("#card-result").classList.add("empty");
-          $("#card-result").innerHTML = '<div class="empty-copy"><span class="empty-icon" aria-hidden="true">🔒</span>Cette carte est encore pixelisée.<br><br>Continuez votre aventure avec les cartes déjà débloquées.</div>';
+          $("#card-result").innerHTML = '<div class="empty-copy"><span class="empty-icon" aria-hidden="true">🔒</span>Cette carte est encore cachée !<br><br>Continue l’aventure pour la débloquer.</div>';
           return;
         }
         state.consulted.add(id);
         if (card.place > state.unlocked) {
-          showResult(card, "Ce lieu n’est pas encore accessible. Continuez l’aventure avec les cartes que vous avez déjà révélées.");
+          showResult(card, "Tu n’as pas encore découvert ce lieu. Continue l’aventure avec les cartes déjà débloquées.");
           render();
           return;
         }
         if (state.resolved.has(id)) {
-          showResult(card, "Cette carte a déjà été consultée et son effet est validé. Reprenez votre paquet physique pour continuer.");
+          showResult(card, "Tu as déjà joué cette carte ! Reprends ton paquet pour continuer l’aventure.");
           render();
           return;
         }
         const missing = (card.requires || []).filter((key) => !state.items.has(key));
         if (missing.length) {
-          showResult(card, `Cette carte demande un objet que l’équipe n’a pas encore trouvé : ${missing.map((key) => itemInfo[key][0]).join(", ")}. Gardez-la de côté et poursuivez avec le paquet.`);
+          showResult(card, `Il manque à ton équipe : ${missing.map((key) => itemInfo[key][0]).join(", ")}. Garde cette carte et continue l’aventure !`);
           render();
           return;
         }
         if (card.requiresCard && !state.resolved.has(card.requiresCard)) {
-          showResult(card, `Résolvez d’abord la carte ${card.requiresCard} avec votre paquet physique.`);
+          showResult(card, `Joue d’abord la carte ${card.requiresCard} avec ton paquet physique.`);
           render();
           return;
         }
         if (card.requiresRestored && state.lostData) {
-          showResult(card, "Le code du document a été effacé. Trouvez le Filtre antivirus (carte 15) pour restaurer cette donnée.");
+          showResult(card, "Oh non, le code a disparu ! Trouve le Filtre antivirus (carte 15) pour le faire réapparaître.");
           render();
           return;
         }
@@ -445,7 +445,7 @@
             const answer = $("#answer-input").value.trim().replace(/\s/g, "").toLowerCase();
             const feedback = $("#answer-feedback");
             if (answer !== card.code.toLowerCase()) {
-              feedback.textContent = card.hint ? "Ce n’est pas le bon code. " + card.hint : "Ce n’est pas le bon code. Regardez à nouveau les cartes et les objets de l’équipe.";
+              feedback.textContent = card.hint ? "Oups, ce n’est pas le bon code ! " + card.hint : "Oups, ce n’est pas le bon code ! Regarde encore tes cartes et tes objets.";
               return;
             }
             feedback.textContent = card.success;
@@ -467,24 +467,24 @@
           if (card.item === "star" || card.item === "heart") state.bonusHints++;
           if (card.restore && state.lostData) state.lostData = false;
           if (newlyFound) text += `\n\n${card.success}`;
-          else text += "\n\nCet objet est déjà dans votre inventaire.";
+          else text += "\n\nCet objet est déjà dans ton sac à trésors.";
         }
         if (card.student !== undefined) {
           const newlyRescued = !state.students.has(card.student);
           state.students.add(card.student);
           if (newlyRescued) text += `\n\n${card.success}`;
-          else text += `\n\n${studentNames[card.student]} est déjà avec vous.`;
+          else text += `\n\n${studentNames[card.student]} est déjà avec toi.`;
         }
         if (card.ending) {
           state.ended = true;
           resolveCard(id);
           render();
-          $("#modal-title").textContent = state.students.size === 3 ? "Toute la classe est libre !" : state.students.size ? "Vous êtes sortis ensemble !" : "Vous avez trouvé la sortie !";
+          $("#modal-title").textContent = state.students.size === 3 ? "Toute la bande est libre !" : state.students.size ? "Vous êtes sortis ensemble !" : "Tu as trouvé la sortie !";
           $("#ending-text").textContent = state.students.size === 3
-            ? "Lina, Noé et Sam quittent l’ordinateur avec vous. Arthur vous attend de l’autre côté de l’écran. Bravo d’avoir sauvé tout le monde !"
+            ? "Lina, Noé et Sam quittent l’ordinateur avec toi. Arthur vous attend de l’autre côté de l’écran. Bravo, toute la bande est sauvée !"
             : state.students.size
-              ? `Vous sortez de l’ordinateur avec ${state.students.size} élève${state.students.size > 1 ? "s" : ""}. Arthur vous attend de l’autre côté de l’écran.`
-              : "La borne Salamandre vous ramène dans le monde réel. Vous pouvez rejouer pour secourir les élèves oubliés.";
+              ? `Tu sors de l’ordinateur avec ${state.students.size} ami${state.students.size > 1 ? "s" : ""}. Arthur vous attend de l’autre côté de l’écran.`
+              : "La borne Salamandre te ramène dans le monde réel. Tu pourras rejouer pour sauver les amis oubliés !";
           overlay.hidden = false;
         } else {
           resolveCard(id);
@@ -498,7 +498,7 @@
         event.preventDefault();
         const value = Number($("#card-number").value);
         if (!Number.isInteger(value) || !cards[value]) {
-          message("Saisissez un numéro de carte entre 1 et 24.");
+          message("Entre un numéro de carte entre 1 et 24.");
           return;
         }
         showCard(value);
@@ -509,7 +509,7 @@
         const base = hints[hintCard ? hintCard.place : 0];
         const bonus = state.bonusHints > 0;
         if (bonus) state.bonusHints--;
-        $("#hint-text").textContent = `Arthur : « ${base}${bonus ? " Vous utilisez un jeton bonus." : ""} »`;
+        $("#hint-text").textContent = `Arthur : « ${base}${bonus ? " Tu utilises un jeton bonus !" : ""} »`;
         render();
       });
 
@@ -561,7 +561,7 @@
         $("#card-number").value = "";
         $("#entry-error").textContent = "";
         $("#card-result").classList.add("empty");
-        $("#card-result").innerHTML = '<div class="empty-copy"><span class="empty-icon" aria-hidden="true">🃏</span>Quand une carte vous renvoie vers l’outil, entrez son numéro ci-dessus.<br><br>Votre aventure et les cartes restent sur la table.</div>';
+        $("#card-result").innerHTML = '<div class="empty-copy"><span class="empty-icon" aria-hidden="true">🦎</span>Entre le numéro d’une carte que tu viens de trouver.<br><br>Les autres cartes restent cachées jusqu’à ta prochaine découverte !</div>';
         overlay.hidden = true;
         render();
       });
