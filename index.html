@@ -676,14 +676,110 @@
       .taskbar .start-button { min-width: 80px; font-size: 14px; }
       .cards-toggle { min-width: 90px; font-size: 12px; }
     }
+    .desktop-icons { grid-auto-rows: 84px; }
+    .desktop-icon { position: relative; z-index: 1; }
+    .desktop-icon-art { width: 40px; height: 40px; shape-rendering: crispEdges; image-rendering: pixelated; }
+    .physical-card-preview {
+      position: absolute; z-index: 2; top: 14px; right: 14px; display: grid; width: 108px; min-height: 136px;
+      justify-items: center; align-content: center; gap: 5px; border: 4px solid #fff; background: #d7e8f7;
+      padding: 6px; color: #173c70; cursor: pointer; box-shadow: 4px 4px 0 #174b88;
+    }
+    .physical-card-preview:hover { background: #fff3bd; }
+    .physical-card-mini { display: grid; width: 62px; height: 82px; place-items: center; border: 3px solid #174b88; background: repeating-linear-gradient(0deg,#fff 0 6px,#e6f0fa 6px 12px); color: #174b88; font-size: 28px; image-rendering: pixelated; }
+    .physical-card-label { max-width: 100%; font: 700 10px/1.2 Tahoma,Arial,sans-serif; text-align: center; }
+    .physical-card-viewer[hidden] { display: none; }
+    .physical-card-viewer {
+      position: absolute; z-index: 7; top: 5vh; left: 50%; display: grid; width: min(390px,calc(100vw - 28px));
+      gap: 10px; transform: translateX(-50%); border: 4px solid #174b88; background: #ece9d8;
+      padding: 12px; box-shadow: 6px 6px 0 rgba(5,31,76,.75);
+    }
+    .physical-card-viewer-title { margin: 0; color: #173c70; font: 700 14px Tahoma,Arial,sans-serif; }
+    .physical-card-viewer-stage { display: grid; min-height: 300px; place-items: center; overflow: hidden; border: 3px solid #174b88; background: #b6d7ef; }
+    .physical-card-art {
+      display: grid; width: 176px; height: 248px; align-content: center; justify-items: center; gap: 14px;
+      border: 6px solid #174b88; background: repeating-linear-gradient(0deg,#fff 0 8px,#e6f0fa 8px 16px);
+      color: #173c70; text-align: center; transform-origin: center; box-shadow: 6px 6px 0 #668bac;
+    }
+    .physical-card-art-icon { font: 56px/1 "Segoe UI Symbol",sans-serif; image-rendering: pixelated; }
+    .physical-card-art-name { padding: 0 8px; font: 700 13px/1.3 Tahoma,Arial,sans-serif; }
+    .physical-card-placeholder { max-width: 140px; font: 11px/1.35 Tahoma,Arial,sans-serif; }
+    .physical-card-controls { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+    .physical-card-controls button {
+      min-height: 36px; border: 2px solid #174b88; background: linear-gradient(#fff,#d5e5f4);
+      padding: 5px 9px; color: #173c70; font: 700 12px Tahoma,Arial,sans-serif; cursor: pointer;
+    }
+    .physical-card-controls button:hover { background: #fff3bd; }
+    .physical-card-close { justify-self: end; }
+    .folder-code-form { display: grid; gap: 8px; margin-top: 12px; border: 2px solid #9eb9d5; background: #edf4fb; padding: 12px; }
+    .folder-code-form label { color: #173c70; font: 700 13px Tahoma,Arial,sans-serif; }
+    .folder-code-row { display: flex; gap: 8px; }
+    .folder-code-input { width: 110px; min-height: 38px; border: 2px solid #7d9fbd; background: white; padding: 5px 8px; color: #173c70; font: 700 18px monospace; letter-spacing: .15em; }
+    .folder-code-feedback { min-height: 18px; margin: 0; color: #9c2525; font: 12px/1.4 Tahoma,Arial,sans-serif; }
+    .folder-code-feedback.success { color: #26722b; }
+    .folder-file-button { display: flex; width: 100%; align-items: center; gap: 10px; border: 2px solid #afc5db; background: #f5f9fe; padding: 9px; color: #173c70; text-align: left; cursor: pointer; }
+    .folder-file-button:hover { border-color: #347dc2; background: #e7f3ff; }
+    .folder-file-icon { font-size: 24px; }
+    .pixel-art, .pixel-art * { border-radius: 0 !important; font-family: "Courier New",monospace !important; }
+    .pixel-art svg, .pixel-art img, .pixel-art canvas { image-rendering: pixelated; }
+    .pixel-art .desktop-wallpaper {
+      background-color: #55b8e3;
+      background-image: linear-gradient(#168bd3 0 58%,#72c6ee 58% 70%,#b4e3f7 70% 73%,#77b83c 73% 100%),
+        repeating-linear-gradient(0deg,transparent 0 7px,rgba(255,255,255,.045) 7px 8px),
+        repeating-linear-gradient(90deg,transparent 0 7px,rgba(18,73,125,.04) 7px 8px);
+      background-blend-mode: normal,screen,multiply;
+    }
+    .pixel-art .desktop-wallpaper::before { background: repeating-linear-gradient(0deg,transparent 0 7px,rgba(255,255,255,.08) 7px 8px); opacity: .35; }
+    .pixel-art .desktop-wallpaper::after { border-radius: 0; background: linear-gradient(#a5ce52 0 20%,#6eae36 20% 65%,#438a2a 65%); box-shadow: -16px -8px 0 -8px #76b63c; }
+    .pixel-art .desktop-icon { font-family: "Courier New",monospace; text-shadow: 2px 2px 0 #123b70; }
+    .pixel-art .computer-window { border: 4px solid #174b88; border-radius: 0; box-shadow: 5px 5px 0 rgba(0,24,76,.55); }
+    .pixel-art .window-titlebar { border-radius: 0; background: repeating-linear-gradient(90deg,#4b91df 0 8px,#2875ce 8px 16px,#1259b5 16px 24px); font-family: "Courier New",monospace; }
+    .pixel-art .window-control { border: 2px solid #174b88; border-radius: 0; box-shadow: 2px 2px 0 #174b88; }
+    .pixel-art .scene-screen, .pixel-art .scene-item, .pixel-art .preview-action { border-radius: 0; box-shadow: 3px 3px 0 rgba(23,75,136,.28); }
+    .pixel-art .scene-item-icon, .pixel-art .physical-card-art-icon { text-shadow: 2px 2px 0 #174b88; }
+    .pixel-art .taskbar { border-top: 3px solid #64a7e4; background: repeating-linear-gradient(90deg,#3989db 0 8px,#1969c2 8px 16px,#0755ad 16px 24px); }
+    .pixel-art .taskbar .start-button { border: 2px solid #286d28; border-radius: 0; box-shadow: 2px 2px 0 #174c8b; }
+    .pixel-art .cards-menu { border: 4px solid #195cac; border-radius: 0; box-shadow: 5px -5px 0 rgba(0,0,0,.32); }
+    .pixel-art .cards-menu-header { border-radius: 0; background: repeating-linear-gradient(90deg,#4b91df 0 8px,#1761b5 8px 16px); }
+    .pixel-art .card-tile, .pixel-art .history-entry, .pixel-art .menu-bottom > div { border-radius: 0; }
+    .pixel-art .desktop-hint { border: 3px solid #174b88; border-radius: 0; box-shadow: 4px 4px 0 rgba(5,31,76,.5); }
+    @media (max-width: 640px) {
+      .physical-card-preview { top: 8px; right: 8px; width: 82px; min-height: 104px; }
+      .physical-card-mini { width: 46px; height: 60px; font-size: 21px; }
+      .physical-card-label { font-size: 8px; }
+      .physical-card-viewer { top: 2vh; }
+      .physical-card-viewer-stage { min-height: 245px; }
+      .physical-card-art { width: 144px; height: 204px; }
+      .desktop-icons { grid-auto-rows: 76px; }
+    }
   </style>
 </head>
 <body>
-  <main class="computer" id="computer">
+  <main class="computer pixel-art" id="computer">
     <div class="desktop-wallpaper" id="scene-display" aria-label="Bureau de l’ordinateur">
       <div class="desktop-icons" id="desktop-icons"></div>
+      <button class="physical-card-preview" id="physical-card-preview" type="button" aria-controls="physical-card-viewer" aria-expanded="false" aria-label="Afficher l’aperçu de la carte physique consultée">
+        <span class="physical-card-mini" id="physical-card-mini" aria-hidden="true">🖥️</span>
+        <span class="physical-card-label" id="physical-card-label">Carte 01 · Le bureau</span>
+      </button>
       <section class="computer-window" id="computer-window" aria-live="polite"></section>
     </div>
+    <section class="physical-card-viewer" id="physical-card-viewer" aria-label="Aperçu agrandi de la carte" hidden>
+      <button class="physical-card-close" id="physical-card-close" type="button" aria-label="Fermer l’aperçu">✕ Fermer</button>
+      <h2 class="physical-card-viewer-title" id="physical-card-viewer-title">Carte 01 · Le bureau</h2>
+      <div class="physical-card-viewer-stage">
+        <div class="physical-card-art" id="physical-card-art">
+          <span class="physical-card-art-icon" id="physical-card-art-icon" aria-hidden="true">🖥️</span>
+          <strong class="physical-card-art-name" id="physical-card-art-name">Le bureau</strong>
+          <span class="physical-card-placeholder">Emplacement provisoire — image de la carte physique à ajouter</span>
+        </div>
+      </div>
+      <div class="physical-card-controls" aria-label="Contrôles de l’aperçu">
+        <button id="card-zoom-out" type="button" aria-label="Dézoomer">− Zoom</button>
+        <button id="card-zoom-in" type="button" aria-label="Zoomer">+ Zoom</button>
+        <button id="card-rotate-left" type="button" aria-label="Tourner à gauche">↶ Tourner</button>
+        <button id="card-rotate-right" type="button" aria-label="Tourner à droite">↷ Tourner</button>
+      </div>
+    </section>
     <div class="desktop-hint" id="hint-text" aria-live="polite"></div>
     <nav class="taskbar" aria-label="Barre des tâches">
       <button class="taskbar-button start-button" id="start-button" type="button" aria-label="Ouvrir les outils de la mission" title="Outils de la mission"><span class="xp-logo" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Démarrer</button>
@@ -953,17 +1049,37 @@
       const studentNames = ["Noam", "Julien", "Liam", "Loan"];
       const state = {
         consulted: new Set(), hintLevels: new Map(), currentCard: 1,
-        timerSeconds: 0, timerRunning: true, timerId: null, windowOpen: true
+        timerSeconds: 0, timerRunning: true, timerId: null, windowOpen: true,
+        activeWindow: null, folderUnlocked: false, physicalCardOpen: false,
+        cardZoom: 1, cardRotation: 0
       };
       const $ = (selector) => document.querySelector(selector);
 
       function renderScene(id) {
-        const scene = sceneVisuals[id];
+        const baseScene = sceneVisuals[id];
+        const scene = id === 3 && state.folderUnlocked
+          ? {
+              type: "window", title: "Dossier de l’école", tag: "Déverrouillé",
+              items: [
+                ["📄", "Document administratif", "Indices pour la suite"],
+                ["🔑", "Fichiers de la clé USB", "Informations à consulter"],
+                ["📊", "Tableau", "Données de l’établissement"]
+              ]
+            }
+          : baseScene;
         const classes = {
           desktop: "scene-desktop", window: "scene-window", sheet: "scene-sheet",
           messages: "scene-messages", alert: "scene-alert", console: "scene-console"
         };
-        const items = scene.items.map(([icon, name, detail]) => {
+        const items = id === 3 && state.folderUnlocked
+          ? [
+              ["📄", "Document administratif", "Indices pour la suite", 4],
+              ["🔑", "Fichiers de la clé USB", "Informations à consulter", 4],
+              ["📊", "Tableau", "Données de l’établissement", 6]
+            ].map(([icon, name, detail, cardId]) =>
+              `<button class="folder-file-button" type="button" data-folder-card="${cardId}"><span class="folder-file-icon" aria-hidden="true">${icon}</span><span><strong>${name}</strong><br>${detail}</span></button>`
+            ).join("")
+          : scene.items.map(([icon, name, detail]) => {
           return `<div class="scene-item"><span class="scene-item-icon" aria-hidden="true">${icon}</span><span class="scene-item-name">${name}</span><span class="scene-item-detail">${detail}</span></div>`;
         }).join("");
         const modeTag = scene.tag;
@@ -972,7 +1088,7 @@
         const appIcon = cardVisuals[id][0];
         $("#computer-window").classList.toggle("home-window", id === 1 && !state.windowOpen);
         $("#computer-window").style.display = state.windowOpen ? "flex" : "none";
-        $("#computer-window").innerHTML = `<header class="window-titlebar"><span class="window-app-icon" aria-hidden="true">${appIcon}</span><span class="window-title">${scene.title}</span><div class="window-controls"><button class="window-control" type="button" data-window-minimize aria-label="Réduire la fenêtre">—</button><button class="window-control close" type="button" data-window-close aria-label="Fermer la fenêtre">×</button></div></header><div class="window-content"><div class="scene-screen ${classes[scene.type]}"><div class="scene-chrome"><span class="scene-window-title">${scene.title}</span><span class="scene-chip">${modeTag}</span></div><div class="scene-body">${items}</div></div><div class="preview-action" id="preview-action" aria-live="polite"><h3 class="preview-card-title">Carte ${String(id).padStart(2, "0")} · ${card.name}</h3><p class="preview-card-copy">${card.text}</p></div></div>`;
+        $("#computer-window").innerHTML = `<header class="window-titlebar"><span class="window-app-icon" aria-hidden="true">${appIcon}</span><span class="window-title">${scene.title}</span><div class="window-controls"><button class="window-control" type="button" data-window-minimize aria-label="Réduire la fenêtre">—</button><button class="window-control close" type="button" data-window-close aria-label="Fermer la fenêtre">×</button></div></header><div class="window-content"><div class="scene-screen ${classes[scene.type]}"><div class="scene-chrome"><span class="scene-window-title">${scene.title}</span><span class="scene-chip">${modeTag}</span></div><div class="scene-body">${items}</div></div><div class="preview-action" id="preview-action" aria-live="polite"><h3 class="preview-card-title">Carte ${String(id).padStart(2, "0")} · ${card.name}</h3><p class="preview-card-copy">${id === 3 && state.folderUnlocked ? "Le dossier est déverrouillé. Consulte les fichiers disponibles." : card.text}</p></div></div>`;
       }
 
       function render() {
@@ -1023,32 +1139,81 @@
         $("#clock").textContent = `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
       }
 
+      function desktopIconSvg(sprite) {
+        const sprites = {
+          computer: '<rect x="2" y="2" width="12" height="9" fill="#c6e8ff"/><rect x="3" y="3" width="10" height="7" fill="#3ba5e8"/><rect x="6" y="11" width="4" height="2" fill="#8a6547"/><rect x="4" y="13" width="8" height="2" fill="#d2d7df"/>',
+          wifi: '<rect x="7" y="2" width="2" height="2" fill="#fff"/><rect x="5" y="4" width="6" height="2" fill="#fff"/><rect x="3" y="6" width="10" height="2" fill="#fff"/><rect x="5" y="8" width="6" height="2" fill="#fff"/><rect x="7" y="11" width="2" height="2" fill="#fff"/><rect x="7" y="14" width="2" height="2" fill="#ffe45c"/>',
+          folder: '<rect x="1" y="4" width="6" height="3" fill="#ffe783"/><rect x="1" y="6" width="14" height="8" fill="#ffca45"/><rect x="2" y="7" width="12" height="6" fill="#f3a927"/><rect x="2" y="7" width="12" height="2" fill="#ffe783"/>',
+          locked: '<rect x="4" y="1" width="8" height="8" fill="#d7e8f7"/><rect x="6" y="3" width="4" height="5" fill="#41658c"/><rect x="2" y="8" width="12" height="7" fill="#f3ac35"/><rect x="7" y="10" width="2" height="3" fill="#5f3d28"/>',
+          usb: '<rect x="7" y="2" width="3" height="9" fill="#e1ae2b"/><rect x="5" y="9" width="7" height="4" fill="#f6c642"/><rect x="6" y="13" width="5" height="2" fill="#ac7623"/><rect x="5" y="1" width="2" height="2" fill="#eee"/><rect x="10" y="1" width="2" height="2" fill="#eee"/>',
+          mail: '<rect x="1" y="4" width="14" height="10" fill="#f2f1e8"/><rect x="2" y="5" width="12" height="8" fill="#d8eaff"/><rect x="2" y="5" width="6" height="5" fill="#92b9de"/><rect x="8" y="5" width="6" height="5" fill="#92b9de"/><rect x="6" y="9" width="4" height="2" fill="#fff"/>',
+          trash: '<rect x="4" y="3" width="8" height="2" fill="#d8e1e9"/><rect x="3" y="5" width="10" height="10" fill="#b9c9d8"/><rect x="5" y="6" width="2" height="7" fill="#71879b"/><rect x="9" y="6" width="2" height="7" fill="#71879b"/><rect x="6" y="1" width="4" height="2" fill="#eef5fb"/>'
+        };
+        return `<svg class="desktop-icon-art" viewBox="0 0 16 16" aria-hidden="true" shape-rendering="crispEdges">${sprites[sprite]}</svg>`;
+      }
+
       function renderDesktopIcons() {
         const shortcuts = [
-          { icon: "🖥️", label: "Ce PC", action: "card", cardId: 2 },
-          { icon: "📶", label: "Paramètres Wi-Fi", action: "card", cardId: 2 },
-          { icon: "📁", label: "Explorateur de fichiers", action: "explorer" },
-          { icon: "🔒", label: "Dossier verrouillé", action: "card", cardId: 3 },
-          { icon: "🔑", label: "Clé USB", action: "card", cardId: 4 },
-          { icon: "✉️", label: "Messages", action: "card", cardId: 5 },
-          { icon: "🗑️", label: "Corbeille", action: "trash", trash: true }
+          { sprite: "trash", label: "Corbeille", action: "trash", windowKey: "trash", trash: true },
+          { sprite: "computer", label: "Ce PC", action: "card", cardId: 2, windowKey: "card:2" },
+          { sprite: "wifi", label: "Paramètres Wi-Fi", action: "card", cardId: 2, windowKey: "card:2" },
+          { sprite: "folder", label: "Explorateur de fichiers", action: "explorer", windowKey: "explorer" },
+          { sprite: "locked", label: "Dossier verrouillé", action: "card", cardId: 3, windowKey: "card:3" },
+          { sprite: "usb", label: "Clé USB", action: "card", cardId: 4, windowKey: "card:4" },
+          { sprite: "mail", label: "Messages", action: "card", cardId: 5, windowKey: "card:5" }
         ];
-        $("#desktop-icons").innerHTML = shortcuts.map(({ icon, label, action, cardId, trash }) => {
-          return `<button class="desktop-icon${trash ? " trash-icon" : ""}" type="button" data-desktop-action="${action}"${cardId ? ` data-card-id="${cardId}"` : ""} aria-label="${label}" title="Ouvrir : ${label}"><span class="desktop-icon-glyph" aria-hidden="true">${icon}</span><span class="desktop-icon-label">${label}</span></button>`;
+        $("#desktop-icons").innerHTML = shortcuts.map(({ sprite, label, action, cardId, windowKey, trash }) => {
+          const active = state.windowOpen && state.activeWindow === windowKey;
+          return `<button class="desktop-icon${trash ? " trash-icon" : ""}" type="button" data-desktop-action="${action}" data-window-key="${windowKey}"${cardId ? ` data-card-id="${cardId}"` : ""} aria-pressed="${active}" aria-label="${label}" title="Ouvrir ou fermer : ${label}">${desktopIconSvg(sprite)}<span class="desktop-icon-label">${label}</span></button>`;
         }).join("");
+      }
+
+      function closeDesktopWindow() {
+        state.windowOpen = false;
+        state.activeWindow = null;
+        $("#computer-window").style.display = "none";
+        renderDesktopIcons();
+      }
+
+      function toggleDesktopWindow(key, openWindow) {
+        if (state.windowOpen && state.activeWindow === key) {
+          closeDesktopWindow();
+          return;
+        }
+        openWindow();
       }
 
       function openFileExplorer() {
         state.windowOpen = true;
+        state.activeWindow = "explorer";
         $("#computer-window").style.display = "flex";
         $("#computer-window").innerHTML = `<header class="window-titlebar"><span class="window-app-icon" aria-hidden="true">📁</span><span class="window-title">Explorateur de fichiers</span><div class="window-controls"><button class="window-control" type="button" data-window-minimize aria-label="Réduire la fenêtre">—</button><button class="window-control close" type="button" data-window-close aria-label="Fermer la fenêtre">×</button></div></header><div class="explorer-toolbar"><span>←</span><span>→</span><span class="crumb">🖥️ Ce PC</span><span>›</span><span class="crumb">Explorateur de fichiers</span></div><div class="explorer-files"><button class="explorer-folder" type="button" data-desktop-action="school-folder" aria-label="Ouvrir le dossier de l’école"><span class="explorer-folder-icon" aria-hidden="true">📁</span><span class="explorer-folder-name">Dossier de l’école</span><span class="explorer-folder-detail">Fichiers protégés</span></button></div>`;
       }
 
       function openTrash() {
         state.windowOpen = true;
+        state.activeWindow = "trash";
         $("#computer-window").style.display = "flex";
         $("#computer-window").innerHTML = `<header class="window-titlebar"><span class="window-app-icon" aria-hidden="true">🗑️</span><span class="window-title">Corbeille</span><div class="window-controls"><button class="window-control close" type="button" data-window-close aria-label="Fermer la fenêtre">×</button></div></header><div class="window-content"><div class="trash-message"><span class="trash-big" aria-hidden="true">🗑️</span>Ho mais tu es tombé dans la poubelle ! C’est sale en plus… Ce n’était pas le bon choix !<br><strong>Reviens sur le bureau pour continuer l’aventure.</strong></div><button class="primary-button" type="button" data-window-close>Retour au bureau</button></div>`;
         $("#announcer").textContent = "Ho mais tu es tombé dans la poubelle ! C’est sale en plus… Ce n’était pas le bon choix ! Reviens sur le bureau pour continuer l’aventure.";
+      }
+
+      function updatePhysicalCardPreview(id) {
+        const card = cards[id];
+        if (!card) return;
+        const number = String(id).padStart(2, "0");
+        $("#physical-card-mini").textContent = cardVisuals[id][0];
+        $("#physical-card-label").textContent = `Carte ${number} · ${card.name}`;
+        $("#physical-card-viewer-title").textContent = `Carte ${number} · ${card.name}`;
+        $("#physical-card-art-icon").textContent = cardVisuals[id][0];
+        $("#physical-card-art-name").textContent = card.name;
+        $("#physical-card-art").style.transform = `scale(${state.cardZoom}) rotate(${state.cardRotation}deg)`;
+      }
+
+      function togglePhysicalCardViewer(open) {
+        state.physicalCardOpen = open;
+        $("#physical-card-viewer").hidden = !open;
+        $("#physical-card-preview").setAttribute("aria-expanded", String(open));
       }
 
       function setCardsMenu(open) {
@@ -1063,7 +1228,13 @@
         const voiceButton = "speechSynthesis" in window
           ? `<button class="voice-button" type="button" data-read-card="${id}">🔊 Écouter avec Arthur</button>`
           : "";
-        $("#preview-action").innerHTML = `<h3 class="preview-card-title">Carte ${String(id).padStart(2, "0")} · ${card.name}</h3><p class="preview-card-copy">${card.text}</p>${voiceButton}`;
+        const cardText = id === 3 && state.folderUnlocked
+          ? "Le dossier est déverrouillé. Consulte les fichiers disponibles."
+          : card.text;
+        const codeForm = id === 3 && !state.folderUnlocked
+          ? `<form class="folder-code-form" id="folder-code-form"><label for="folder-code">Entre le code trouvé sur les cartes physiques</label><div class="folder-code-row"><input class="folder-code-input" id="folder-code" type="password" inputmode="numeric" pattern="[0-9]{3}" maxlength="3" autocomplete="off" aria-describedby="folder-code-feedback" required><button class="primary-button" type="submit">Déverrouiller</button></div><p class="folder-code-feedback" id="folder-code-feedback" role="status"></p></form>`
+          : "";
+        $("#preview-action").innerHTML = `<h3 class="preview-card-title">Carte ${String(id).padStart(2, "0")} · ${card.name}</h3><p class="preview-card-copy">${cardText}</p>${codeForm}${voiceButton}`;
       }
 
       function message(text) {
@@ -1083,20 +1254,22 @@
         if (desktopAction) {
           const action = desktopAction.dataset.desktopAction;
           if (action === "explorer") {
-            openFileExplorer();
+            toggleDesktopWindow("explorer", openFileExplorer);
+            renderDesktopIcons();
             return;
           }
           if (action === "trash") {
-            openTrash();
+            toggleDesktopWindow("trash", openTrash);
+            renderDesktopIcons();
             return;
           }
           if (action === "school-folder") {
-            showCard(3);
+            toggleDesktopWindow("card:3", () => showCard(3));
             return;
           }
           if (action === "card") {
             const id = Number(desktopAction.dataset.cardId);
-            showCard(id);
+            toggleDesktopWindow(`card:${id}`, () => showCard(id));
             return;
           }
         }
@@ -1106,8 +1279,12 @@
           return;
         }
         if (event.target.closest("[data-window-close], [data-window-minimize]")) {
-          state.windowOpen = false;
-          $("#computer-window").style.display = "none";
+          closeDesktopWindow();
+          return;
+        }
+        const folderCard = event.target.closest("[data-folder-card]");
+        if (folderCard) {
+          showCard(Number(folderCard.dataset.folderCard));
           return;
         }
         const button = event.target.closest("[data-read-card]");
@@ -1122,14 +1299,55 @@
         if (!card) return;
         if ("speechSynthesis" in window) window.speechSynthesis.cancel();
         state.currentCard = id;
+        state.activeWindow = `card:${id}`;
         state.windowOpen = true;
         $("#hint-text").textContent = "";
         $("#card-number").value = id;
         message("");
         state.consulted.add(id);
+        updatePhysicalCardPreview(id);
         showResult(card);
         render();
       }
+
+      $("#computer-window").addEventListener("submit", (event) => {
+        if (event.target.id !== "folder-code-form") return;
+        event.preventDefault();
+        const input = $("#folder-code");
+        const feedback = $("#folder-code-feedback");
+        if (input.value !== "241") {
+          feedback.classList.remove("success");
+          feedback.textContent = "Ce code ne fonctionne pas. Vérifie les indices sur les cartes.";
+          input.select();
+          return;
+        }
+        state.folderUnlocked = true;
+        feedback.classList.add("success");
+        feedback.textContent = "Bravo ! Le dossier de l’école est déverrouillé.";
+        showResult(cards[3]);
+        render();
+      });
+
+      $("#physical-card-preview").addEventListener("click", () => {
+        togglePhysicalCardViewer(!state.physicalCardOpen);
+      });
+      $("#physical-card-close").addEventListener("click", () => togglePhysicalCardViewer(false));
+      $("#card-zoom-in").addEventListener("click", () => {
+        state.cardZoom = Math.min(2, state.cardZoom + 0.15);
+        updatePhysicalCardPreview(state.currentCard);
+      });
+      $("#card-zoom-out").addEventListener("click", () => {
+        state.cardZoom = Math.max(0.55, state.cardZoom - 0.15);
+        updatePhysicalCardPreview(state.currentCard);
+      });
+      $("#card-rotate-left").addEventListener("click", () => {
+        state.cardRotation -= 90;
+        updatePhysicalCardPreview(state.currentCard);
+      });
+      $("#card-rotate-right").addEventListener("click", () => {
+        state.cardRotation += 90;
+        updatePhysicalCardPreview(state.currentCard);
+      });
 
       $("#card-form").addEventListener("submit", (event) => {
         event.preventDefault();
@@ -1180,6 +1398,10 @@
         state.consulted.clear();
         state.hintLevels.clear();
         state.currentCard = 1;
+        state.activeWindow = null;
+        state.folderUnlocked = false;
+        state.cardZoom = 1;
+        state.cardRotation = 0;
         state.windowOpen = true;
         state.timerRunning = true;
         state.timerSeconds = 0;
@@ -1187,6 +1409,7 @@
         $("#hint-text").textContent = "";
         $("#card-number").value = "";
         $("#entry-error").textContent = "";
+        togglePhysicalCardViewer(false);
         setCardsMenu(false);
         showCard(1);
       });
@@ -1194,6 +1417,7 @@
       document.addEventListener("keydown", (event) => {
         if (event.key === "Escape") {
           setCardsMenu(false);
+          togglePhysicalCardViewer(false);
         }
       });
 
