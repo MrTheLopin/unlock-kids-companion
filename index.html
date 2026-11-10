@@ -51,15 +51,16 @@
 
     .layout { display: grid; grid-template-columns: 220px minmax(0, 1fr) 235px; align-items: start; gap: 14px; }
     .panel { border: 1px solid var(--line); border-radius: 16px; background: rgba(25,35,61,.9); }
-    .places, .tools { padding: 15px; }
+    .history-panel, .tools { padding: 15px; }
     .panel-heading { margin: 0 0 12px; color: var(--muted); font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
-    .place-list { display: grid; gap: 7px; }
-    .place-button { width: 100%; gap: 9px; border: 1px solid transparent; border-radius: 11px; background: transparent; padding: 9px; color: #c0cae4; text-align: left; cursor: pointer; }
-    .place-button:hover:not(:disabled), .place-button.active { border-color: rgba(168,149,255,.3); background: rgba(168,149,255,.12); color: var(--ink); }
-    .place-button:disabled { opacity: .43; cursor: not-allowed; }
-    .place-icon { display: grid; width: 31px; height: 31px; flex: 0 0 31px; place-items: center; border-radius: 9px; background: rgba(255,255,255,.07); font-size: 16px; }
-    .place-name { display: block; font-size: 10px; font-weight: 700; }
-    .place-sub { display: block; margin-top: 3px; color: var(--muted); font-size: 8px; }
+    .history-list { display: grid; max-height: 490px; gap: 6px; overflow-y: auto; }
+    .history-entry { display: flex; width: 100%; align-items: center; gap: 8px; border: 1px solid transparent; border-radius: 10px; background: rgba(255,255,255,.035); padding: 7px; color: #c0cae4; text-align: left; cursor: pointer; }
+    .history-entry:hover { border-color: rgba(168,149,255,.34); background: rgba(168,149,255,.1); color: var(--ink); }
+    .history-icon { display: grid; width: 29px; height: 29px; flex: 0 0 29px; place-items: center; border-radius: 8px; background: rgba(168,149,255,.12); font-size: 14px; }
+    .history-entry.resolved .history-icon { background: rgba(129,227,173,.12); }
+    .history-number { display: block; color: var(--cyan); font-size: 8px; font-weight: 800; }
+    .history-name { display: block; margin-top: 2px; font-size: 9px; font-weight: 700; line-height: 1.3; }
+    .history-state { display: block; margin-top: 2px; color: var(--muted); font-size: 8px; }
     .note { margin-top: 12px; border-radius: 11px; background: rgba(102,228,237,.08); padding: 10px; color: #b9dbe5; font-size: 9px; line-height: 1.55; }
     .note strong { color: var(--cyan); }
 
@@ -84,6 +85,9 @@
     .result-number { color: var(--cyan); font-size: 9px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
     .result-kind { border: 1px solid var(--line); border-radius: 99px; padding: 4px 7px; color: var(--muted); font-size: 8px; text-transform: uppercase; }
     .result h3 { margin: 9px 0 6px; font: 600 20px "Fredoka", sans-serif; }
+    .card-visual { display: flex; min-height: 75px; align-items: center; gap: 13px; margin: 10px 0; border: 1px solid rgba(168,149,255,.16); border-radius: 12px; background: radial-gradient(ellipse at 18% 50%, rgba(168,149,255,.2), transparent 40%), rgba(255,255,255,.035); padding: 10px 13px; }
+    .visual-icon { display: grid; width: 49px; height: 49px; flex: 0 0 49px; place-items: center; border: 1px solid rgba(102,228,237,.22); border-radius: 14px; background: rgba(102,228,237,.09); font-size: 27px; }
+    .visual-caption { color: #d3dcf1; font-size: 10px; font-weight: 600; line-height: 1.5; }
     .result-copy { margin: 0; color: #c5cee5; font-size: 11px; line-height: 1.7; white-space: pre-line; }
     .answer-form { display: flex; gap: 7px; margin-top: 13px; }
     .answer-input { min-width: 0; width: 130px; border: 1px solid rgba(255,255,255,.17); border-radius: 9px; background: #111a2e; padding: 9px; color: var(--ink); font: 15px "DM Sans", sans-serif; letter-spacing: .15em; text-align: center; }
@@ -101,6 +105,7 @@
     .tile-number { z-index: 1; align-self: flex-start; color: #b7c2df; font-size: 9px; font-weight: 800; letter-spacing: .06em; }
     .tile-content { display: flex; flex: 1; flex-direction: column; align-items: center; justify-content: center; width: 100%; gap: 5px; }
     .tile-art { font-size: clamp(18px, 3vw, 29px); }
+    .tile-visual { display: grid; width: clamp(40px, 6vw, 58px); height: clamp(40px, 6vw, 58px); place-items: center; border: 1px solid rgba(102,228,237,.25); border-radius: 17px; background: radial-gradient(circle at 35% 25%, rgba(255,255,255,.2), transparent 38%), rgba(102,228,237,.1); box-shadow: 0 7px 18px rgba(0,0,0,.15); font-size: clamp(22px, 3.5vw, 34px); }
     .tile-title { display: -webkit-box; max-width: 100%; overflow: hidden; color: #e4e9f8; font-size: 8px; font-weight: 700; line-height: 1.25; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
     .tile-kind { z-index: 1; max-width: 100%; overflow: hidden; border: 1px solid rgba(255,255,255,.12); border-radius: 99px; padding: 3px 5px; color: #b9c5e0; font-size: 7px; text-overflow: ellipsis; text-transform: uppercase; white-space: nowrap; }
     .hidden-card .tile-content { position: relative; filter: blur(4px); opacity: .7; }
@@ -110,12 +115,6 @@
     .resolved .tile-status { color: var(--green); }
     .gallery-status { display: flex; justify-content: space-between; gap: 8px; border-top: 1px solid var(--line); padding: 9px 14px; color: var(--muted); font-size: 8px; }
     .gallery-status strong { color: var(--cyan); }
-    .recent { margin: 0 14px 14px; border-top: 1px solid var(--line); padding-top: 10px; }
-    .recent-title { margin: 0 0 7px; color: var(--muted); font-size: 9px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
-    .recent-list { display: flex; flex-wrap: wrap; gap: 5px; }
-    .recent-tag { border-radius: 7px; background: rgba(255,255,255,.055); padding: 5px 7px; color: #c3cce4; font-size: 9px; }
-    .recent-tag.done { color: var(--green); }
-
     .tools { display: grid; gap: 13px; }
     .tool-section { border-bottom: 1px solid var(--line); padding-bottom: 13px; }
     .tool-section:last-child { border-bottom: 0; padding-bottom: 0; }
@@ -154,8 +153,6 @@
       .hero { align-items: stretch; flex-direction: column; }
       .session { min-width: 0; }
       .layout { grid-template-columns: 1fr; }
-      .place-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .place-button { padding: 7px; }
       .tools { grid-column: auto; grid-template-columns: 1fr 1fr; }
       .tool-section:last-child { grid-column: 1 / -1; }
       .cards-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
@@ -198,10 +195,10 @@
     </section>
 
     <section class="layout" aria-label="Outils pour accompagner le jeu de cartes">
-      <aside class="panel places">
-        <h2 class="panel-heading">Lieux du paquet</h2>
-        <nav class="place-list" id="place-list" aria-label="Lieux déjà accessibles"></nav>
-        <div class="note"><strong>Arthur :</strong> « Révélez les cartes de votre paquet. Entrez ici le numéro d’une carte seulement quand son effet vous le demande. »</div>
+      <aside class="panel history-panel">
+        <h2 class="panel-heading">Historique des cartes utilisées</h2>
+        <div class="history-list" id="history-list" aria-label="Cartes utilisées"></div>
+        <div class="note"><strong>Arthur :</strong> « Chaque fois que tu découvres une carte, elle s’ajoute à ton historique. Clique dessus pour revoir son aide. »</div>
       </aside>
 
       <section class="panel catalog">
@@ -222,10 +219,6 @@
         <div class="gallery-status" id="gallery-status"><span>Cartes découvertes</span><strong>0 / 24</strong></div>
         <section class="result empty" id="card-result" aria-live="polite">
           <div class="empty-copy"><span class="empty-icon" aria-hidden="true">🃏</span>Entrez le numéro d’une carte que vous venez de découvrir avec votre paquet physique.<br><br>Les autres cartes resteront pixelisées.</div>
-        </section>
-        <section class="recent" aria-label="Historique des cartes consultées">
-          <h3 class="recent-title">Cartes consultées</h3>
-          <div class="recent-list" id="recent-list"><span class="inventory-empty">Aucune carte consultée.</span></div>
         </section>
       </section>
 
@@ -264,11 +257,11 @@
 
   <script>
     (() => {
-      const places = [
-        { name: "Bureau du directeur", short: "Bureau", icon: "🗄️", hint: "Regardez les petits détails dans les icônes du dossier. Les trois chiffres sont à lire dans l’ordre indiqué sur la carte." },
-        { name: "Couloir du réseau", short: "Réseau Wi-Fi", icon: "📡", hint: "Consultez la liste des appareils connectés pour savoir qui est coincé. Le câble Ethernet répare la connexion." },
-        { name: "Atelier des pixels", short: "Atelier", icon: "🧩", hint: "La Loupe aide à repérer les petits chiffres ; la carte-filtre révèle ce qui est transparent." },
-        { name: "Salle d’arcade", short: "Borne Salamandre", icon: "🕹️", hint: "La borne a besoin de la clé USB et du câble réseau. Le document administratif donne le code de la console." }
+      const hints = [
+        "Regardez les petits détails dans les icônes du dossier. Les trois chiffres sont à lire dans l’ordre indiqué sur la carte.",
+        "Consultez la liste des appareils connectés pour savoir qui est coincé. Le câble Ethernet répare la connexion.",
+        "La Loupe aide à repérer les petits chiffres ; le Filtre antivirus révèle ce qui est transparent.",
+        "La borne a besoin de la clé USB et du câble réseau. Le document administratif donne le code de la console."
       ];
 
       const cards = {
@@ -304,9 +297,35 @@
         mouse: ["Pointeur souris", "🖱️"], filter: ["Filtre antivirus", "🪟"],
         star: ["Jeton étoile", "⭐"], heart: ["Jeton cœur", "💛"]
       };
+      const cardVisuals = {
+        1: ["🗂️", "Repérez les chiffres cachés dans les icônes."],
+        2: ["🔐", "Entrez le code découvert sur l’explorateur."],
+        3: ["🔑", "Une clé USB à ajouter à l’inventaire."],
+        4: ["📄", "Gardez ce document : il contient un code."],
+        5: ["💬", "Arthur communique depuis l’autre côté de l’écran."],
+        6: ["⭐", "Un jeton bonus pour obtenir un indice."],
+        7: ["📶", "Ouvrez les paramètres du réseau Wi-Fi."],
+        8: ["📱", "Repérez les élèves dans la liste des appareils."],
+        9: ["🔌", "Branchez le câble Ethernet pour réparer le réseau."],
+        10: ["🧵", "Récupérez le câble Ethernet."],
+        11: ["⚠️", "Une donnée est perdue ; gardez la carte en tête."],
+        12: ["🧑‍🎓", "Lina appelle depuis le réseau."],
+        13: ["🔍", "La Loupe révèle les détails difficiles à lire."],
+        14: ["🖱️", "Le pointeur aide à viser une petite cachette."],
+        15: ["🪟", "Le Filtre révèle les détails transparents."],
+        16: ["🧩", "Combinez le Filtre et la Loupe pour trouver le code."],
+        17: ["💛", "Un bonus à utiliser pour demander de l’aide."],
+        18: ["👀", "Le pointeur permet de retrouver Noé."],
+        19: ["🚪", "La porte de la salle d’arcade est déverrouillée."],
+        20: ["🦎", "La borne Salamandre peut ouvrir la sortie."],
+        21: ["🔌", "Reliez les objets nécessaires à la borne."],
+        22: ["⌨️", "La console demande le code administratif."],
+        23: ["💾", "La sauvegarde peut libérer Sam."],
+        24: ["🌅", "La borne vous ramène dans le monde réel."]
+      };
       const studentNames = ["Lina", "Noé", "Sam"];
       const state = {
-        place: 0, unlocked: 0, items: new Set(), consulted: new Set(),
+        unlocked: 0, items: new Set(), consulted: new Set(),
         resolved: new Set(), students: new Set(), lostData: false,
         bonusHints: 0, currentCard: null, timerSeconds: 1800, timerRunning: false,
         timerId: null, ended: false, availableCards: new Set([1])
@@ -325,25 +344,12 @@
       }
 
       function render() {
-        $("#place-list").innerHTML = places.map((place, index) => {
-          const locked = index > state.unlocked;
-          return `<button class="place-button${state.place === index ? " active" : ""}" type="button" data-place="${index}" ${locked ? "disabled" : ""}><span class="place-icon" aria-hidden="true">${locked ? "🔒" : place.icon}</span><span><span class="place-name">${place.short}</span><span class="place-sub">${locked ? "Pas encore découvert" : `${[...state.consulted].filter((id) => cards[id].place === index).length} cartes consultées`}</span></span></button>`;
-        }).join("");
-        $("#place-list").querySelectorAll("[data-place]").forEach((button) => {
-          button.addEventListener("click", () => { state.place = Number(button.dataset.place); render(); });
-        });
-
         $("#cards-grid").innerHTML = Object.entries(cards).map(([number, card]) => {
           const id = Number(number);
           const discovered = state.consulted.has(id);
           const resolved = state.resolved.has(id);
           const available = state.availableCards.has(id);
-          const art = card.kind === "Objet" ? "🔎"
-            : card.kind === "Code" ? "🔐"
-              : card.kind === "Sauvetage" ? "🧑‍🎓"
-                : card.kind === "Bonus" ? "⭐"
-                  : card.kind === "Échec" ? "⚠️"
-                    : card.kind === "Sortie" ? "🚪" : "🧩";
+          const art = cardVisuals[id][0];
           const className = `card-tile${discovered ? " discovered" : " hidden-card"}${!discovered && available ? " available-card" : ""}${resolved ? " resolved" : ""}`;
           if (!discovered) {
             const status = available ? "Prête à révéler" : "Verrouillée";
@@ -352,7 +358,7 @@
             }
             return `<div class="${className}" aria-label="Carte ${id}, verrouillée et pixelisée"><span class="tile-number">#${String(id).padStart(2, "0")}</span><span class="tile-content" aria-hidden="true"><span class="tile-art">🧩</span><span class="tile-title">Carte inconnue</span></span><span class="tile-status">${status}</span></div>`;
           }
-          return `<button class="${className}" type="button" data-reveal-card="${id}" aria-label="Afficher l’aide de la carte ${id} : ${card.name}"><span class="tile-number">#${String(id).padStart(2, "0")}</span><span class="tile-content"><span class="tile-art" aria-hidden="true">${art}</span><span class="tile-title">${card.name}</span></span><span class="tile-kind">${card.kind}</span><span class="tile-status">${resolved ? "✓ Résolue" : "Découverte"}</span></button>`;
+          return `<button class="${className}" type="button" data-reveal-card="${id}" aria-label="Afficher l’aide de la carte ${id} : ${card.name}"><span class="tile-number">#${String(id).padStart(2, "0")}</span><span class="tile-content"><span class="tile-visual" aria-hidden="true">${art}</span><span class="tile-title">${card.name}</span></span><span class="tile-kind">${card.kind}</span><span class="tile-status">${resolved ? "✓ Résolue" : "Découverte"}</span></button>`;
         }).join("");
         $("#cards-grid").querySelectorAll("[data-reveal-card]").forEach((button) => {
           button.addEventListener("click", () => showCard(Number(button.dataset.revealCard)));
@@ -370,16 +376,20 @@
         const progress = Math.round((state.consulted.size / 24) * 100);
         $("#progress-value").textContent = `${progress}%`;
         $("#progress-fill").style.width = `${progress}%`;
-        $("#recent-list").innerHTML = state.consulted.size
-          ? [...state.consulted].sort((a, b) => a - b).map((id) => `<span class="recent-tag${state.resolved.has(id) ? " done" : ""}">#${id}${state.resolved.has(id) ? " ✓" : ""}</span>`).join("")
-          : '<span class="inventory-empty">Aucune carte consultée.</span>';
+        $("#history-list").innerHTML = state.consulted.size
+          ? [...state.consulted].reverse().map((id) => `<button class="history-entry${state.resolved.has(id) ? " resolved" : ""}" type="button" data-history-card="${id}" aria-label="Revoir la carte ${id}, ${cards[id].name}"><span class="history-icon" aria-hidden="true">${cardVisuals[id][0]}</span><span><span class="history-number">CARTE ${String(id).padStart(2, "0")}</span><span class="history-name">${cards[id].name}</span><span class="history-state">${state.resolved.has(id) ? "Action effectuée" : "À reprendre"}</span></span></button>`).join("")
+          : '<span class="inventory-empty">Les cartes utilisées apparaîtront ici, de la plus récente à la première.</span>';
+        $("#history-list").querySelectorAll("[data-history-card]").forEach((button) => {
+          button.addEventListener("click", () => showCard(Number(button.dataset.historyCard)));
+        });
         $("#timer-toggle").textContent = state.timerRunning ? "Ⅱ Pause" : "▶ Démarrer";
         $("#timer-state").textContent = state.timerRunning ? "En cours" : "En pause";
       }
 
       function showResult(card, text, controls = "") {
         $("#card-result").classList.remove("empty");
-        $("#card-result").innerHTML = `<div class="result-top"><span class="result-number">Carte ${String(state.currentCard).padStart(2, "0")}</span><span class="result-kind">${card.kind}</span></div><h3>${card.name}</h3><p class="result-copy">${text}</p>${controls}`;
+        const [icon, caption] = cardVisuals[state.currentCard];
+        $("#card-result").innerHTML = `<div class="result-top"><span class="result-number">Carte ${String(state.currentCard).padStart(2, "0")}</span><span class="result-kind">${card.kind}</span></div><h3>${card.name}</h3><div class="card-visual"><span class="visual-icon" role="img" aria-label="${caption}">${icon}</span><span class="visual-caption">${caption}</span></div><p class="result-copy">${text}</p>${controls}`;
       }
 
       function message(text) {
@@ -495,7 +505,8 @@
       });
 
       $("#hint-button").addEventListener("click", () => {
-        const base = places[state.place].hint;
+        const hintCard = state.currentCard ? cards[state.currentCard] : null;
+        const base = hints[hintCard ? hintCard.place : 0];
         const bonus = state.bonusHints > 0;
         if (bonus) state.bonusHints--;
         $("#hint-text").textContent = `Arthur : « ${base}${bonus ? " Vous utilisez un jeton bonus." : ""} »`;
@@ -532,7 +543,6 @@
       });
 
       $("#reset-button").addEventListener("click", () => {
-        state.place = 0;
         state.unlocked = 0;
         state.items.clear();
         state.consulted.clear();
