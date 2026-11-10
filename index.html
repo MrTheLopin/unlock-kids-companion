@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#10172b">
-  <title>Unlock Kids — compagnon du jeu de cartes</title>
+  <title>UnArtsup — compagnon du jeu de cartes</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Fredoka:wght@500;600;700&display=swap');
 
@@ -63,9 +63,10 @@
     .note { margin-top: 12px; border-radius: 11px; background: rgba(102,228,237,.08); padding: 10px; color: #b9dbe5; font-size: 9px; line-height: 1.55; }
     .note strong { color: var(--cyan); }
 
-    .console { padding: 20px; }
-    .console h2 { margin: 0; font: 600 22px "Fredoka", sans-serif; }
-    .console-intro { margin: 6px 0 17px; color: var(--muted); font-size: 11px; line-height: 1.55; }
+    .catalog { min-width: 0; overflow: hidden; }
+    .catalog-header { padding: 18px 17px 13px; }
+    .catalog h2 { margin: 0; font: 600 22px "Fredoka", sans-serif; }
+    .catalog-intro { margin: 6px 0 13px; color: var(--muted); font-size: 10px; line-height: 1.55; }
     .card-entry { border: 1px solid rgba(168,149,255,.27); border-radius: 14px; background: linear-gradient(140deg, rgba(168,149,255,.1), rgba(102,228,237,.045)); padding: 15px; }
     .entry-label { display: block; margin-bottom: 8px; color: #dce3f7; font-size: 11px; font-weight: 700; }
     .entry-row { display: flex; gap: 8px; }
@@ -75,7 +76,7 @@
     .primary-button:disabled { opacity: .45; cursor: not-allowed; }
     .entry-help { margin: 8px 0 0; color: var(--muted); font-size: 9px; line-height: 1.5; }
     .error { min-height: 15px; margin: 6px 0 0; color: #ff9a8f; font-size: 10px; }
-    .result { min-height: 180px; margin-top: 13px; border: 1px solid var(--line); border-radius: 14px; background: rgba(10,15,28,.26); padding: 16px; }
+    .result { min-height: 110px; margin: 12px 14px 14px; border: 1px solid var(--line); border-radius: 14px; background: rgba(10,15,28,.26); padding: 14px; }
     .result.empty { display: grid; place-items: center; text-align: center; }
     .empty-copy { max-width: 280px; color: #a7b3d2; font-size: 11px; line-height: 1.65; }
     .empty-icon { display: block; margin-bottom: 8px; font-size: 27px; }
@@ -91,7 +92,24 @@
     .tool-row { flex-wrap: wrap; gap: 6px; margin-top: 10px; }
     .state-chip { border: 1px solid rgba(129,227,173,.27); border-radius: 99px; padding: 5px 8px; color: var(--green); font-size: 9px; }
     .bonus-chip { border-color: rgba(255,215,111,.3); color: var(--yellow); }
-    .recent { margin-top: 14px; border-top: 1px solid var(--line); padding-top: 12px; }
+    .cards-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; padding: 12px 14px; }
+    .card-tile { position: relative; display: flex; aspect-ratio: .76; min-width: 0; flex-direction: column; align-items: center; justify-content: space-between; overflow: hidden; border: 1px solid rgba(231,235,255,.13); border-radius: 11px; background: linear-gradient(145deg, #303f66, #202b49); padding: 8px 5px; color: var(--ink); text-align: center; }
+    .card-tile.discovered { border-color: rgba(102,228,237,.34); background: linear-gradient(145deg, #354973, #202d4d); cursor: pointer; transition: transform .18s ease, border-color .18s ease; }
+    .card-tile.discovered:hover { transform: translateY(-2px); border-color: var(--cyan); }
+    .card-tile.resolved { border-color: rgba(129,227,173,.4); background: linear-gradient(145deg, #315c5a, #202e4a); }
+    .card-tile.hidden-card { background: linear-gradient(145deg, #252e49, #1d2740); }
+    .tile-number { z-index: 1; align-self: flex-start; color: #b7c2df; font-size: 9px; font-weight: 800; letter-spacing: .06em; }
+    .tile-content { display: flex; flex: 1; flex-direction: column; align-items: center; justify-content: center; width: 100%; gap: 5px; }
+    .tile-art { font-size: clamp(18px, 3vw, 29px); }
+    .tile-title { display: -webkit-box; max-width: 100%; overflow: hidden; color: #e4e9f8; font-size: 8px; font-weight: 700; line-height: 1.25; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+    .tile-kind { z-index: 1; max-width: 100%; overflow: hidden; border: 1px solid rgba(255,255,255,.12); border-radius: 99px; padding: 3px 5px; color: #b9c5e0; font-size: 7px; text-overflow: ellipsis; text-transform: uppercase; white-space: nowrap; }
+    .hidden-card .tile-content { position: relative; filter: blur(4px); opacity: .7; }
+    .hidden-card .tile-content::after { position: absolute; inset: -8px; background: repeating-conic-gradient(rgba(145,161,205,.8) 0% 25%, rgba(80,99,142,.9) 0% 50%) 0 0 / 11px 11px; content: ""; opacity: .68; mix-blend-mode: screen; pointer-events: none; }
+    .tile-status { color: #98a5c5; font-size: 7px; }
+    .resolved .tile-status { color: var(--green); }
+    .gallery-status { display: flex; justify-content: space-between; gap: 8px; border-top: 1px solid var(--line); padding: 9px 14px; color: var(--muted); font-size: 8px; }
+    .gallery-status strong { color: var(--cyan); }
+    .recent { margin: 0 14px 14px; border-top: 1px solid var(--line); padding-top: 10px; }
     .recent-title { margin: 0 0 7px; color: var(--muted); font-size: 9px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
     .recent-list { display: flex; flex-wrap: wrap; gap: 5px; }
     .recent-tag { border-radius: 7px; background: rgba(255,255,255,.055); padding: 5px 7px; color: #c3cce4; font-size: 9px; }
@@ -139,19 +157,22 @@
       .place-button { padding: 7px; }
       .tools { grid-column: auto; grid-template-columns: 1fr 1fr; }
       .tool-section:last-child { grid-column: 1 / -1; }
-      .console { padding: 15px; }
+      .cards-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .card-entry { padding: 11px; }
+      .cards-grid { gap: 6px; padding: 10px; }
+      .result { margin-inline: 10px; }
       .footer { align-items: flex-start; flex-direction: column; }
     }
-    @media (max-width: 390px) { .tools { grid-template-columns: 1fr; } .tool-section:last-child { grid-column: auto; } }
+    @media (max-width: 390px) { .tools { grid-template-columns: 1fr; } .tool-section:last-child { grid-column: auto; } .cards-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
   </style>
 </head>
 <body>
   <main class="shell">
     <header class="topbar">
-      <a class="brand" href="#" aria-label="Unlock Kids, compagnon du jeu de cartes">
+      <a class="brand" href="#" aria-label="UnArtsup, compagnon du jeu de cartes">
         <span class="brand-icon" aria-hidden="true">⌘</span>
-        <span>Unlock Kids<small>Compagnon du jeu de cartes</small></span>
+        <span>UnArtsup<small>Compagnon du jeu de cartes</small></span>
       </a>
       <div class="top-right">
         <span class="top-pill">1 à 4 joueurs</span>
@@ -182,23 +203,25 @@
         <div class="note"><strong>Arthur :</strong> « Révélez les cartes de votre paquet. Entrez ici le numéro d’une carte seulement quand son effet vous le demande. »</div>
       </aside>
 
-      <section class="panel console">
-        <h2>Console d’accompagnement</h2>
-        <p class="console-intro">Les cartes restent physiques : ne piochez pas et ne révélez pas de carte depuis cette page. Saisissez simplement le numéro imprimé sur la carte qui vous y renvoie.</p>
+      <section class="panel catalog">
+        <header class="catalog-header">
+        <h2>Les 24 cartes</h2>
+        <p class="catalog-intro">Les cartes que vous n’avez pas encore découvertes restent pixelisées. Saisissez le numéro d’une carte physique pour la révéler ici.</p>
         <form class="card-entry" id="card-form">
-          <label class="entry-label" for="card-number">Quel numéro de carte vous est indiqué ?</label>
+          <label class="entry-label" for="card-number">Quelle carte venez-vous de découvrir ?</label>
           <div class="entry-row">
             <input class="card-number-input" id="card-number" type="number" inputmode="numeric" min="1" max="24" placeholder="1–24" required aria-describedby="entry-help">
-            <button class="primary-button" type="submit">Ouvrir l’aide</button>
+            <button class="primary-button" type="submit">Révéler la carte</button>
           </div>
-          <p class="entry-help" id="entry-help">Entrez le numéro imprimé sur votre carte physique (1 à 24). L’outil affichera uniquement l’aide ou la validation liée à cette carte.</p>
+          <p class="entry-help" id="entry-help">Saisissez le numéro imprimé sur votre carte physique (1 à 24). Le contenu des cartes non découvertes reste masqué.</p>
           <p class="error" id="entry-error" role="status"></p>
         </form>
-
+        </header>
+        <div class="cards-grid" id="cards-grid" aria-label="Galerie des 24 cartes"></div>
+        <div class="gallery-status" id="gallery-status"><span>Cartes découvertes</span><strong>0 / 24</strong></div>
         <section class="result empty" id="card-result" aria-live="polite">
-          <div class="empty-copy"><span class="empty-icon" aria-hidden="true">🃏</span>Quand une carte vous renvoie vers l’outil, entrez son numéro ci-dessus.<br><br>Votre aventure et les cartes restent sur la table.</div>
+          <div class="empty-copy"><span class="empty-icon" aria-hidden="true">🃏</span>Entrez le numéro d’une carte que vous venez de découvrir avec votre paquet physique.<br><br>Les autres cartes resteront pixelisées.</div>
         </section>
-
         <section class="recent" aria-label="Historique des cartes consultées">
           <h3 class="recent-title">Cartes consultées</h3>
           <div class="recent-list" id="recent-list"><span class="inventory-empty">Aucune carte consultée.</span></div>
@@ -225,7 +248,7 @@
       </aside>
     </section>
 
-    <footer class="footer"><span>Outil d’accompagnement du jeu de cartes Unlock Kids</span><span>La page ne remplace pas le paquet physique</span></footer>
+    <footer class="footer"><span>UnArtsup · compagnon du jeu de cartes</span><span>La page ne remplace pas le paquet physique</span></footer>
   </main>
 
   <div class="overlay" id="overlay" hidden>
@@ -299,6 +322,27 @@
           button.addEventListener("click", () => { state.place = Number(button.dataset.place); render(); });
         });
 
+        $("#cards-grid").innerHTML = Object.entries(cards).map(([number, card]) => {
+          const id = Number(number);
+          const discovered = state.consulted.has(id);
+          const resolved = state.resolved.has(id);
+          const art = card.kind === "Objet" ? "🔎"
+            : card.kind === "Code" ? "🔐"
+              : card.kind === "Sauvetage" ? "🧑‍🎓"
+                : card.kind === "Bonus" ? "⭐"
+                  : card.kind === "Échec" ? "⚠️"
+                    : card.kind === "Sortie" ? "🚪" : "🧩";
+          const className = `card-tile${discovered ? " discovered" : " hidden-card"}${resolved ? " resolved" : ""}`;
+          if (!discovered) {
+            return `<div class="${className}" aria-label="Carte ${id}, non découverte, pixelisée"><span class="tile-number">#${String(id).padStart(2, "0")}</span><span class="tile-content" aria-hidden="true"><span class="tile-art">🧩</span><span class="tile-title">Carte inconnue</span></span><span class="tile-status">À découvrir</span></div>`;
+          }
+          return `<button class="${className}" type="button" data-reveal-card="${id}" aria-label="Afficher l’aide de la carte ${id} : ${card.name}"><span class="tile-number">#${String(id).padStart(2, "0")}</span><span class="tile-content"><span class="tile-art" aria-hidden="true">${art}</span><span class="tile-title">${card.name}</span></span><span class="tile-kind">${card.kind}</span><span class="tile-status">${resolved ? "✓ Résolue" : "Découverte"}</span></button>`;
+        }).join("");
+        $("#cards-grid").querySelectorAll("[data-reveal-card]").forEach((button) => {
+          button.addEventListener("click", () => showCard(Number(button.dataset.revealCard)));
+        });
+        $("#gallery-status").innerHTML = `<span>Cartes découvertes</span><strong>${state.consulted.size} / 24</strong>`;
+
         $("#inventory").innerHTML = state.items.size
           ? [...state.items].map((key) => `<div class="inventory-item"><span class="inventory-icon" aria-hidden="true">${itemInfo[key][1]}</span>${itemInfo[key][0]}${key === "admin" && state.lostData ? " · donnée effacée" : ""}</div>`).join("")
           : '<div class="inventory-empty">Les objets trouvés dans le paquet apparaîtront ici.</div>';
@@ -307,7 +351,7 @@
           ? "Toute la classe est réunie. Vous pouvez maintenant terminer l’aventure !"
           : "La sortie est possible sans les élèves. Les sauver est un objectif bonus.";
 
-        const progress = Math.round((state.resolved.size / 24) * 100);
+        const progress = Math.round((state.consulted.size / 24) * 100);
         $("#progress-value").textContent = `${progress}%`;
         $("#progress-fill").style.width = `${progress}%`;
         $("#recent-list").innerHTML = state.consulted.size
@@ -335,11 +379,12 @@
           showResult(card, "La partie est terminée. Réinitialisez la partie pour recommencer.");
           return;
         }
+        state.consulted.add(id);
         if (card.place > state.unlocked) {
           showResult(card, "Ce lieu n’est pas encore accessible. Continuez l’aventure avec les cartes que vous avez déjà révélées.");
+          render();
           return;
         }
-        state.consulted.add(id);
         if (state.resolved.has(id)) {
           showResult(card, "Cette carte a déjà été consultée et son effet est validé. Reprenez votre paquet physique pour continuer.");
           render();
