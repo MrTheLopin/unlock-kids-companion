@@ -680,21 +680,34 @@
     .desktop-icon { position: relative; z-index: 1; }
     .desktop-icon-art { width: 40px; height: 40px; shape-rendering: crispEdges; image-rendering: pixelated; }
     .physical-card-preview {
-      position: absolute; z-index: 2; top: 14px; right: 14px; display: grid; width: 108px; min-height: 136px;
-      justify-items: center; align-content: center; gap: 5px; border: 4px solid #fff; background: #d7e8f7;
-      padding: 6px; color: #173c70; cursor: pointer; box-shadow: 4px 4px 0 #174b88;
+      position: absolute; z-index: 2; top: 20px; right: 28px; display: grid; width: min(320px,calc(100vw - 150px));
+      min-height: 300px; justify-items: center; align-content: start; gap: 11px; border: 4px solid #111;
+      background-color: #fffed1; background-image: repeating-linear-gradient(0deg,transparent 0 22px,rgba(152,165,73,.18) 22px 23px),
+        repeating-linear-gradient(90deg,transparent 0 22px,rgba(152,165,73,.12) 22px 23px);
+      padding: 20px 19px 22px; color: #111; cursor: pointer; box-shadow: 9px 9px 0 #87951d;
+      text-align: center;
     }
-    .physical-card-preview:hover { background: #fff3bd; }
-    .physical-card-mini { display: grid; width: 62px; height: 82px; place-items: center; border: 3px solid #174b88; background: repeating-linear-gradient(0deg,#fff 0 6px,#e6f0fa 6px 12px); color: #174b88; font-size: 28px; image-rendering: pixelated; }
-    .physical-card-label { max-width: 100%; font: 700 10px/1.2 Tahoma,Arial,sans-serif; text-align: center; }
+    .physical-card-preview::before { position: absolute; top: 0; right: -4px; left: 0; height: 10px; background: #111; content: ""; }
+    .physical-card-preview:hover { background-color: #fffce0; }
+    .physical-card-mini { display: grid; width: 80px; height: 102px; place-items: center; border: 3px solid #111; background: #fff; color: #174b88; font-size: 32px; image-rendering: pixelated; box-shadow: 3px 3px 0 #89931f; }
+    .physical-card-label { max-width: 100%; font: 700 15px/1.35 Tahoma,Arial,sans-serif; text-align: center; }
+    .physical-card-description { margin: 0; color: #232323; font: 14px/1.55 Tahoma,Arial,sans-serif; text-align: center; }
+    .physical-card-open-hint { color: #56572b; font: 700 11px/1.3 Tahoma,Arial,sans-serif; }
+    .pixel-icon { display: block; width: 1.55em; height: 1.55em; image-rendering: pixelated; object-fit: contain; }
+    .taskbar-app-icon { display: block; width: 34px; height: 34px; image-rendering: pixelated; shape-rendering: crispEdges; }
+    .taskbar-app-button { border: 0; background: transparent; }
+    .physical-card-close { justify-self: end; min-height: 36px; border: 2px solid #555; background: linear-gradient(#fff,#d5d5d5); padding: 5px 9px; color: #111; font: 700 12px Tahoma,Arial,sans-serif; cursor: pointer; }
     .physical-card-viewer[hidden] { display: none; }
     .physical-card-viewer {
-      position: absolute; z-index: 7; top: 5vh; left: 50%; display: grid; width: min(390px,calc(100vw - 28px));
-      gap: 10px; transform: translateX(-50%); border: 4px solid #174b88; background: #ece9d8;
-      padding: 12px; box-shadow: 6px 6px 0 rgba(5,31,76,.75);
+      position: fixed; z-index: 20; inset: 0; display: grid; place-items: center; background: rgba(15,28,44,.68);
+      padding: 16px; backdrop-filter: blur(2px);
+    }
+    .physical-card-dialog {
+      display: grid; width: min(390px,calc(100vw - 28px)); gap: 10px; border: 3px solid #111;
+      background: #ece9d8; padding: 12px; box-shadow: 6px 6px 0 rgba(5,31,76,.55);
     }
     .physical-card-viewer-title { margin: 0; color: #173c70; font: 700 14px Tahoma,Arial,sans-serif; }
-    .physical-card-viewer-stage { display: grid; min-height: 300px; place-items: center; overflow: hidden; border: 3px solid #174b88; background: #b6d7ef; }
+    .physical-card-viewer-stage { display: grid; min-height: 300px; place-items: center; overflow: hidden; border: 3px solid #555; background: #b6d7ef; }
     .physical-card-art {
       display: grid; width: 176px; height: 248px; align-content: center; justify-items: center; gap: 14px;
       border: 6px solid #174b88; background: repeating-linear-gradient(0deg,#fff 0 8px,#e6f0fa 8px 16px);
@@ -719,37 +732,82 @@
     .folder-file-button { display: flex; width: 100%; align-items: center; gap: 10px; border: 2px solid #afc5db; background: #f5f9fe; padding: 9px; color: #173c70; text-align: left; cursor: pointer; }
     .folder-file-button:hover { border-color: #347dc2; background: #e7f3ff; }
     .folder-file-icon { font-size: 24px; }
-    .pixel-art, .pixel-art * { border-radius: 0 !important; font-family: "Courier New",monospace !important; }
+    .pixel-art, .pixel-art * { border-radius: 0 !important; }
+    .pixel-art { font-family: Tahoma,Arial,sans-serif; }
     .pixel-art svg, .pixel-art img, .pixel-art canvas { image-rendering: pixelated; }
     .pixel-art .desktop-wallpaper {
-      background-color: #55b8e3;
-      background-image: linear-gradient(#168bd3 0 58%,#72c6ee 58% 70%,#b4e3f7 70% 73%,#77b83c 73% 100%),
-        repeating-linear-gradient(0deg,transparent 0 7px,rgba(255,255,255,.045) 7px 8px),
-        repeating-linear-gradient(90deg,transparent 0 7px,rgba(18,73,125,.04) 7px 8px);
-      background-blend-mode: normal,screen,multiply;
+      inset: 0 0 76px;
+      background-color: #86c9ed;
+      background-image: repeating-linear-gradient(135deg,rgba(255,255,255,.2) 0 3px,rgba(77,119,166,.13) 3px 6px,transparent 6px 11px);
     }
-    .pixel-art .desktop-wallpaper::before { background: repeating-linear-gradient(0deg,transparent 0 7px,rgba(255,255,255,.08) 7px 8px); opacity: .35; }
-    .pixel-art .desktop-wallpaper::after { border-radius: 0; background: linear-gradient(#a5ce52 0 20%,#6eae36 20% 65%,#438a2a 65%); box-shadow: -16px -8px 0 -8px #76b63c; }
-    .pixel-art .desktop-icon { font-family: "Courier New",monospace; text-shadow: 2px 2px 0 #123b70; }
-    .pixel-art .computer-window { border: 4px solid #174b88; border-radius: 0; box-shadow: 5px 5px 0 rgba(0,24,76,.55); }
-    .pixel-art .window-titlebar { border-radius: 0; background: repeating-linear-gradient(90deg,#4b91df 0 8px,#2875ce 8px 16px,#1259b5 16px 24px); font-family: "Courier New",monospace; }
+    .pixel-art .desktop-wallpaper::before {
+      inset: 33% 0 0;
+      background: repeating-linear-gradient(135deg,#477f27 0 3px,#32661f 3px 6px,#4c8528 6px 10px);
+      clip-path: polygon(0 31%,8% 27%,19% 23%,30% 18%,41% 12%,51% 6%,60% 4%,71% 8%,81% 13%,90% 8%,100% 0,100% 100%,0 100%);
+      opacity: 1;
+    }
+    .pixel-art .desktop-wallpaper::after {
+      right: 0; bottom: 0; left: 0; height: 40%; border-radius: 0;
+      background: repeating-linear-gradient(135deg,#3b7622 0 3px,#2e621c 3px 6px,#477f26 6px 10px);
+      clip-path: polygon(0 26%,12% 21%,25% 19%,38% 8%,49% 3%,62% 9%,77% 14%,87% 7%,100% 0,100% 100%,0 100%);
+      box-shadow: none;
+    }
+    .pixel-art .desktop-icon { font-family: Tahoma,Arial,sans-serif; text-shadow: 1px 1px 0 #123b70, -1px -1px 0 #123b70; }
+    .pixel-art .computer-window { border: 3px solid #174b88; border-radius: 0; box-shadow: 5px 5px 0 rgba(0,24,76,.45); }
+    .pixel-art .window-titlebar { border-radius: 0; background: linear-gradient(#4b91df,#2875ce 48%,#1259b5); font-family: Tahoma,Arial,sans-serif; }
     .pixel-art .window-control { border: 2px solid #174b88; border-radius: 0; box-shadow: 2px 2px 0 #174b88; }
-    .pixel-art .scene-screen, .pixel-art .scene-item, .pixel-art .preview-action { border-radius: 0; box-shadow: 3px 3px 0 rgba(23,75,136,.28); }
+    .pixel-art .scene-screen, .pixel-art .scene-item, .pixel-art .preview-action { border-radius: 0; box-shadow: 2px 2px 0 rgba(23,75,136,.22); }
     .pixel-art .scene-item-icon, .pixel-art .physical-card-art-icon { text-shadow: 2px 2px 0 #174b88; }
-    .pixel-art .taskbar { border-top: 3px solid #64a7e4; background: repeating-linear-gradient(90deg,#3989db 0 8px,#1969c2 8px 16px,#0755ad 16px 24px); }
-    .pixel-art .taskbar .start-button { border: 2px solid #286d28; border-radius: 0; box-shadow: 2px 2px 0 #174c8b; }
-    .pixel-art .cards-menu { border: 4px solid #195cac; border-radius: 0; box-shadow: 5px -5px 0 rgba(0,0,0,.32); }
-    .pixel-art .cards-menu-header { border-radius: 0; background: repeating-linear-gradient(90deg,#4b91df 0 8px,#1761b5 8px 16px); }
+    .pixel-art .taskbar {
+      height: 76px; border: 3px solid #585858; border-radius: 42px; background: linear-gradient(#e9e9e9,#cfcfcf);
+      padding: 7px 28px; box-shadow: 0 -3px 0 rgba(255,255,255,.5),0 -8px 18px rgba(0,0,0,.18);
+    }
+    .pixel-art .taskbar-button { min-width: 48px; height: 48px; color: #111; text-shadow: none; }
+    .pixel-art .taskbar-button:hover, .pixel-art .taskbar-button[aria-expanded="true"] { background: #b7cde0; box-shadow: inset 0 0 0 2px #5c6e7c; }
+    .pixel-art .taskbar .start-button {
+      min-width: 132px; height: 48px; border: 3px solid #555; border-radius: 0; background: linear-gradient(#fff,#d5d5d5);
+      color: #111; font: 700 18px Tahoma,Arial,sans-serif; text-shadow: none; box-shadow: 2px 2px 0 #666;
+    }
+    .pixel-art .taskbar .start-button:hover { background: #fff3bd; }
+    .pixel-art .cards-toggle { min-width: 56px; width: 56px; border: 0; border-radius: 0; font-size: 0; }
+    .pixel-art .cards-toggle span { display: none; }
+    .pixel-art .arthur-button { border: 2px solid #555; border-radius: 0; background: #eee; font-size: 0; }
+    .pixel-art .taskbar-app-button { border: 0; border-left: 1px solid #aaa; background: transparent; }
+    .pixel-art .taskbar-tray { border-left: 2px solid #a2a2a2; }
+    .pixel-art .desktop-clock { color: #111; font: 14px Tahoma,Arial,sans-serif; text-shadow: none; }
+    .pixel-art .clock-toggle { color: #111; font-size: 13px; }
+    .pixel-art .cards-menu { border: 3px solid #585858; border-radius: 0; box-shadow: 5px -5px 0 rgba(0,0,0,.22); }
+    .pixel-art .cards-menu-header { border-radius: 0; background: linear-gradient(#4b91df,#1761b5); }
     .pixel-art .card-tile, .pixel-art .history-entry, .pixel-art .menu-bottom > div { border-radius: 0; }
     .pixel-art .desktop-hint { border: 3px solid #174b88; border-radius: 0; box-shadow: 4px 4px 0 rgba(5,31,76,.5); }
+    .pixel-art .physical-card-preview { border: 4px solid #111; border-radius: 0; box-shadow: 9px 9px 0 #87951d; }
+    .pixel-art .physical-card-mini { border: 3px solid #111; border-radius: 0; box-shadow: 3px 3px 0 #89931f; }
+    .pixel-art .physical-card-dialog { border: 4px solid #111; border-radius: 0; box-shadow: 7px 7px 0 rgba(5,31,76,.45); }
+    .pixel-art .physical-card-art { border: 5px solid #111; border-radius: 0; box-shadow: 5px 5px 0 #89931f; }
+    .pixel-art .physical-card-controls button { border: 2px solid #555; border-radius: 0; box-shadow: 2px 2px 0 #777; }
+    .pixel-art .physical-card-viewer-stage { border: 3px solid #555; }
     @media (max-width: 640px) {
-      .physical-card-preview { top: 8px; right: 8px; width: 82px; min-height: 104px; }
-      .physical-card-mini { width: 46px; height: 60px; font-size: 21px; }
-      .physical-card-label { font-size: 8px; }
-      .physical-card-viewer { top: 2vh; }
+      .physical-card-preview { top: 8px; right: 8px; width: min(220px,calc(100vw - 118px)); min-height: 190px; gap: 7px; padding: 15px 10px; }
+      .physical-card-mini { width: 56px; height: 72px; font-size: 22px; }
+      .physical-card-label { font-size: 12px; }
+      .physical-card-description { font-size: 11px; line-height: 1.35; }
+      .physical-card-open-hint { font-size: 9px; }
       .physical-card-viewer-stage { min-height: 245px; }
       .physical-card-art { width: 144px; height: 204px; }
-      .desktop-icons { grid-auto-rows: 76px; }
+      .desktop-icons { grid-auto-rows: 76px; width: 78px; }
+      .desktop-icon { width: 74px; }
+      .desktop-icon-label { max-width: 70px; font-size: 9px; }
+      .pixel-art .taskbar { height: 62px; padding: 5px 9px; }
+      .pixel-art .desktop-wallpaper { inset: 0 0 62px; }
+      .pixel-art .taskbar .start-button { min-width: 83px; height: 42px; font-size: 14px; }
+      .pixel-art .taskbar-button { min-width: 32px; width: 32px; height: 40px; }
+      .pixel-art .cards-toggle { display: none; }
+      .pixel-art .taskbar { gap: 3px; padding-right: 7px; padding-left: 7px; }
+      .pixel-art .taskbar .start-button { min-width: 79px; }
+      .pixel-art .taskbar-tray { gap: 0; padding-left: 3px; }
+      .pixel-art .clock-toggle { min-width: 27px; width: 27px; }
+      .pixel-art .desktop-clock { min-width: 57px; font-size: 10px; }
+      .pixel-art .computer-window { top: 80px; right: 8px; bottom: 72px; left: 88px; width: auto; max-height: none; }
     }
   </style>
 </head>
@@ -760,31 +818,37 @@
       <button class="physical-card-preview" id="physical-card-preview" type="button" aria-controls="physical-card-viewer" aria-expanded="false" aria-label="Afficher l’aperçu de la carte physique consultée">
         <span class="physical-card-mini" id="physical-card-mini" aria-hidden="true">🖥️</span>
         <span class="physical-card-label" id="physical-card-label">Carte 01 · Le bureau</span>
+        <p class="physical-card-description" id="physical-card-description">Voici votre bureau. Explorez les applications pour avancer dans l’aventure.</p>
+        <span class="physical-card-open-hint">Cliquer pour agrandir la carte</span>
       </button>
       <section class="computer-window" id="computer-window" aria-live="polite"></section>
     </div>
     <section class="physical-card-viewer" id="physical-card-viewer" aria-label="Aperçu agrandi de la carte" hidden>
-      <button class="physical-card-close" id="physical-card-close" type="button" aria-label="Fermer l’aperçu">✕ Fermer</button>
-      <h2 class="physical-card-viewer-title" id="physical-card-viewer-title">Carte 01 · Le bureau</h2>
-      <div class="physical-card-viewer-stage">
-        <div class="physical-card-art" id="physical-card-art">
-          <span class="physical-card-art-icon" id="physical-card-art-icon" aria-hidden="true">🖥️</span>
-          <strong class="physical-card-art-name" id="physical-card-art-name">Le bureau</strong>
-          <span class="physical-card-placeholder">Emplacement provisoire — image de la carte physique à ajouter</span>
+      <div class="physical-card-dialog">
+        <button class="physical-card-close" id="physical-card-close" type="button" aria-label="Fermer l’aperçu">✕ Fermer</button>
+        <h2 class="physical-card-viewer-title" id="physical-card-viewer-title">Carte 01 · Le bureau</h2>
+        <div class="physical-card-viewer-stage">
+          <div class="physical-card-art" id="physical-card-art">
+            <span class="physical-card-art-icon" id="physical-card-art-icon" aria-hidden="true">🖥️</span>
+            <strong class="physical-card-art-name" id="physical-card-art-name">Le bureau</strong>
+            <span class="physical-card-placeholder" id="physical-card-placeholder">Emplacement provisoire — image de la carte physique à ajouter</span>
+          </div>
         </div>
-      </div>
-      <div class="physical-card-controls" aria-label="Contrôles de l’aperçu">
-        <button id="card-zoom-out" type="button" aria-label="Dézoomer">− Zoom</button>
-        <button id="card-zoom-in" type="button" aria-label="Zoomer">+ Zoom</button>
-        <button id="card-rotate-left" type="button" aria-label="Tourner à gauche">↶ Tourner</button>
-        <button id="card-rotate-right" type="button" aria-label="Tourner à droite">↷ Tourner</button>
+        <div class="physical-card-controls" aria-label="Contrôles de l’aperçu">
+          <button id="card-zoom-out" type="button" aria-label="Dézoomer">− Zoom</button>
+          <button id="card-zoom-in" type="button" aria-label="Zoomer">+ Zoom</button>
+          <button id="card-rotate-left" type="button" aria-label="Tourner à gauche">↶ Tourner</button>
+          <button id="card-rotate-right" type="button" aria-label="Tourner à droite">↷ Tourner</button>
+        </div>
       </div>
     </section>
     <div class="desktop-hint" id="hint-text" aria-live="polite"></div>
     <nav class="taskbar" aria-label="Barre des tâches">
       <button class="taskbar-button start-button" id="start-button" type="button" aria-label="Ouvrir les outils de la mission" title="Outils de la mission"><span class="xp-logo" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Démarrer</button>
-      <button class="taskbar-button cards-toggle" id="cards-toggle" type="button" aria-expanded="false" aria-controls="cards-menu">🃏 <span>Cartes</span> <span aria-hidden="true">⌃</span></button>
-      <button class="taskbar-button arthur-button" id="hint-button" type="button" aria-label="Demander un indice à Arthur" title="Arthur — demander un indice">🔊</button>
+      <button class="taskbar-button cards-toggle" id="cards-toggle" type="button" aria-expanded="false" aria-controls="cards-menu" aria-label="Ouvrir les cartes"><svg class="taskbar-app-icon" viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="2" width="8" height="11" fill="#fff"/><rect x="4" y="1" width="8" height="11" fill="#e8f2fc" stroke="#174b88" stroke-width="1"/><rect x="5" y="3" width="6" height="1" fill="#4b91df"/><rect x="5" y="6" width="4" height="1" fill="#4b91df"/></svg></button>
+      <button class="taskbar-button taskbar-app-button" type="button" data-taskbar-action="explorer" aria-label="Ouvrir ou fermer l’explorateur de fichiers" title="Explorateur de fichiers"><svg class="taskbar-app-icon" viewBox="0 0 16 16" aria-hidden="true"><rect x="1" y="4" width="6" height="3" fill="#ffe783"/><rect x="1" y="6" width="14" height="8" fill="#ffca45"/><rect x="2" y="7" width="12" height="6" fill="#f3a927"/></svg></button>
+      <button class="taskbar-button taskbar-app-button" type="button" data-taskbar-action="messages" aria-label="Ouvrir ou fermer les messages" title="Messages"><svg class="taskbar-app-icon" viewBox="0 0 16 16" aria-hidden="true"><rect x="1" y="4" width="14" height="10" fill="#f2f1e8"/><rect x="2" y="5" width="12" height="8" fill="#d8eaff"/><rect x="2" y="5" width="6" height="5" fill="#92b9de"/><rect x="8" y="5" width="6" height="5" fill="#92b9de"/></svg></button>
+      <button class="taskbar-button arthur-button" id="hint-button" type="button" aria-label="Demander un indice à Arthur" title="Arthur — demander un indice"><svg class="taskbar-app-icon" viewBox="0 0 16 16" aria-hidden="true"><rect x="6" y="2" width="4" height="2" fill="#fff"/><rect x="4" y="4" width="8" height="2" fill="#fff"/><rect x="3" y="6" width="10" height="2" fill="#fff"/><rect x="5" y="8" width="6" height="2" fill="#fff"/><rect x="7" y="10" width="2" height="4" fill="#ffe45c"/></svg></button>
       <div class="taskbar-tray">
         <button class="taskbar-button clock-toggle" id="timer-toggle" type="button" aria-label="Mettre l’horloge en pause" title="Mettre en pause">Ⅱ</button>
         <time class="desktop-clock" id="clock" aria-label="Heure de l’ordinateur">19:20:00</time>
@@ -855,7 +919,7 @@
       };
 
       const cards = {
-        1: { name: "Le bureau", kind: "Observation", text: "Observe les cartes physiques : les icônes et les petits symboles cachent des indices. Discutez-en autour de la table.", next: [2, 3] },
+        1: { name: "Le bureau", kind: "Observation", text: "Voici votre bureau. Explorez les applications pour naviguer dans l’ordinateur et avancer dans l’aventure.", next: [2, 3] },
         2: { name: "Le Wi-Fi", kind: "Observation", text: "Regarde qui est connecté au Wi-Fi. Cherche les appareils des élèves sur ta carte.", next: [7, 8, 10, 11] },
         3: { name: "Le dossier fermé", kind: "Code", text: "Le dossier est fermé. Observe les cartes physiques pour trouver les indices, puis utilisez le code ensemble autour de la table.", success: "Bravo ! Le dossier s’ouvre !", item: "password", next: [4, 5, 6] },
         4: { name: "La clé USB", kind: "Fichiers", text: "La clé USB contient des fichiers utiles. Trouve la clé et le papier dans les fichiers de ta carte.", items: ["usb", "admin"], success: "Tu as trouvé la clé USB et le papier !", next: [7] },
@@ -1054,6 +1118,26 @@
         cardZoom: 1, cardRotation: 0
       };
       const $ = (selector) => document.querySelector(selector);
+      const pixelIconCache = new Map();
+
+      function pixelIconMarkup(symbol, className = "pixel-icon") {
+        let src = pixelIconCache.get(symbol);
+        if (!src) {
+          const canvas = document.createElement("canvas");
+          canvas.width = 18;
+          canvas.height = 18;
+          const context = canvas.getContext("2d");
+          if (!context) return `<span class="${className}" aria-hidden="true">${symbol}</span>`;
+          context.clearRect(0, 0, canvas.width, canvas.height);
+          context.font = '14px "Segoe UI Emoji","Apple Color Emoji",sans-serif';
+          context.textAlign = "center";
+          context.textBaseline = "middle";
+          context.fillText(symbol, 9, 9);
+          src = canvas.toDataURL("image/png");
+          pixelIconCache.set(symbol, src);
+        }
+        return `<img class="${className}" src="${src}" alt="" aria-hidden="true">`;
+      }
 
       function renderScene(id) {
         const baseScene = sceneVisuals[id];
@@ -1077,10 +1161,10 @@
               ["🔑", "Fichiers de la clé USB", "Informations à consulter", 4],
               ["📊", "Tableau", "Données de l’établissement", 6]
             ].map(([icon, name, detail, cardId]) =>
-              `<button class="folder-file-button" type="button" data-folder-card="${cardId}"><span class="folder-file-icon" aria-hidden="true">${icon}</span><span><strong>${name}</strong><br>${detail}</span></button>`
+              `<button class="folder-file-button" type="button" data-folder-card="${cardId}"><span class="folder-file-icon" aria-hidden="true">${pixelIconMarkup(icon)}</span><span><strong>${name}</strong><br>${detail}</span></button>`
             ).join("")
           : scene.items.map(([icon, name, detail]) => {
-          return `<div class="scene-item"><span class="scene-item-icon" aria-hidden="true">${icon}</span><span class="scene-item-name">${name}</span><span class="scene-item-detail">${detail}</span></div>`;
+          return `<div class="scene-item"><span class="scene-item-icon" aria-hidden="true">${pixelIconMarkup(icon)}</span><span class="scene-item-name">${name}</span><span class="scene-item-detail">${detail}</span></div>`;
         }).join("");
         const modeTag = scene.tag;
         renderDesktopIcons();
@@ -1088,7 +1172,7 @@
         const appIcon = cardVisuals[id][0];
         $("#computer-window").classList.toggle("home-window", id === 1 && !state.windowOpen);
         $("#computer-window").style.display = state.windowOpen ? "flex" : "none";
-        $("#computer-window").innerHTML = `<header class="window-titlebar"><span class="window-app-icon" aria-hidden="true">${appIcon}</span><span class="window-title">${scene.title}</span><div class="window-controls"><button class="window-control" type="button" data-window-minimize aria-label="Réduire la fenêtre">—</button><button class="window-control close" type="button" data-window-close aria-label="Fermer la fenêtre">×</button></div></header><div class="window-content"><div class="scene-screen ${classes[scene.type]}"><div class="scene-chrome"><span class="scene-window-title">${scene.title}</span><span class="scene-chip">${modeTag}</span></div><div class="scene-body">${items}</div></div><div class="preview-action" id="preview-action" aria-live="polite"><h3 class="preview-card-title">Carte ${String(id).padStart(2, "0")} · ${card.name}</h3><p class="preview-card-copy">${id === 3 && state.folderUnlocked ? "Le dossier est déverrouillé. Consulte les fichiers disponibles." : card.text}</p></div></div>`;
+        $("#computer-window").innerHTML = `<header class="window-titlebar"><span class="window-app-icon" aria-hidden="true">${pixelIconMarkup(appIcon)}</span><span class="window-title">${scene.title}</span><div class="window-controls"><button class="window-control" type="button" data-window-minimize aria-label="Réduire la fenêtre">—</button><button class="window-control close" type="button" data-window-close aria-label="Fermer la fenêtre">×</button></div></header><div class="window-content"><div class="scene-screen ${classes[scene.type]}"><div class="scene-chrome"><span class="scene-window-title">${scene.title}</span><span class="scene-chip">${modeTag}</span></div><div class="scene-body">${items}</div></div><div class="preview-action" id="preview-action" aria-live="polite"><h3 class="preview-card-title">Carte ${String(id).padStart(2, "0")} · ${card.name}</h3><p class="preview-card-copy">${id === 3 && state.folderUnlocked ? "Le dossier est déverrouillé. Consulte les fichiers disponibles." : card.text}</p></div></div>`;
       }
 
       function render() {
@@ -1147,7 +1231,7 @@
           locked: '<rect x="4" y="1" width="8" height="8" fill="#d7e8f7"/><rect x="6" y="3" width="4" height="5" fill="#41658c"/><rect x="2" y="8" width="12" height="7" fill="#f3ac35"/><rect x="7" y="10" width="2" height="3" fill="#5f3d28"/>',
           usb: '<rect x="7" y="2" width="3" height="9" fill="#e1ae2b"/><rect x="5" y="9" width="7" height="4" fill="#f6c642"/><rect x="6" y="13" width="5" height="2" fill="#ac7623"/><rect x="5" y="1" width="2" height="2" fill="#eee"/><rect x="10" y="1" width="2" height="2" fill="#eee"/>',
           mail: '<rect x="1" y="4" width="14" height="10" fill="#f2f1e8"/><rect x="2" y="5" width="12" height="8" fill="#d8eaff"/><rect x="2" y="5" width="6" height="5" fill="#92b9de"/><rect x="8" y="5" width="6" height="5" fill="#92b9de"/><rect x="6" y="9" width="4" height="2" fill="#fff"/>',
-          trash: '<rect x="4" y="3" width="8" height="2" fill="#d8e1e9"/><rect x="3" y="5" width="10" height="10" fill="#b9c9d8"/><rect x="5" y="6" width="2" height="7" fill="#71879b"/><rect x="9" y="6" width="2" height="7" fill="#71879b"/><rect x="6" y="1" width="4" height="2" fill="#eef5fb"/>'
+          trash: '<rect x="4" y="2" width="8" height="3" fill="#f3f5ef"/><rect x="2" y="5" width="12" height="9" fill="#c2d22f"/><rect x="3" y="6" width="8" height="7" fill="#e1e94b"/><rect x="11" y="6" width="3" height="8" fill="#7d8f16"/><rect x="4" y="8" width="2" height="4" fill="#fff"/><rect x="7" y="7" width="2" height="5" fill="#fff"/>'
         };
         return `<svg class="desktop-icon-art" viewBox="0 0 16 16" aria-hidden="true" shape-rendering="crispEdges">${sprites[sprite]}</svg>`;
       }
@@ -1187,14 +1271,14 @@
         state.windowOpen = true;
         state.activeWindow = "explorer";
         $("#computer-window").style.display = "flex";
-        $("#computer-window").innerHTML = `<header class="window-titlebar"><span class="window-app-icon" aria-hidden="true">📁</span><span class="window-title">Explorateur de fichiers</span><div class="window-controls"><button class="window-control" type="button" data-window-minimize aria-label="Réduire la fenêtre">—</button><button class="window-control close" type="button" data-window-close aria-label="Fermer la fenêtre">×</button></div></header><div class="explorer-toolbar"><span>←</span><span>→</span><span class="crumb">🖥️ Ce PC</span><span>›</span><span class="crumb">Explorateur de fichiers</span></div><div class="explorer-files"><button class="explorer-folder" type="button" data-desktop-action="school-folder" aria-label="Ouvrir le dossier de l’école"><span class="explorer-folder-icon" aria-hidden="true">📁</span><span class="explorer-folder-name">Dossier de l’école</span><span class="explorer-folder-detail">Fichiers protégés</span></button></div>`;
+        $("#computer-window").innerHTML = `<header class="window-titlebar"><span class="window-app-icon" aria-hidden="true">${pixelIconMarkup("📁")}</span><span class="window-title">Explorateur de fichiers</span><div class="window-controls"><button class="window-control" type="button" data-window-minimize aria-label="Réduire la fenêtre">—</button><button class="window-control close" type="button" data-window-close aria-label="Fermer la fenêtre">×</button></div></header><div class="explorer-toolbar"><span>←</span><span>→</span><span class="crumb">${pixelIconMarkup("🖥️")} Ce PC</span><span>›</span><span class="crumb">Explorateur de fichiers</span></div><div class="explorer-files"><button class="explorer-folder" type="button" data-desktop-action="school-folder" aria-label="Ouvrir le dossier de l’école"><span class="explorer-folder-icon" aria-hidden="true">${pixelIconMarkup("📁")}</span><span class="explorer-folder-name">Dossier de l’école</span><span class="explorer-folder-detail">Fichiers protégés</span></button></div>`;
       }
 
       function openTrash() {
         state.windowOpen = true;
         state.activeWindow = "trash";
         $("#computer-window").style.display = "flex";
-        $("#computer-window").innerHTML = `<header class="window-titlebar"><span class="window-app-icon" aria-hidden="true">🗑️</span><span class="window-title">Corbeille</span><div class="window-controls"><button class="window-control close" type="button" data-window-close aria-label="Fermer la fenêtre">×</button></div></header><div class="window-content"><div class="trash-message"><span class="trash-big" aria-hidden="true">🗑️</span>Ho mais tu es tombé dans la poubelle ! C’est sale en plus… Ce n’était pas le bon choix !<br><strong>Reviens sur le bureau pour continuer l’aventure.</strong></div><button class="primary-button" type="button" data-window-close>Retour au bureau</button></div>`;
+        $("#computer-window").innerHTML = `<header class="window-titlebar"><span class="window-app-icon" aria-hidden="true">${pixelIconMarkup("🗑️")}</span><span class="window-title">Corbeille</span><div class="window-controls"><button class="window-control close" type="button" data-window-close aria-label="Fermer la fenêtre">×</button></div></header><div class="window-content"><div class="trash-message"><span class="trash-big" aria-hidden="true">${pixelIconMarkup("🗑️")}</span>Ho mais tu es tombé dans la poubelle ! C’est sale en plus… Ce n’était pas le bon choix !<br><strong>Reviens sur le bureau pour continuer l’aventure.</strong></div><button class="primary-button" type="button" data-window-close>Retour au bureau</button></div>`;
         $("#announcer").textContent = "Ho mais tu es tombé dans la poubelle ! C’est sale en plus… Ce n’était pas le bon choix ! Reviens sur le bureau pour continuer l’aventure.";
       }
 
@@ -1202,11 +1286,12 @@
         const card = cards[id];
         if (!card) return;
         const number = String(id).padStart(2, "0");
-        $("#physical-card-mini").textContent = cardVisuals[id][0];
+        $("#physical-card-mini").innerHTML = pixelIconMarkup(cardVisuals[id][0]);
         $("#physical-card-label").textContent = `Carte ${number} · ${card.name}`;
-        $("#physical-card-viewer-title").textContent = `Carte ${number} · ${card.name}`;
-        $("#physical-card-art-icon").textContent = cardVisuals[id][0];
-        $("#physical-card-art-name").textContent = card.name;
+          $("#physical-card-description").textContent = card.text;
+          $("#physical-card-viewer-title").textContent = `Carte ${number} · ${card.name}`;
+          $("#physical-card-art-icon").innerHTML = pixelIconMarkup(cardVisuals[id][0]);
+          $("#physical-card-art-name").textContent = card.name;
         $("#physical-card-art").style.transform = `scale(${state.cardZoom}) rotate(${state.cardRotation}deg)`;
       }
 
@@ -1301,6 +1386,8 @@
         state.currentCard = id;
         state.activeWindow = `card:${id}`;
         state.windowOpen = true;
+        state.cardZoom = 1;
+        state.cardRotation = 0;
         $("#hint-text").textContent = "";
         $("#card-number").value = id;
         message("");
@@ -1330,6 +1417,9 @@
 
       $("#physical-card-preview").addEventListener("click", () => {
         togglePhysicalCardViewer(!state.physicalCardOpen);
+      });
+      $("#physical-card-viewer").addEventListener("click", (event) => {
+        if (event.target === $("#physical-card-viewer")) togglePhysicalCardViewer(false);
       });
       $("#physical-card-close").addEventListener("click", () => togglePhysicalCardViewer(false));
       $("#card-zoom-in").addEventListener("click", () => {
@@ -1387,6 +1477,17 @@
       $("#cards-toggle").addEventListener("click", () => setCardsMenu($("#cards-menu").hidden));
       $("#start-button").addEventListener("click", () => setCardsMenu($("#cards-menu").hidden));
       $("#cards-close").addEventListener("click", () => setCardsMenu(false));
+      document.querySelectorAll("[data-taskbar-action]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const action = button.dataset.taskbarAction;
+          if (action === "explorer") {
+            toggleDesktopWindow("explorer", openFileExplorer);
+          } else if (action === "messages") {
+            toggleDesktopWindow("card:5", () => showCard(5));
+          }
+          renderDesktopIcons();
+        });
+      });
       state.timerId = window.setInterval(() => {
         if (!state.timerRunning) return;
         state.timerSeconds++;
@@ -1412,6 +1513,7 @@
         togglePhysicalCardViewer(false);
         setCardsMenu(false);
         showCard(1);
+        closeDesktopWindow();
       });
 
       document.addEventListener("keydown", (event) => {
@@ -1422,7 +1524,7 @@
       });
 
       showCard(1);
-      render();
+      closeDesktopWindow();
     })();
   </script>
 </body>
