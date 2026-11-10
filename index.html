@@ -220,6 +220,13 @@
     .modal p { color: #bbc6e2; font-size: 11px; line-height: 1.65; }
     .modal-actions { justify-content: flex-end; margin-top: 14px; }
     .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; clip-path: inset(50%); }
+    .how-to { margin: -5px 0 18px; padding: 14px 18px; }
+    .how-to summary { color: #5940a4; font-size: 17px; font-weight: 800; cursor: pointer; }
+    .how-to-content { max-width: 900px; padding: 8px 4px 0; color: #344563; font-size: 15px; line-height: 1.55; }
+    .how-to-content p { margin: 8px 0; }
+    .hint-text:not(:empty) { border: 2px solid #d3c8f2; border-radius: 14px; background: #fffdf6; padding: 12px; }
+    .hint-level { display: block; margin-bottom: 4px; color: #5940a4; font-weight: 800; }
+    .complete-card-button { width: 100%; margin-top: 13px; }
 
     @media (max-width: 960px) {
       .layout { grid-template-columns: 190px minmax(0, 1fr); }
@@ -360,8 +367,8 @@
         <span>UnArtsup<small>Compagnon du jeu de cartes</small></span>
       </a>
       <div class="top-right">
-        <span class="top-pill">1 à 4 joueurs</span>
-        <span class="top-pill">Environ 10–20 minutes</span>
+        <span class="top-pill">1 à 4 joueurs · 10–20 min</span>
+        <span class="top-pill">Dès 6 ans avec un grand</span>
       </div>
     </header>
 
@@ -369,7 +376,7 @@
       <div class="hero-copy">
         <div class="kicker">🎮 À jouer avec tes cartes et un grand</div>
         <h1>Panique dans <span>l’ordinateur !</span></h1>
-        <p>Oh non ! Arthur et ses amis sont coincés dans l’ordinateur. Joue avec tes cartes pour les aider à sortir ! Quand une carte te le demande, écris son numéro ici. Un grand peut t’aider à lire.</p>
+        <p>Kat s’est endormie à e-artsup… et s’est réveillée dans l’ordinateur ! Arthur lui parle depuis l’autre côté de l’écran. Ensemble, aidez les élèves cachés par Elderic à retrouver la sortie.</p>
       </div>
       <section class="session" aria-label="Chronomètre de la partie">
         <div class="session-label"><span>⏱ Chrono (facultatif)</span><span id="timer-state">En pause</span></div>
@@ -381,11 +388,21 @@
       </section>
     </section>
 
+    <details class="how-to panel">
+      <summary>📖 L’histoire et les règles, avec un grand</summary>
+      <div class="how-to-content">
+        <p><strong>La mission :</strong> Kat est coincée dans l’ordinateur de l’école. Elderic y a caché des élèves pour protéger la réputation de son école. Arthur va aider Kat à les retrouver et à rejoindre la borne d’arcade.</p>
+        <p><strong>Comment jouer :</strong> posez les cartes face cachée et jouez tous ensemble. Regardez la carte papier, cherchez les indices dans l’image et utilisez les objets trouvés. N’associez deux cartes que si une carte vous le demande. Entrez ici le numéro d’une carte seulement quand votre carte ou votre grand vous le demande.</p>
+        <p><strong>Pas de mauvaise réponse :</strong> discutez, essayez et demandez les indices d’Arthur. Une erreur ne fait jamais perdre la partie. Le chrono est facultatif ; vous pouvez jouer sans vous presser.</p>
+        <p><strong>Deux moments :</strong> explorez d’abord l’ordinateur et découvrez les élèves cachés. Puis trouvez les objets, sauvez vos amis et ouvrez la borne pour sortir.</p>
+      </div>
+    </details>
+
     <section class="panel preview-board" aria-labelledby="preview-heading">
       <div class="scene-display" id="scene-display" aria-live="polite"></div>
       <div class="preview-controls">
         <h2 id="preview-heading">🖥️ Scène de la carte</h2>
-        <p class="preview-description">Regarde bien l’image. Puis suis les petites étapes sur ta carte. Tu peux demander de l’aide à Arthur !</p>
+        <p class="preview-description">Regarde l’image avec ta carte papier. Cherche les indices ensemble, puis suis les étapes. Tu peux demander de l’aide à Arthur !</p>
         <form class="card-entry" id="card-form">
           <label class="entry-label" for="card-number">✨ Quel numéro vois-tu sur ta carte ?</label>
           <div class="entry-row">
@@ -405,7 +422,7 @@
       <aside class="panel history-panel">
         <h2 class="panel-heading">📚 Tes cartes jouées</h2>
         <div class="history-list" id="history-list" aria-label="Cartes utilisées"></div>
-        <div class="note"><strong>Arthur :</strong> « Appuie sur une carte pour revoir l’image et l’indice ! »</div>
+        <div class="note"><strong>Arthur :</strong> « Appuie sur une carte pour revoir l’image. Quand vous avez fait l’action, confirmez-la avec un grand ! »</div>
       </aside>
 
       <section class="panel catalog">
@@ -423,7 +440,7 @@
           <div class="inventory" id="inventory" aria-live="polite"><div class="inventory-empty">Tes objets magiques apparaîtront ici.</div></div>
         </section>
         <section class="tool-section">
-          <h2 class="panel-heading">🧑‍🎓 Tes amis</h2>
+          <h2 class="panel-heading">🧑‍🎓 Les élèves à sauver</h2>
           <div class="students" id="students"></div>
           <div class="note" id="student-note">Aide tous tes amis à rentrer avec toi !</div>
         </section>
@@ -451,57 +468,57 @@
   <script>
     (() => {
       const hints = {
-        1: "Regarde près du soleil, puis de l’étoile, puis de la lune.",
-        2: "Cherche les appareils qui ont les prénoms de tes amis.",
-        3: "Lis les chiffres dans cet ordre : soleil, étoile, lune.",
-        4: "Ouvre le dossier de la clé USB.",
-        5: "Cherche les messages d’Arthur.",
-        6: "Les quatre amis sont Noam, Julien, Liam et Loan.",
-        7: "La clé USB ouvre la liste du réseau.",
-        8: "Lis les noms près des petits appareils.",
-        9: "Arthur est de l’autre côté de l’écran.",
-        10: "Le câble et le répéteur aident le Wi-Fi à voyager.",
-        11: "Le filtre transparent retrouve ce qui a disparu.",
-        12: "Cherche le petit appareil de Noam.",
-        13: "La loupe aide à voir les petits détails.",
-        14: "Regarde bien les petits coins de la carte.",
-        15: "Pose le filtre sur les marques cachées.",
-        16: "Utilise la loupe et le filtre ensemble.",
-        17: "Le soleil ou le nuage : choisis le chemin que tu préfères.",
-        18: "Vise les petites cachettes avec la souris.",
-        19: "Suis le chemin du soleil ou du nuage.",
-        20: "Il faut la clé USB et le câble.",
-        21: "Loan est dans la sauvegarde de la borne.",
-        22: "Regarde le papier trouvé dans le dossier USB.",
-        23: "Ouvre la sauvegarde pour retrouver Liam.",
-        24: "Tu peux sortir maintenant, ou sauver encore un ami !"
+        1: ["Regarde les petits symboles.", "Lis-les dans l’ordre soleil, étoile, lune.", "Le code du dossier est 241."],
+        2: ["Regarde la liste des appareils.", "Cherche les appareils qui portent les prénoms des élèves.", "Les appareils des élèves sont Noam, Julien, Liam et Loan."],
+        3: ["Regarde les symboles cachés sur le bureau.", "Lis les chiffres dans l’ordre soleil, étoile, lune.", "Le code du dossier est 241."],
+        4: ["Regarde les fichiers de la clé USB.", "Cherche le papier qui parle de la borne.", "La clé USB et le papier servent plus tard pour la borne."],
+        5: ["Regarde les messages.", "Cherche le message envoyé par Arthur.", "Arthur est l’ami qui te parle de l’autre côté de l’écran."],
+        6: ["Regarde les prénoms dans le tableau.", "Cherche Noam, Julien, Liam et Loan.", "Les quatre prénoms des élèves sont Noam, Julien, Liam et Loan."],
+        7: ["Regarde le port USB.", "Branche la clé USB trouvée dans le dossier.", "La clé USB permet d’ouvrir la liste du réseau."],
+        8: ["Regarde les noms des appareils.", "Relie chaque appareil au prénom affiché.", "Les appareils appartiennent à Noam, Julien, Liam et Loan."],
+        9: ["Cherche qui t’écrit.", "Lis les deux messages d’Arthur.", "Arthur est de l’autre côté de l’écran. Elderic a caché les élèves dans l’ordinateur."],
+        10: ["Regarde le matériel réseau.", "Trouve le câble et le répéteur Wi-Fi.", "Prends le câble et le répéteur pour rétablir le signal."],
+        11: ["L’écran bleu est une erreur.", "Pas de panique : tes objets et tes amis restent en sécurité.", "Le filtre transparent retrouvera l’information perdue."],
+        12: ["Cherche le message de Noam.", "Regarde son petit appareil sur ta carte papier.", "Quand vous avez trouvé Noam sur la carte, confirmez pour le sauver."],
+        13: ["Regarde les outils disponibles.", "Choisis celui qui agrandit l’image.", "C’est la Loupe."],
+        14: ["Regarde les objets sur la carte.", "Cherche l’outil qui se déplace à l’écran.", "C’est la souris."],
+        15: ["Regarde l’objet transparent.", "Il aide à voir les marques cachées.", "Le filtre retrouve aussi l’information perdue par l’écran bleu."],
+        16: ["Regarde les petits détails de l’image.", "Utilise la Loupe et le filtre ensemble.", "Le code de l’image est 4826."],
+        17: ["Regarde les deux chemins.", "Choisis le soleil ou le nuage.", "Les deux chemins sont bons : choisis celui que tu préfères."],
+        18: ["Cherche Julien dans les petits détails.", "Vise sa cachette avec la souris.", "Quand vous avez trouvé Julien sur la carte, confirmez pour le sauver."],
+        19: ["Regarde la porte de l’arcade.", "Suis le chemin choisi sur la carte papier.", "Après l’image réparée, la porte de l’arcade est ouverte."],
+        20: ["Regarde les prises de la borne.", "Branche la clé USB et le câble.", "La clé USB et le câble allument la borne Salamandre."],
+        21: ["Regarde les fichiers de la borne.", "Cherche le fichier de Loan.", "Quand vous avez trouvé Loan, confirmez pour le sauver."],
+        22: ["Cherche le papier trouvé dans la clé USB.", "Lis les chiffres écrits pour la borne.", "Le code de sortie est 4826."],
+        23: ["Regarde les sauvegardes.", "Cherche le fichier de Liam.", "Quand vous avez trouvé Liam, confirmez pour le sauver."],
+        24: ["La borne est prête.", "Vérifie si tu veux encore sauver un ami.", "Joue la carte 23 pour retrouver Liam, puis confirme la carte 24 pour sortir."]
       };
 
       const cards = {
-        1: { place: 0, name: "Le bureau", kind: "Observation", text: "Regarde les icônes du bureau. Trois petits symboles cachent un code !", next: [2, 3] },
-        2: { place: 0, name: "Le Wi-Fi", kind: "Observation", text: "Regarde qui est connecté au Wi-Fi. Peux-tu trouver les appareils de tes amis ?", next: [7, 8, 10, 11] },
-        3: { place: 0, name: "Le dossier fermé", kind: "Code", text: "Le dossier est fermé. Trouve les trois chiffres cachés sur le bureau et entre-les dans l’ordre indiqué.", code: "241", hint: "Lis les chiffres dans cet ordre : soleil, étoile, lune.", success: "Bravo ! Le dossier s’ouvre !", item: "password", unlock: 1, next: [4, 5, 6] },
-        4: { place: 0, name: "La clé USB", kind: "Fichiers", text: "La clé USB contient des fichiers utiles. Garde la clé et le papier : ils aideront à allumer la borne !", items: ["usb", "admin"], success: "Tu as trouvé la clé USB et le papier !", next: [7] },
-        5: { place: 0, name: "Les messages", kind: "Observation", text: "Ouvre les messages. Arthur t’a écrit et a besoin de ton aide !", next: [9] },
-        6: { place: 0, name: "Le tableau", kind: "Fichier", text: "Regarde le tableau et trouve les dates de tes quatre amis : Noam, Julien, Liam et Loan.", next: [12] },
-        7: { place: 1, name: "Le réseau", kind: "Observation", text: "Branche la clé USB pour regarder la liste des appareils connectés.", requires: ["usb"], success: "Ça marche ! La liste des appareils apparaît.", next: [8, 10, 11] },
-        8: { place: 1, name: "Les appareils", kind: "Observation", text: "Les appareils ont les prénoms de tes amis. Regarde bien pour pouvoir les retrouver !", next: [12] },
-        9: { place: 1, name: "Message d’Arthur", kind: "Histoire", text: "Arthur est de l’autre côté de l’écran ! Le directeur a caché des élèves dans l’ordinateur. Aidons Arthur à les retrouver !", requires: ["cable"], unlock: 2, next: [13, 14, 15, 17] },
-        10: { place: 1, name: "Le câble magique", kind: "Objet", text: "Prends le câble et le répéteur. Ils aident le Wi-Fi à aller plus loin.", item: "cable", success: "Super ! Tu as trouvé le câble et le répéteur.", next: [9] },
-        11: { place: 1, name: "Oups, écran bleu !", kind: "Échec", text: "Oups ! L’ordinateur a perdu une petite information. Pas grave : le filtre transparent pourra la retrouver." },
-        12: { place: 1, name: "Noam appelle", kind: "Sauvetage", text: "Noam t’appelle ! Cherche son image sur tes cartes pour le libérer.", student: 0, success: "Hourra ! Noam est avec toi !" },
-        13: { place: 2, name: "La Loupe", kind: "Objet", text: "La Loupe aide à voir les tout petits détails. Ajoute-la à ton sac !", item: "magnifier", success: "Tu as trouvé la Loupe !" },
-        14: { place: 2, name: "La souris", kind: "Objet", text: "La souris peut viser les petits endroits. Ajoute-la à ton sac !", item: "mouse", success: "Tu as trouvé la souris !", next: [18] },
-        15: { place: 2, name: "Le filtre transparent", kind: "Objet", text: "Le filtre transparent montre les choses cachées. Il retrouve aussi l’information perdue !", item: "filter", restore: true, success: "Bravo ! Le filtre a retrouvé l’information." },
-        16: { place: 2, name: "L’image cachée", kind: "Code", text: "Regarde l’image avec la Loupe et le filtre. Trouve les chiffres et entre-les ici.", code: "4826", requires: ["magnifier", "filter"], requiresRestored: true, hint: "Utilise la Loupe et le filtre ensemble.", success: "Bravo ! Le fichier est réparé. La salle d’arcade est ouverte !", unlock: 3, next: [19] },
-        17: { place: 2, name: "Soleil ou nuage ?", kind: "Bonus", text: "Choisis le chemin du soleil ou celui du nuage. Les deux chemins sont bons !", item: "heart", routeMode: true, success: "Tu as gagné un jeton pour demander de l’aide !" },
-        18: { place: 2, name: "Julien est caché", kind: "Sauvetage", text: "Où est Julien ? Utilise la souris pour viser sa petite cachette.", requires: ["mouse"], student: 1, success: "Hourra ! Julien est avec toi !" },
-        19: { place: 3, name: "Porte de l’arcade", kind: "Passage", text: "Suis le chemin du soleil ou du nuage pour rejoindre la salle d’arcade.", requiresCard: 16, success: "La salle d’arcade est ouverte !", unlock: 3, next: [20] },
-        20: { place: 3, name: "Borne Salamandre", kind: "Interaction", text: "Branche la clé USB et le câble sur la borne Salamandre pour l’allumer.", requires: ["usb", "cable"], success: "La borne Salamandre s’allume !", next: [21] },
-        21: { place: 3, name: "Loan dans la borne", kind: "Sauvetage", text: "La borne a trouvé Loan ! Ajoute-le à la bande des amis sauvés.", requires: ["usb", "cable"], student: 3, success: "Hourra ! Loan est avec toi !", next: [22] },
-        22: { place: 3, name: "Le code de sortie", kind: "Code", text: "Le papier trouvé dans la clé USB donne le code. Lis-le et entre les chiffres pour ouvrir la sortie.", code: "4826", requires: ["admin", "usb", "cable"], requiresRestored: true, hint: "Demande à un grand de t’aider à lire le papier du dossier USB.", success: "Bravo ! La sortie est ouverte. Tu peux libérer Liam ou sortir maintenant !", next: [23, 24] },
-        23: { place: 3, name: "Liam est tout près", kind: "Sauvetage", text: "Ouvre la sauvegarde pour retrouver Liam et l’ajouter à tes amis sauvés !", requiresCard: 22, student: 2, success: "Hourra ! Liam est avec toi !" },
-        24: { place: 3, name: "La sortie", kind: "Sortie", text: "La borne te ramène dehors ! Tous les amis que tu as sauvés viennent avec toi.", requiresCard: 22, ending: true }
+        1: { name: "Le bureau", kind: "Observation", text: "Regarde les icônes du bureau. Trois symboles cachent un code ! Quand vous l’avez trouvé sur la carte papier, confirmez ici.", next: [2, 3] },
+        2: { name: "Le Wi-Fi", kind: "Observation", text: "Regarde qui est connecté au Wi-Fi. Cherche les appareils des élèves sur ta carte.", next: [7, 8, 10, 11] },
+        3: { name: "Le dossier fermé", kind: "Code", text: "Le dossier est fermé. Trouve les trois chiffres cachés sur le bureau et entre-les dans l’ordre indiqué.", code: "241", hint: "Lis les chiffres dans cet ordre : soleil, étoile, lune.", success: "Bravo ! Le dossier s’ouvre !", item: "password", next: [4, 5, 6] },
+        4: { name: "La clé USB", kind: "Fichiers", text: "La clé USB contient des fichiers utiles. Trouve la clé et le papier dans les fichiers de ta carte.", items: ["usb", "admin"], success: "Tu as trouvé la clé USB et le papier !", next: [7] },
+        5: { name: "Les messages", kind: "Observation", text: "Ouvre les messages. Arthur t’a écrit et a besoin de ton aide !", next: [9] },
+        6: { name: "Le tableau", kind: "Fichier", text: "Regarde le tableau et trouve les prénoms de tes quatre amis : Noam, Julien, Liam et Loan.", next: [12] },
+        7: { name: "Le réseau", kind: "Observation", text: "Branche la clé USB pour regarder la liste des appareils connectés.", requires: ["usb"], success: "Ça marche ! La liste des appareils apparaît.", next: [8, 10, 11] },
+        8: { name: "Les appareils", kind: "Observation", text: "Relie les appareils aux prénoms des élèves sur ta carte.", next: [12] },
+        9: { name: "Message d’Arthur", kind: "Histoire", text: "Arthur est de l’autre côté de l’écran ! Elderic, le directeur, a caché des élèves dans l’ordinateur. Aidons-les ensemble !", requires: ["cable"], next: [13, 14, 15, 17] },
+        10: { name: "Le câble magique", kind: "Objet", text: "Trouve le câble et le répéteur sur la carte. Ils aident le Wi-Fi à aller plus loin.", item: "cable", success: "Super ! Tu as trouvé le câble et le répéteur.", next: [9] },
+        11: { name: "Oups, écran bleu !", kind: "Échec", text: "Oups ! L’ordinateur a perdu une petite information. Pas grave : le filtre transparent pourra la retrouver. Tu ne peux pas perdre la partie !" },
+        12: { name: "Noam appelle", kind: "Sauvetage", text: "Noam t’appelle ! Cherche son image sur tes cartes. Quand vous l’avez trouvé, confirmez pour le sauver.", student: 0, success: "Hourra ! Noam est avec toi !" },
+        13: { name: "La Loupe", kind: "Objet", text: "La Loupe aide à voir les tout petits détails. Ajoute-la à ton sac !", item: "magnifier", success: "Tu as trouvé la Loupe !" },
+        14: { name: "La souris", kind: "Objet", text: "La souris peut viser les petits endroits. Ajoute-la à ton sac !", item: "mouse", success: "Tu as trouvé la souris !", next: [18] },
+        15: { name: "Le filtre transparent", kind: "Objet", text: "Le filtre transparent montre les choses cachées. Il retrouve aussi l’information perdue !", item: "filter", restore: true, success: "Tu as trouvé le filtre transparent !" },
+        16: { name: "L’image cachée", kind: "Code", text: "Regarde l’image avec la Loupe et le filtre. Trouve les chiffres et entre-les ici.", code: "4826", requires: ["magnifier", "filter"], requiresRestored: true, hint: "Utilise la Loupe et le filtre ensemble.", success: "Bravo ! Le fichier est réparé. La salle d’arcade est ouverte !", next: [19] },
+        17: { name: "Soleil ou nuage ?", kind: "Bonus", text: "Choisis le chemin du soleil ou celui du nuage. Les deux chemins sont bons !", item: "heart", routeMode: true, success: "Tu as gagné un jeton pour demander de l’aide !" },
+        18: { name: "Julien est caché", kind: "Sauvetage", text: "Où est Julien ? Utilise la souris pour viser sa petite cachette. Quand vous l’avez trouvé, confirmez pour le sauver.", requires: ["mouse"], student: 1, success: "Hourra ! Julien est avec toi !" },
+        19: { name: "Porte de l’arcade", kind: "Passage", text: "Suis le chemin du soleil ou du nuage pour rejoindre la salle d’arcade.", requiresCard: 16, success: "La salle d’arcade est ouverte !", next: [20] },
+        20: { name: "Borne Salamandre", kind: "Interaction", text: "Branche la clé USB et le câble sur la borne Salamandre pour l’allumer.", requires: ["usb", "cable"], success: "La borne Salamandre s’allume !", next: [21] },
+        21: { name: "Loan dans la borne", kind: "Sauvetage", text: "La borne a trouvé Loan ! Quand vous l’avez retrouvé sur la carte, confirmez pour le sauver.", requires: ["usb", "cable"], student: 3, success: "Hourra ! Loan est avec toi !", next: [22] },
+        22: { name: "Le code de sortie", kind: "Code", text: "Le papier trouvé dans la clé USB donne le code. Lis-le et entre les chiffres pour ouvrir la sortie.", code: "4826", requires: ["admin", "usb", "cable"], requiresRestored: true, hint: "Demande à un grand de t’aider à lire le papier du dossier USB.", success: "Bravo ! La sortie est ouverte. Tu peux libérer Liam ou sortir maintenant !", next: [23, 24] },
+        23: { name: "Liam est tout près", kind: "Sauvetage", text: "Ouvre la sauvegarde pour retrouver Liam. Quand vous l’avez trouvé, confirmez pour le sauver !", requiresCard: 22, student: 2, success: "Hourra ! Liam est avec toi !" },
+        24: { name: "La sortie", kind: "Sortie", text: "La borne te ramène dehors ! Quand toute l’équipe est prête, confirmez pour sortir de l’ordinateur.", requiresCard: 22, ending: true }
       };
 
       const itemInfo = {
@@ -514,26 +531,26 @@
       const cardVisuals = {
         1: ["🖥️", "Le bureau rassemble l’explorateur, les paramètres, le dossier verrouillé et la clé USB."],
         2: ["📶", "La liste des appareils Wi-Fi révèle qui est coincé dans l’ordinateur."],
-        3: ["🔐", "Le dossier sécurisé du proviseur attend son mot de passe."],
-        4: ["🔑", "La clé USB contient des fichiers administratifs."],
+        3: ["🔐", "Le dossier fermé attend les chiffres cachés sur le bureau."],
+        4: ["🔑", "La clé USB contient le papier qui aidera à ouvrir la borne."],
         5: ["💬", "Teams et Outlook cachent des conversations utiles."],
         6: ["📊", "Le tableau donne les dates de naissance de quatre élèves."],
         7: ["📡", "Le réseau de l’établissement a besoin de la clé USB."],
         8: ["📱", "Les quatre élèves apparaissent dans la liste des appareils."],
         9: ["💬", "Arthur écrit depuis l’autre côté de l’écran."],
-        10: ["🧵", "Le câble Ethernet et le répéteur rétablissent le signal."],
+        10: ["🧵", "Le câble et le répéteur aident le Wi-Fi à voyager."],
         11: ["🟦", "L’écran bleu efface une donnée : retrouve-la avec le filtre."],
         12: ["🧑‍🎓", "Noam appelle depuis le réseau."],
         13: ["🔍", "La Loupe révèle les détails minuscules."],
         14: ["🖱️", "Le pointeur vise les cachettes minuscules."],
         15: ["🪟", "Le filtre transparent montre les données cachées."],
-        16: ["🧩", "Combine la Loupe et le filtre pour réparer le fichier."],
-        17: ["☀️", "Le mode clair ou sombre ouvre deux routes différentes."],
+        16: ["🧩", "Regarde l’image avec la Loupe et le filtre transparent."],
+        17: ["☀️", "Choisis le chemin du soleil ou celui du nuage."],
         18: ["👀", "Le pointeur permet de retrouver Julien."],
         19: ["🚪", "Suis la route choisie pour rejoindre l’arcade."],
         20: ["🦎", "La borne Salamandre ouvre la sortie de l’ordinateur."],
         21: ["💾", "La borne retrouve le fichier de Loan."],
-        22: ["⌨️", "La console demande le code du document administratif."],
+        22: ["⌨️", "La borne demande le code écrit sur le papier de l’école."],
         23: ["💾", "La sauvegarde restaure le fichier de Liam."],
         24: ["🌅", "La borne te ramène dans le monde réel."]
       };
@@ -544,29 +561,29 @@
           ["📂", "Dossier verrouillé", "Accès protégé", "🌙 1"],
           ["🔑", "Clé-USB", "Périphérique détecté"]
         ] },
-        2: { type: "window", title: "Paramètres · Réseau Wi-Fi", tag: "Connecté", items: [
+        2: { type: "window", title: "Le Wi-Fi de l’école", tag: "Connecté", items: [
           ["📶", "Réseau école", "Connexion active"],
-          ["🖥️", "PC-Proviseur", "Administrateur"],
+          ["🖥️", "Ordinateur d’Elderic", "Directeur"],
           ["📱", "Appareil inconnu", "Élève · signal faible"],
-          ["🔒", "Dossier admin", "Protégé par mot de passe"]
+          ["🔒", "Dossier fermé", "Protégé par un code"]
         ] },
-        3: { type: "console", title: "Accès sécurisé · Proviseur", tag: "Verrouillé", items: [
-          ["👤", "Compte", "Proviseur"],
+        3: { type: "console", title: "Dossier fermé · Elderic", tag: "Verrouillé", items: [
+          ["👤", "Compte", "Elderic · directeur"],
           ["🔐", "Mot de passe", "3 chiffres à trouver"],
-          ["📁", "Dossier Admin", "Fichiers confidentiels"],
-          ["🛡️", "Sécurité", "Accès réservé"]
+          ["📁", "Dossier de l’école", "Fichiers cachés"],
+          ["🛡️", "Sécurité", "Code demandé"]
         ] },
-        4: { type: "window", title: "Clé-USB · Dossier Admin", tag: "4 fichiers", items: [
+        4: { type: "window", title: "Fichiers de la clé USB", tag: "À explorer", items: [
           ["📊", "Dates de naissance", "Tableau des élèves et du personnel"],
-          ["🏦", "IBAN", "Coordonnées administratives"],
+          ["🏦", "Fichier de l’école", "Informations de l’école"],
           ["🏫", "Matériel de l’école", "Inventaire du campus"],
-          ["📄", "Document admin", "Code pour la borne"]
+          ["📄", "Papier de la borne", "Garde-le pour la sortie"]
         ] },
-        5: { type: "window", title: "Applications · Contacts et messages", tag: "Teams · Outlook", items: [
+        5: { type: "window", title: "Les messages de l’ordinateur", tag: "À lire", items: [
           ["🟣", "Teams", "Messages de l’équipe"],
-          ["✉️", "Outlook", "Courriels du proviseur"],
+          ["✉️", "Courriel", "Un message du directeur"],
           ["👥", "Contacts", "Élèves et personnel"],
-          ["💬", "Conversations", "Ouvre chaque sous-carte"]
+          ["💬", "Messages", "Arthur a écrit"]
         ] },
         6: { type: "sheet", title: "Fichier · Dates de naissance.xlsx", tag: "Tableau", items: [
           ["▦", "Nom", "Date de naissance"],
@@ -592,9 +609,9 @@
           ["📱", "Liam-tablet", "Liam · en ligne"],
           ["⌚", "Loan-watch", "Loan · signal faible"]
         ] },
-        9: { type: "messages", title: "Teams · Conversation avec Arthur", tag: "En ligne", items: [
-          ["🧑‍💻", "Arthur", "Je suis de l’autre côté de l’écran ! Le proviseur a enfermé les élèves et les joueurs jugés médiocres."],
-          ["🦎", "Arthur", "Il veut protéger la réputation de l’école. On doit retrouver tout le monde !"]
+        9: { type: "messages", title: "Un message d’Arthur", tag: "En ligne", items: [
+          ["🧑‍💻", "Arthur", "Je suis de l’autre côté de l’écran ! Le directeur Elderic a caché des élèves dans l’ordinateur."],
+          ["🦎", "Arthur", "Il veut protéger l’image de l’école. Aide-moi à retrouver tout le monde !"]
         ] },
         10: { type: "window", title: "Matériel réseau", tag: "À récupérer", items: [
           ["🧵", "Câble Ethernet", "Relie les appareils"],
@@ -634,18 +651,18 @@
           ["🔢", "Code", "4 chiffres à retrouver"]
         ] },
         17: { type: "window", title: "Météo · Apparence du bureau", tag: "Choisis une route", items: [
-          ["☀️", "Mode clair · route A", "Chemin lumineux"],
-          ["☁️", "Mode sombre · route B", "Chemin dans l’ombre"],
-          ["⭐", "Jeton bonus", "Un indice supplémentaire"],
-          ["↔️", "Affichage", "Les couleurs changent les indices"]
+          ["☀️", "Chemin du soleil", "Une route lumineuse"],
+          ["☁️", "Chemin du nuage", "Une route à l’ombre"],
+          ["⭐", "Jeton bonus", "Un indice à demander à Arthur"],
+          ["↔️", "Ton choix", "Les deux chemins sont bons"]
         ] },
         18: { type: "messages", title: "Pointeur détecté · Julien", tag: "Cachette", items: [
           ["🖱️", "Pointeur", "Vise le détail caché"],
           ["👦", "Julien", "Tu m’as trouvé !"]
         ] },
         19: { type: "window", title: "Passage vers l’arcade", tag: "Itinéraire", items: [
-          ["☀️", "Route A", "Mode clair"],
-          ["☁️", "Route B", "Mode sombre"],
+          ["☀️", "Chemin du soleil", "Porte lumineuse"],
+          ["☁️", "Chemin du nuage", "Porte à l’ombre"],
           ["🚪", "Porte", "Verrouillée par le fichier"],
           ["🧩", "Fichier réparé", "Passage débloqué"]
         ] },
@@ -678,9 +695,9 @@
       };
       const studentNames = ["Noam", "Julien", "Liam", "Loan"];
       const state = {
-        unlocked: 0, items: new Set(), consulted: new Set(),
+        items: new Set(), consulted: new Set(),
         resolved: new Set(), students: new Set(), lostData: false,
-        bonusHints: 0, currentCard: 1, routeMode: null, timerSeconds: 1200, timerRunning: false,
+        bonusHints: 0, hintLevels: new Map(), currentCard: 1, routeMode: null, timerSeconds: 1200, timerRunning: false,
         timerId: null, ended: false, availableCards: new Set([1])
       };
       const $ = (selector) => document.querySelector(selector);
@@ -690,10 +707,42 @@
         const card = cards[id];
         state.resolved.add(id);
         for (const nextCard of card.next || []) state.availableCards.add(nextCard);
-        if (card.unlock !== undefined) state.unlocked = Math.max(state.unlocked, card.unlock);
         if (state.resolved.has(9) && state.items.has("magnifier") && state.items.has("filter")) {
           state.availableCards.add(16);
         }
+      }
+
+      function completeCard(id) {
+        const card = cards[id];
+        if (state.resolved.has(id)) return;
+        if (id === 11) state.lostData = !state.items.has("filter");
+        const reward = collectCardItems(card);
+        const messages = [reward || (card.student === undefined ? card.success : "") || "Bien joué ! Vous pouvez continuer l’aventure."];
+        if (card.student !== undefined) {
+          if (state.students.has(card.student)) {
+            messages.push(`${studentNames[card.student]} est déjà avec toi.`);
+          } else {
+            state.students.add(card.student);
+            messages.push(card.success);
+          }
+        }
+        resolveCard(id);
+        showResult(card, messages.join(" "));
+        render();
+        $("#announcer").textContent = `Carte ${id} terminée.`;
+        if (!card.ending) return;
+
+        state.ended = true;
+        render();
+        $("#modal-title").textContent = state.students.size === studentNames.length
+          ? "Toute la bande est libre !"
+          : "Bravo, tu es sorti de l’ordinateur !";
+        $("#ending-text").textContent = state.students.size === studentNames.length
+          ? "Kat, Arthur, Noam, Julien, Liam et Loan sont enfin réunis. Vous avez réussi ensemble !"
+          : state.students.size
+            ? `Kat sort de l’ordinateur avec ${state.students.size} ami${state.students.size > 1 ? "s" : ""}. Vous pourrez revenir sauver les autres !`
+            : "Kat a retrouvé le monde réel ! Rejoue avec ton équipe pour aider les élèves restés dans l’ordinateur.";
+        overlay.hidden = false;
       }
 
       function collectCardItems(card) {
@@ -706,11 +755,13 @@
             if (key === "star" || key === "heart") state.bonusHints++;
           }
         }
-        if (card.restore && state.lostData) {
+        const restoredData = card.restore && state.lostData;
+        if (restoredData) {
           state.lostData = false;
           found.push("données restaurées");
         }
-        return found.length ? card.success : "";
+        if (!found.length) return "";
+        return `${card.success}${restoredData ? " Les données sont restaurées !" : ""}`;
       }
 
       function renderScene(id) {
@@ -721,7 +772,7 @@
         };
         const route = id >= 17 && state.routeMode ? ` route-${state.routeMode}` : "";
         const visibleItems = id === 19 && state.routeMode
-          ? scene.items.filter((item) => item[1] !== (state.routeMode === "light" ? "Route B" : "Route A"))
+          ? scene.items.filter((item) => item[1] !== (state.routeMode === "light" ? "Chemin du nuage" : "Chemin du soleil"))
           : scene.items;
         const items = visibleItems.map(([icon, name, detail, clue]) => {
           const clueBadge = clue ? `<span class="scene-clue">${clue}</span>` : "";
@@ -800,13 +851,25 @@
 
       $("#preview-action").addEventListener("click", (event) => {
         const button = event.target.closest("[data-read-card]");
-        if (button) readCardAloud(Number(button.dataset.readCard));
+        if (button) {
+          readCardAloud(Number(button.dataset.readCard));
+          return;
+        }
+        const completeButton = event.target.closest("[data-complete-card]");
+        if (completeButton) completeCard(Number(completeButton.dataset.completeCard));
       });
 
       function showCard(id) {
         const card = cards[id];
         if ("speechSynthesis" in window) window.speechSynthesis.cancel();
         state.currentCard = id;
+        $("#hint-text").textContent = "";
+        const hintLevel = state.hintLevels.get(id) || 0;
+        $("#hint-button").textContent = hintLevel && hintLevel < hints[id].length
+          ? `💡 Autre indice (${hintLevel + 1}/${hints[id].length})`
+          : hintLevel
+            ? "💡 Revoir le dernier indice"
+            : "💡 Demander un indice à Arthur";
         $("#card-number").value = id;
         message("");
         if (state.ended) {
@@ -820,11 +883,6 @@
           return;
         }
         state.consulted.add(id);
-        if (card.place > state.unlocked) {
-          showResult(card, "Tu n’es pas encore dans cette partie de l’aventure. Continue avec les cartes déjà ouvertes.");
-          render();
-          return;
-        }
         if (state.resolved.has(id)) {
           showResult(card, "Tu as déjà joué cette carte ! Reprends ton paquet pour continuer l’aventure.");
           render();
@@ -884,33 +942,8 @@
           return;
         }
 
-        let text = card.text;
-        if (id === 11) state.lostData = true;
-        const reward = collectCardItems(card);
-        if (reward) text += `\n\n${reward}`;
-        if (card.student !== undefined) {
-          const newlyRescued = !state.students.has(card.student);
-          state.students.add(card.student);
-          if (newlyRescued) text += `\n\n${card.success}`;
-          else text += `\n\n${studentNames[card.student]} est déjà avec toi.`;
-        }
-        if (card.ending) {
-          state.ended = true;
-          resolveCard(id);
-          render();
-          $("#modal-title").textContent = state.students.size === studentNames.length ? "Toute la bande est libre !" : state.students.size ? "Vous êtes sortis ensemble !" : "Tu as trouvé la sortie !";
-          $("#ending-text").textContent = state.students.size === studentNames.length
-            ? "Noam, Julien, Liam et Loan quittent l’ordinateur avec toi. Arthur vous attend de l’autre côté de l’écran. Bravo, toute la bande est sauvée !"
-            : state.students.size
-              ? `Tu sors de l’ordinateur avec ${state.students.size} ami${state.students.size > 1 ? "s" : ""}. Arthur vous attend de l’autre côté de l’écran.`
-              : "La borne Salamandre te ramène dans le monde réel. Tu pourras rejouer pour sauver les amis oubliés !";
-          overlay.hidden = false;
-        } else {
-          resolveCard(id);
-        }
-        showResult(card, text);
+        showResult(card, card.text, `<button class="primary-button complete-card-button" type="button" data-complete-card="${id}">✅ C’est fait, on continue !</button>`);
         render();
-        $("#announcer").textContent = `Carte ${id}, ${card.name}.`;
       }
 
       $("#card-form").addEventListener("submit", (event) => {
@@ -925,11 +958,17 @@
 
       $("#hint-button").addEventListener("click", () => {
         const hasCurrentCard = state.consulted.has(state.currentCard);
-        const hintCard = hasCurrentCard ? cards[state.currentCard] : cards[1];
-        const base = hintCard.hint || hints[hasCurrentCard ? state.currentCard : 1];
+        const id = hasCurrentCard ? state.currentCard : 1;
+        const hintList = hints[id];
+        const level = Math.min(state.hintLevels.get(id) || 0, hintList.length - 1);
+        const hint = hintList[level];
+        state.hintLevels.set(id, Math.min(level + 1, hintList.length));
         const bonus = state.bonusHints > 0;
         if (bonus) state.bonusHints--;
-        $("#hint-text").textContent = `Arthur : « ${base || hints[1]}${bonus ? " Tu as utilisé ton jeton bonus !" : ""} »`;
+        $("#hint-text").innerHTML = `<span class="hint-level">Indice ${level + 1} sur ${hintList.length}</span>Arthur : « ${hint}${bonus ? " Tu as utilisé ton jeton bonus !" : ""} »`;
+        $("#hint-button").textContent = level + 1 < hintList.length
+          ? `💡 Autre indice (${level + 2}/${hintList.length})`
+          : "💡 Revoir le dernier indice";
         render();
       });
 
@@ -964,10 +1003,10 @@
 
       $("#reset-button").addEventListener("click", () => {
         if ("speechSynthesis" in window) window.speechSynthesis.cancel();
-        state.unlocked = 0;
         state.items.clear();
         state.consulted.clear();
         state.resolved.clear();
+        state.hintLevels.clear();
         state.availableCards = new Set([1]);
         state.students.clear();
         state.lostData = false;
@@ -980,9 +1019,10 @@
         window.clearInterval(state.timerId);
         $("#clock").textContent = "20:00";
         $("#hint-text").textContent = "";
+        $("#hint-button").textContent = "💡 Demander un indice à Arthur";
         $("#card-number").value = "";
         $("#entry-error").textContent = "";
-        showResult(cards[1], cards[1].text);
+        showResult(cards[1], cards[1].text, '<button class="primary-button complete-card-button" type="button" data-complete-card="1">✅ C’est fait, on continue !</button>');
         overlay.hidden = true;
         render();
       });
