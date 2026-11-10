@@ -3,25 +3,23 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#10172b">
+  <meta name="theme-color" content="#245edb">
   <title>UnArtsup — compagnon du jeu de cartes</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Fredoka:wght@500;600;700&display=swap');
-
     :root {
-      color-scheme: dark;
-      --bg: #13162f;
-      --panel: #20264a;
-      --ink: #fffaf0;
-      --muted: #bac3e3;
-      --purple: #b6a4ff;
-      --cyan: #6ce8e7;
-      --yellow: #ffdf71;
-      --green: #8ce8aa;
-      --line: rgba(225, 228, 255, .18);
-      font-family: "DM Sans", sans-serif;
-      background: var(--bg);
-      color: var(--ink);
+      color-scheme: light;
+      --bg: #5da9e9;
+      --panel: #f0f5fb;
+      --ink: #15386a;
+      --muted: #45678f;
+      --purple: #83b9ee;
+      --cyan: #2f70b7;
+      --yellow: #fff3bd;
+      --green: #7bad40;
+      --line: #9abce0;
+      font-family: Tahoma, Arial, sans-serif;
+      background: #5da9e9;
+      color: #173c70;
     }
 
     * { box-sizing: border-box; }
@@ -347,6 +345,118 @@
       cursor: pointer;
     }
     .voice-button:hover { background: #c9f3e7; }
+    :root { font-family: Tahoma, Arial, sans-serif; color: #173c70; }
+    * { scrollbar-color: #9abce0 #e8f1fa; }
+    button:focus-visible, input:focus-visible { outline: 2px solid #ffbd3f; outline-offset: 1px; }
+    .desktop-wallpaper {
+      background: linear-gradient(#168bd3 0%, #72c6ee 61%, #b4e3f7 73%, #77b83c 74%, #57992f 100%);
+    }
+    .desktop-wallpaper::before {
+      background: linear-gradient(126deg, transparent 53%, rgba(255,255,255,.13) 53.2%, transparent 54%), linear-gradient(135deg, transparent 58%, rgba(255,255,255,.1) 58.2%, transparent 59%);
+      opacity: .16;
+    }
+    .desktop-wallpaper::after {
+      position: absolute;
+      z-index: 0;
+      right: -9%;
+      bottom: -16%;
+      left: 16%;
+      height: 54%;
+      border-radius: 50% 50% 0 0 / 22% 25% 0 0;
+      background: linear-gradient(168deg, #a5ce52 0%, #6eae36 44%, #438a2a 100%);
+      box-shadow: -170px -8px 0 -18px #76b63c;
+      content: "";
+      pointer-events: none;
+    }
+    .desktop-icon { border-radius: 2px; color: white; font-family: Tahoma, Arial, sans-serif; text-shadow: 1px 1px 2px #123b70, -1px -1px 2px #123b70; }
+    .desktop-icon:hover, .desktop-icon:focus-visible { border: 1px dotted white; border-radius: 2px; background: rgba(10,73,137,.32); }
+    .desktop-icon-glyph { font-size: 32px; filter: drop-shadow(1px 2px 2px rgba(0,0,0,.32)); }
+    .desktop-icon-label { font-size: 12px; font-weight: 400; }
+    .computer-window { border: 1px solid #174b88; border-radius: 8px 8px 0 0; background: #ece9d8; box-shadow: 2px 5px 16px rgba(0,24,76,.38); font-family: Tahoma, Arial, sans-serif; }
+    .window-titlebar { min-height: 34px; border: 1px solid #4d83c4; border-bottom-color: #1d5ca5; border-radius: 7px 7px 0 0; background: linear-gradient(180deg,#4b91df 0%,#2875ce 42%,#1259b5 100%); padding: 0 7px 0 10px; color: #fff; text-shadow: 1px 1px 1px #164b8e; }
+    .window-app-icon { display: grid; width: 18px; height: 18px; place-items: center; border-radius: 2px; background: linear-gradient(135deg,#fff,#b8d7f0); font-size: 14px; text-shadow: none; }
+    .window-title { font-size: 13px; font-weight: 700; }
+    .window-control { width: 23px; height: 22px; border: 1px solid rgba(255,255,255,.8); border-radius: 4px; background: linear-gradient(#e9f4ff,#9ac3eb 55%,#6ca3dc); color: #123d75; font-size: 15px; font-weight: 700; line-height: 1; text-shadow: none; }
+    .window-control:hover { background: linear-gradient(#fff4d8,#f7b76b 55%,#e68435); }
+    .window-control.close { border-color: #fff; background: linear-gradient(#ffb48c,#e84b37 55%,#b51d21); color: white; }
+    .window-content { border: 1px solid #8aadd2; background: #fff; }
+    .window-content .scene-screen { border: 1px solid #7d9fbd; border-radius: 0; box-shadow: inset 0 0 0 1px #fff; }
+    .scene-chrome { min-height: 30px; background: linear-gradient(#f7fbff,#d6e5f4); color: #164a83; font-size: 12px; }
+    .scene-lights { display: none; }
+    .scene-chip { border: 1px solid #a6c4df; border-radius: 2px; background: #f2f7fc; color: #315a82; font-size: 10px; }
+    .scene-desktop { background: linear-gradient(#168bd3 0%,#72c6ee 61%,#b4e3f7 73%,#77b83c 74%,#57992f 100%); }
+    .scene-desktop .scene-body { grid-template-columns: repeat(4,minmax(0,1fr)); background: transparent; }
+    .scene-desktop .scene-item { min-height: 104px; border: 1px solid transparent; border-radius: 2px; background: transparent; }
+    .scene-desktop .scene-item:hover { border: 1px dotted #fff; background: rgba(12,65,123,.2); }
+    .scene-item-icon { font-size: 32px; filter: drop-shadow(1px 2px 2px rgba(0,0,0,.2)); }
+    .scene-desktop .scene-item-name, .scene-desktop .scene-item-detail { color: #fff; text-shadow: 1px 1px 2px #123b70; }
+    .scene-window, .scene-sheet, .scene-messages, .scene-console { background: #fff; }
+    .scene-window .scene-item, .scene-sheet .scene-item, .scene-messages .scene-item, .scene-console .scene-item {
+      border: 1px solid #b6cbe1; border-radius: 0; background: #f7fbff; color: #153e6e;
+    }
+    .scene-window .scene-item-icon { border-radius: 2px; background: #e4effa; }
+    .scene-window .scene-item-name, .scene-sheet .scene-item-name, .scene-messages .scene-item-name, .scene-console .scene-item-name { color: #153e6e; }
+    .scene-window .scene-item-detail, .scene-sheet .scene-item-detail, .scene-messages .scene-item-detail, .scene-console .scene-item-detail { color: #45678f; }
+    .scene-console { background: #fff; }
+    .scene-console .scene-chrome { background: linear-gradient(#4b91df,#1259b5); color: white; }
+    .scene-console .scene-item { background: #f5f9fe; }
+    .scene-console .scene-item-name { color: #153e6e; }
+    .scene-console .scene-item-detail { color: #45678f; }
+    .scene-alert { background: #0756a3; }
+    .scene-alert .scene-chrome { background: linear-gradient(#4b91df,#1259b5); }
+    .scene-screen.route-dark .scene-body, .scene-screen.route-light .scene-body { background: #eef5fc; }
+    .scene-screen.route-dark .scene-item, .scene-screen.route-light .scene-item { filter: none; }
+    .window-content .preview-action { border: 1px solid #9eb9d5; border-radius: 0; background: #f5f8fc; }
+    .window-content .preview-card-title { color: #164d86; font: 700 18px Tahoma, Arial, sans-serif; }
+    .window-content .preview-card-copy, .window-content .preview-message { color: #213e60; font: 13px/1.5 Tahoma, Arial, sans-serif; }
+    .window-content .primary-button, .window-content .small-button { border: 1px solid #86a9cc; border-radius: 3px; background: linear-gradient(#fff,#e3edf8); color: #173c70; font: 13px Tahoma, Arial, sans-serif; box-shadow: inset 0 1px #fff; }
+    .window-content .primary-button:hover, .window-content .small-button:hover { background: linear-gradient(#fff8dc,#ffe5a0); }
+    .taskbar { height: 42px; border-top: 1px solid #64a7e4; background: linear-gradient(#3989db 0%,#1969c2 35%,#0755ad 100%); padding: 3px 7px; box-shadow: 0 -1px 3px rgba(0,0,0,.25); backdrop-filter: none; }
+    .taskbar-button { min-width: 39px; height: 34px; border-radius: 3px; color: #fff; text-shadow: 1px 1px #174c8b; }
+    .taskbar-button:hover, .taskbar-button[aria-expanded="true"] { background: rgba(255,255,255,.17); box-shadow: inset 0 0 0 1px rgba(255,255,255,.3); }
+    .start-button { display: flex; min-width: 104px; height: 36px; gap: 7px; justify-content: center; border: 1px solid #73bd52; border-radius: 0 12px 12px 0; background: linear-gradient(#8bcf4a,#3a9c24 48%,#197b1a); color: #fff; font: italic 700 17px Tahoma, Arial, sans-serif; text-shadow: 1px 1px #27641d; }
+    .start-button:hover { background: linear-gradient(#a6df63,#4bab2d 48%,#238a20); }
+    .xp-logo { display: inline-grid; width: 19px; height: 19px; grid-template-columns: 1fr 1fr; gap: 2px; transform: skewY(-8deg); }
+    .xp-logo i { display: block; border: 1px solid rgba(255,255,255,.55); background: #f44938; }
+    .xp-logo i:nth-child(2) { background: #79c83e; }
+    .xp-logo i:nth-child(3) { background: #32a2ec; }
+    .xp-logo i:nth-child(4) { background: #ffcf39; }
+    .cards-toggle { min-width: 112px; border-left: 1px solid rgba(255,255,255,.24); border-radius: 3px; font-size: 13px; }
+    .cards-toggle span:last-child { color: #fff; }
+    .arthur-button { border: 1px solid #6fa7dd; background: linear-gradient(#4b91df,#1765bd); }
+    .taskbar-tray { border-left: 1px solid rgba(255,255,255,.27); padding-left: 7px; }
+    .clock-toggle { font-size: 14px; }
+    .desktop-clock { min-width: 76px; color: white; font: 12px Tahoma, Arial, sans-serif; text-shadow: 1px 1px #174c8b; }
+    .cards-menu { bottom: 47px; border: 1px solid #195cac; border-radius: 7px 7px 0 0; background: #f4f7fc; box-shadow: 2px -3px 12px rgba(0,0,0,.28); font-family: Tahoma, Arial, sans-serif; }
+    .cards-menu-header { border: 1px solid #5d94cd; border-radius: 4px 4px 0 0; background: linear-gradient(#4b91df,#1761b5); padding: 10px; color: #fff; }
+    .cards-menu-header h2 { font: 700 16px Tahoma, Arial, sans-serif; }
+    .cards-menu-header p { color: #e3effd; }
+    .menu-close { border: 1px solid #fff; border-radius: 3px; background: linear-gradient(#ffb48c,#e84b37 55%,#b51d21); color: white; }
+    .cards-menu .card-entry, .menu-bottom > div, .cards-menu .how-to { border: 1px solid #b6cbe1; border-radius: 2px; background: #fff; }
+    .cards-menu .entry-label, .menu-bottom strong, .cards-menu .how-to { color: #173c70; font-family: Tahoma, Arial, sans-serif; }
+    .cards-menu .card-tile { border: 1px solid #b2c8df; border-radius: 2px; background: #e9f2fb; }
+    .cards-menu .card-tile.discovered, .cards-menu .card-tile.available-card { background: #e7f3ff; }
+    .cards-menu .primary-button { border: 1px solid #86a9cc; border-radius: 3px; background: linear-gradient(#fff,#dceafa); color: #173c70; }
+    .history-entry, .inventory-item, .inventory-empty, .student { border: 1px solid #d5e0eb; border-radius: 2px; background: #f4f8fc; color: #294d73; font-family: Tahoma, Arial, sans-serif; }
+    .history-number { color: #1d5e9f; }
+    .student.found { background: #e6f4dd; color: #397527; }
+    .desktop-hint { border: 1px solid #82a8cf; border-radius: 3px; background: #fffef4; color: #244364; font: 13px/1.45 Tahoma, Arial, sans-serif; }
+    .hint-level { color: #185ba4; font-family: Tahoma, Arial, sans-serif; }
+    .trash-message { border: 1px solid #d2b65f; border-radius: 2px; background: #fff8df; color: #56451d; font: 14px/1.5 Tahoma, Arial, sans-serif; }
+    .explorer-toolbar { background: #f3f6fa; color: #294d73; font-family: Tahoma, Arial, sans-serif; }
+    .explorer-toolbar .crumb { border: 1px solid #c5d5e6; border-radius: 2px; background: #fff; }
+    .explorer-folder { border-radius: 2px; color: #244364; font-family: Tahoma, Arial, sans-serif; }
+    .explorer-folder:hover { border: 1px dotted #347dc2; border-radius: 2px; background: #ecf5ff; }
+    .explorer-folder-detail { color: #5d7188; }
+    .computer-window .answer-input { border-radius: 2px; }
+    .computer-window .voice-button { border-radius: 3px; background: linear-gradient(#fff,#dceafa); color: #173c70; font: 13px Tahoma, Arial, sans-serif; }
+    @media (max-width: 640px) {
+      .taskbar { height: 42px; }
+      .computer-window { bottom: 52px; }
+      .cards-menu { bottom: 47px; }
+      .start-button { min-width: 80px; font-size: 14px; }
+      .cards-toggle { min-width: 90px; font-size: 12px; }
+    }
     html, body { width: 100%; height: 100%; overflow: hidden; }
     body { min-width: 320px; min-height: 100%; background: #0b315c; }
     .computer { position: relative; width: 100%; height: 100dvh; min-height: 520px; overflow: hidden; background: #087ba2; color: #17243b; }
@@ -494,6 +604,78 @@
       .cards-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
       .card-tile { aspect-ratio: .82; }
     }
+
+    :root { color-scheme: light; font-family: Tahoma, Arial, sans-serif; }
+    html, body { background: #0b315c; }
+    .computer { background: #0b315c; color: #173c70; }
+    .desktop-wallpaper {
+      background: linear-gradient(#168bd3 0%, #72c6ee 61%, #b4e3f7 73%, #77b83c 74%, #57992f 100%);
+    }
+    .desktop-wallpaper::after {
+      position: absolute; z-index: 0; right: -9%; bottom: -16%; left: 16%; height: 54%;
+      border-radius: 50% 50% 0 0 / 22% 25% 0 0; background: linear-gradient(168deg, #a5ce52, #6eae36 44%, #438a2a);
+      box-shadow: -170px -8px 0 -18px #76b63c; content: ""; pointer-events: none;
+    }
+    .desktop-icon { border-radius: 2px; color: white; font-family: Tahoma, Arial, sans-serif; text-shadow: 1px 1px 2px #123b70, -1px -1px 2px #123b70; }
+    .desktop-icon:hover, .desktop-icon:focus-visible { border: 1px dotted white; border-radius: 2px; background: rgba(10,73,137,.32); }
+    .computer-window { border: 1px solid #174b88; border-radius: 8px 8px 0 0; background: #ece9d8; box-shadow: 2px 5px 16px rgba(0,24,76,.38); font-family: Tahoma, Arial, sans-serif; }
+    .window-titlebar { min-height: 34px; border: 1px solid #4d83c4; border-bottom-color: #1d5ca5; border-radius: 7px 7px 0 0; background: linear-gradient(#4b91df, #2875ce 42%, #1259b5); padding: 0 7px 0 10px; color: #fff; text-shadow: 1px 1px 1px #164b8e; }
+    .window-title { font: 700 13px Tahoma, Arial, sans-serif; }
+    .window-control { width: 23px; height: 22px; border: 1px solid rgba(255,255,255,.8); border-radius: 4px; background: linear-gradient(#e9f4ff, #9ac3eb 55%, #6ca3dc); color: #123d75; font: 700 15px Tahoma, Arial, sans-serif; }
+    .window-control.close { border-color: #fff; background: linear-gradient(#ffb48c, #e84b37 55%, #b51d21); color: white; }
+    .window-content { border: 1px solid #8aadd2; background: #fff; }
+    .window-content .scene-screen { border: 1px solid #7d9fbd; border-radius: 0; box-shadow: inset 0 0 0 1px #fff; }
+    .scene-chrome { min-height: 30px; background: linear-gradient(#f7fbff, #d6e5f4); color: #164a83; font: 12px Tahoma, Arial, sans-serif; }
+    .scene-lights { display: none; }
+    .scene-chip { border: 1px solid #a6c4df; border-radius: 2px; background: #f2f7fc; color: #315a82; font: 10px Tahoma, Arial, sans-serif; }
+    .scene-desktop { background: linear-gradient(#168bd3 0%, #72c6ee 61%, #b4e3f7 73%, #77b83c 74%, #57992f 100%); }
+    .scene-desktop .scene-item { min-height: 104px; border: 1px solid transparent; border-radius: 2px; background: transparent; }
+    .scene-desktop .scene-item:hover { border: 1px dotted #fff; background: rgba(12,65,123,.2); }
+    .scene-desktop .scene-item-name, .scene-desktop .scene-item-detail { color: #fff; text-shadow: 1px 1px 2px #123b70; }
+    .scene-window, .scene-sheet, .scene-messages, .scene-console { background: #fff; }
+    .scene-window .scene-item, .scene-sheet .scene-item, .scene-messages .scene-item, .scene-console .scene-item { border: 1px solid #b6cbe1; border-radius: 0; background: #f7fbff; color: #153e6e; }
+    .scene-window .scene-item-name, .scene-sheet .scene-item-name, .scene-messages .scene-item-name, .scene-console .scene-item-name { color: #153e6e; }
+    .scene-window .scene-item-detail, .scene-sheet .scene-item-detail, .scene-messages .scene-item-detail, .scene-console .scene-item-detail { color: #45678f; }
+    .scene-console .scene-chrome { background: linear-gradient(#4b91df, #1259b5); color: white; }
+    .scene-alert { background: #0756a3; }
+    .window-content .preview-action { border: 1px solid #9eb9d5; border-radius: 0; background: #f5f8fc; }
+    .window-content .preview-card-title { color: #164d86; font: 700 18px Tahoma, Arial, sans-serif; }
+    .window-content .preview-card-copy, .window-content .preview-message { color: #213e60; font: 13px/1.5 Tahoma, Arial, sans-serif; }
+    .window-content .voice-button { border: 1px solid #86a9cc; border-radius: 3px; background: linear-gradient(#fff, #e3edf8); color: #173c70; font: 13px Tahoma, Arial, sans-serif; }
+    .taskbar { height: 42px; border-top: 1px solid #64a7e4; background: linear-gradient(#3989db, #1969c2 35%, #0755ad); padding: 3px 7px; box-shadow: 0 -1px 3px rgba(0,0,0,.25); backdrop-filter: none; }
+    .taskbar-button { min-width: 39px; height: 34px; border-radius: 3px; color: #fff; text-shadow: 1px 1px #174c8b; }
+    .taskbar-button:hover, .taskbar-button[aria-expanded="true"] { background: rgba(255,255,255,.17); box-shadow: inset 0 0 0 1px rgba(255,255,255,.3); }
+    .taskbar .start-button { display: flex; min-width: 104px; height: 36px; gap: 7px; justify-content: center; border: 1px solid #73bd52; border-radius: 0 12px 12px 0; background: linear-gradient(#8bcf4a, #3a9c24 48%, #197b1a); color: #fff; font: italic 700 17px Tahoma, Arial, sans-serif; text-shadow: 1px 1px #27641d; }
+    .taskbar .start-button:hover { background: linear-gradient(#a6df63, #4bab2d 48%, #238a20); }
+    .xp-logo { display: inline-grid; width: 19px; height: 19px; grid-template-columns: 1fr 1fr; gap: 2px; transform: skewY(-8deg); }
+    .xp-logo i { display: block; border: 1px solid rgba(255,255,255,.55); background: #f44938; }
+    .xp-logo i:nth-child(2) { background: #79c83e; }
+    .xp-logo i:nth-child(3) { background: #32a2ec; }
+    .xp-logo i:nth-child(4) { background: #ffcf39; }
+    .cards-toggle { min-width: 112px; border-left: 1px solid rgba(255,255,255,.24); border-radius: 3px; font-size: 13px; }
+    .arthur-button { border: 1px solid #6fa7dd; background: linear-gradient(#4b91df, #1765bd); }
+    .desktop-clock { min-width: 76px; color: white; font: 12px Tahoma, Arial, sans-serif; text-shadow: 1px 1px #174c8b; }
+    .cards-menu { bottom: 47px; border: 1px solid #195cac; border-radius: 7px 7px 0 0; background: #f4f7fc; box-shadow: 2px -3px 12px rgba(0,0,0,.28); font-family: Tahoma, Arial, sans-serif; }
+    .cards-menu-header { border: 1px solid #5d94cd; border-radius: 4px 4px 0 0; background: linear-gradient(#4b91df, #1761b5); color: white; }
+    .cards-menu-header h2 { font: 700 16px Tahoma, Arial, sans-serif; }
+    .cards-menu-header p { color: #e3effd; }
+    .cards-menu .card-entry, .menu-bottom > div, .cards-menu .how-to { border: 1px solid #b6cbe1; border-radius: 2px; background: #fff; }
+    .cards-menu .entry-label, .menu-bottom strong, .cards-menu .how-to { color: #173c70; font-family: Tahoma, Arial, sans-serif; }
+    .cards-menu .card-number-input { border-radius: 2px; }
+    .cards-menu .primary-button { border: 1px solid #86a9cc; border-radius: 3px; background: linear-gradient(#fff, #dceafa); color: #173c70; }
+    .cards-menu .card-tile { border: 1px solid #b2c8df; border-radius: 2px; background: #e9f2fb; }
+    .cards-menu .card-tile.discovered { background: #e7f3ff; }
+    .cards-menu .tile-number, .cards-menu .tile-title, .cards-menu .tile-status { color: #394b61; }
+    .history-entry, .inventory-item, .inventory-empty, .student { border: 1px solid #d5e0eb; border-radius: 2px; background: #f4f8fc; color: #294d73; font-family: Tahoma, Arial, sans-serif; }
+    .desktop-hint { border: 1px solid #82a8cf; border-radius: 3px; background: #fffef4; color: #244364; font: 13px/1.45 Tahoma, Arial, sans-serif; }
+    .hint-level { color: #185ba4; font-family: Tahoma, Arial, sans-serif; }
+    @media (max-width: 640px) {
+      .taskbar { height: 42px; }
+      .computer-window { bottom: 52px; }
+      .cards-menu { bottom: 47px; }
+      .taskbar .start-button { min-width: 80px; font-size: 14px; }
+      .cards-toggle { min-width: 90px; font-size: 12px; }
+    }
   </style>
 </head>
 <body>
@@ -504,7 +686,7 @@
     </div>
     <div class="desktop-hint" id="hint-text" aria-live="polite"></div>
     <nav class="taskbar" aria-label="Barre des tâches">
-      <button class="taskbar-button start-button" id="start-button" type="button" aria-label="Ouvrir les outils de la mission" title="Outils de la mission">⊞</button>
+      <button class="taskbar-button start-button" id="start-button" type="button" aria-label="Ouvrir les outils de la mission" title="Outils de la mission"><span class="xp-logo" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Démarrer</button>
       <button class="taskbar-button cards-toggle" id="cards-toggle" type="button" aria-expanded="false" aria-controls="cards-menu">🃏 <span>Cartes</span> <span aria-hidden="true">⌃</span></button>
       <button class="taskbar-button arthur-button" id="hint-button" type="button" aria-label="Demander un indice à Arthur" title="Arthur — demander un indice">🔊</button>
       <div class="taskbar-tray">
@@ -514,7 +696,7 @@
     </nav>
     <section class="cards-menu" id="cards-menu" hidden aria-label="Menu des cartes">
       <header class="cards-menu-header">
-        <div><h2>🃏 Les cartes de l’aventure</h2><p>Choisis une carte découverte ou écris son numéro.</p></div>
+        <div><h2>🃏 Les cartes de l’aventure</h2><p>Revois une carte consultée ou indique le numéro d’une carte physique.</p></div>
         <button class="menu-close" id="cards-close" type="button" aria-label="Fermer le menu des cartes">×</button>
       </header>
       <form class="card-entry" id="card-form">
@@ -523,7 +705,7 @@
           <input class="card-number-input" id="card-number" type="number" inputmode="numeric" min="1" max="24" placeholder="1–24" required aria-describedby="entry-help">
           <button class="primary-button" type="submit">Ouvrir</button>
         </div>
-        <p class="entry-help" id="entry-help">Les cartes cachées restent pixelisées jusqu’à leur découverte.</p>
+        <p class="entry-help" id="entry-help">Entre le numéro de la carte papier pour voir son illustration. Les énigmes se jouent sur les cartes, autour de la table.</p>
         <p class="error" id="entry-error" role="status"></p>
       </form>
       <div class="cards-grid" id="cards-grid" aria-label="Galerie des 24 cartes"></div>
@@ -531,64 +713,55 @@
       <div class="menu-bottom">
         <div class="mission-inventory"><strong>🎒 Objets</strong><div class="inventory" id="inventory"></div></div>
         <div class="mission-students"><strong>🧑‍🎓 Élèves</strong><div class="students" id="students"></div><p id="student-note">Aide tous tes amis à rentrer avec toi !</p></div>
-        <div class="mission-history"><strong>🕘 Cartes jouées</strong><div class="history-list" id="history-list"></div></div>
-        <div class="mission-progress"><strong>⭐ Progression</strong><span id="progress-value">0 / 24</span><div class="progress"><div class="progress-fill" id="progress-fill"></div></div></div>
-        <button class="reset-button" id="reset-button" type="button">↻ Recommencer l’aventure</button>
+        <div class="mission-history"><strong>🕘 Historique des cartes consultées</strong><div class="history-list" id="history-list"></div></div>
+        <div class="mission-progress"><strong>⭐ Cartes consultées</strong><span id="progress-value">0 / 24</span><div class="progress"><div class="progress-fill" id="progress-fill"></div></div></div>
+        <button class="reset-button" id="reset-button" type="button">↻ Réinitialiser le guide</button>
       </div>
       <details class="how-to">
         <summary>📖 Histoire et règles</summary>
         <div class="how-to-content">
           <p><strong>La mission :</strong> Kat s’est endormie à e-artsup et s’est réveillée dans l’ordinateur. Elderic y a caché des élèves. Arthur va aider Kat à les retrouver et à rejoindre la borne d’arcade.</p>
           <p><strong>Jouez en équipe :</strong> posez les cartes face cachée. Regardez la carte papier, cherchez les indices dans l’image et utilisez les objets trouvés. N’associez des cartes que si une carte vous le demande.</p>
-          <p><strong>Pas de mauvaise réponse :</strong> discutez, essayez et demandez l’aide d’Arthur. Une erreur ne fait jamais perdre la partie. L’horloge avance pendant l’aventure ; il n’y a pas de compte à rebours.</p>
+          <p><strong>Le navigateur sert de guide visuel :</strong> observez les images des cartes, mais résolvez les énigmes, utilisez les objets et sauvez les élèves avec les cartes physiques, autour de la table.</p>
         </div>
       </details>
     </section>
     <div class="sr-only" id="announcer" aria-live="assertive"></div>
   </main>
 
-  <div class="overlay" id="overlay" hidden>
-    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-      <div class="modal-kicker">🎉 Mission accomplie !</div>
-      <h2 id="modal-title"></h2>
-      <p id="ending-text"></p>
-      <div class="modal-actions"><button class="primary-button" id="ending-close" type="button">Super !</button></div>
-    </section>
-  </div>
-
   <script>
     (() => {
       const hints = {
-        1: ["Regarde les petits symboles.", "Lis-les dans l’ordre soleil, étoile, lune.", "Le code du dossier est 241."],
-        2: ["Regarde la liste des appareils.", "Cherche les appareils qui portent les prénoms des élèves.", "Les appareils des élèves sont Noam, Julien, Liam et Loan."],
-        3: ["Regarde les symboles cachés sur le bureau.", "Lis les chiffres dans l’ordre soleil, étoile, lune.", "Le code du dossier est 241."],
-        4: ["Regarde les fichiers de la clé USB.", "Cherche le papier qui parle de la borne.", "La clé USB et le papier servent plus tard pour la borne."],
+        1: ["Observe les petits symboles sur ta carte papier.", "Repère les symboles cachés dans l’ordre indiqué par la carte.", "Les indices nécessaires sont sur les cartes physiques : cherche les détails ensemble."],
+        2: ["Regarde la liste des appareils.", "Observe les noms et les petits détails.", "Compare tes observations avec les cartes physiques."],
+        3: ["Le code se trouve en observant les cartes physiques.", "Repère les petits symboles et suis l’ordre indiqué sur ta carte.", "Comparez vos observations autour de la table : le navigateur ne donne pas le code."],
+        4: ["Regarde les fichiers de la clé USB.", "Cherche les documents qui semblent importants.", "Garde en tête ce qui pourrait servir plus tard."],
         5: ["Regarde les messages.", "Cherche le message envoyé par Arthur.", "Arthur est l’ami qui te parle de l’autre côté de l’écran."],
-        6: ["Regarde les prénoms dans le tableau.", "Cherche Noam, Julien, Liam et Loan.", "Les quatre prénoms des élèves sont Noam, Julien, Liam et Loan."],
-        7: ["Regarde le port USB.", "Branche la clé USB trouvée dans le dossier.", "La clé USB permet d’ouvrir la liste du réseau."],
-        8: ["Regarde les noms des appareils.", "Relie chaque appareil au prénom affiché.", "Les appareils appartiennent à Noam, Julien, Liam et Loan."],
-        9: ["Cherche qui t’écrit.", "Lis les deux messages d’Arthur.", "Arthur est de l’autre côté de l’écran. Elderic a caché les élèves dans l’ordinateur."],
-        10: ["Regarde le matériel réseau.", "Trouve le câble et le répéteur Wi-Fi.", "Prends le câble et le répéteur pour rétablir le signal."],
-        11: ["L’écran bleu est une erreur.", "Pas de panique : tes objets et tes amis restent en sécurité.", "Le filtre transparent retrouvera l’information perdue."],
-        12: ["Cherche le message de Noam.", "Regarde son petit appareil sur ta carte papier.", "Quand vous avez trouvé Noam sur la carte, confirmez pour le sauver."],
-        13: ["Regarde les outils disponibles.", "Choisis celui qui agrandit l’image.", "C’est la Loupe."],
-        14: ["Regarde les objets sur la carte.", "Cherche l’outil qui se déplace à l’écran.", "C’est la souris."],
-        15: ["Regarde l’objet transparent.", "Il aide à voir les marques cachées.", "Le filtre retrouve aussi l’information perdue par l’écran bleu."],
-        16: ["Regarde les petits détails de l’image.", "Utilise la Loupe et le filtre ensemble.", "Le code de l’image est 4826."],
-        17: ["Regarde les deux chemins.", "Choisis le soleil ou le nuage.", "Les deux chemins sont bons : choisis celui que tu préfères."],
-        18: ["Cherche Julien dans les petits détails.", "Vise sa cachette avec la souris.", "Quand vous avez trouvé Julien sur la carte, confirmez pour le sauver."],
+        6: ["Observe le tableau.", "Compare les informations visibles.", "Cherche les détails utiles avec les cartes physiques."],
+        7: ["Observe le matériel réseau.", "Regarde les objets représentés sur tes cartes.", "Discutez ensemble des objets qui pourraient aider."],
+        8: ["Regarde les noms des appareils.", "Compare-les aux prénoms des cartes.", "Rassemblez vos observations autour de la table."],
+        9: ["Cherche qui t’écrit.", "Lis les messages d’Arthur.", "Arthur est de l’autre côté de l’écran et veut t’aider."],
+        10: ["Regarde le matériel réseau.", "Repère ce qui semble débranché.", "Cherche parmi les objets des cartes ce qui pourrait aider."],
+        11: ["L’écran bleu est une erreur.", "Pas de panique : tes objets et tes amis restent en sécurité.", "Observe les cartes pour retrouver ce qui manque."],
+        12: ["Cherche le message de Noam.", "Regarde son petit appareil sur ta carte papier.", "Retrouve Noam sur les cartes physiques avec ton équipe."],
+        13: ["Regarde les outils disponibles.", "Cherche celui qui aide à mieux voir les détails.", "Compare les objets représentés sur les cartes."],
+        14: ["Regarde les objets sur la carte.", "Cherche l’outil qui se déplace à l’écran.", "Essaie les objets avec les cartes physiques."],
+        15: ["Regarde l’objet transparent.", "Essaie de comprendre à quoi il peut servir.", "Observe les détails des cartes à travers le filtre physique."],
+        16: ["Regarde les petits détails sur les cartes.", "Utilise la Loupe et le filtre trouvés dans l’aventure.", "Rassemblez les indices des cartes physiques pour réparer le fichier."],
+        17: ["Regarde les deux chemins.", "Compare les indices sur les cartes physiques.", "Choisissez votre chemin en équipe."],
+        18: ["Cherche Julien dans les petits détails.", "Vise sa cachette avec la souris.", "Retrouve Julien en examinant les cartes physiques."],
         19: ["Regarde la porte de l’arcade.", "Suis le chemin choisi sur la carte papier.", "Après l’image réparée, la porte de l’arcade est ouverte."],
-        20: ["Regarde les prises de la borne.", "Branche la clé USB et le câble.", "La clé USB et le câble allument la borne Salamandre."],
-        21: ["Regarde les fichiers de la borne.", "Cherche le fichier de Loan.", "Quand vous avez trouvé Loan, confirmez pour le sauver."],
-        22: ["Cherche le papier trouvé dans la clé USB.", "Lis les chiffres écrits pour la borne.", "Le code de sortie est 4826."],
-        23: ["Regarde les sauvegardes.", "Cherche le fichier de Liam.", "Quand vous avez trouvé Liam, confirmez pour le sauver."],
-        24: ["La borne est prête.", "Vérifie si tu veux encore sauver un ami.", "Joue la carte 23 pour retrouver Liam, puis confirme la carte 24 pour sortir."]
+        20: ["Regarde les prises de la borne.", "Cherche les objets qui pourraient s’y brancher.", "Utilise les cartes physiques pour décider quoi faire."],
+        21: ["Regarde les fichiers de la borne.", "Cherche le fichier de Loan.", "Retrouve Loan sur les cartes physiques."],
+        22: ["Cherche le papier trouvé dans la clé USB, sur ta carte.", "Lis les chiffres du document avec ton équipe.", "Le document physique donne les derniers indices pour sortir."],
+        23: ["Regarde les sauvegardes.", "Cherche le fichier de Liam.", "Retrouve Liam grâce aux cartes de ton équipe."],
+        24: ["La borne est prête.", "Vérifie si tu veux encore sauver un ami.", "Suis les dernières étapes indiquées sur tes cartes physiques."]
       };
 
       const cards = {
-        1: { name: "Le bureau", kind: "Observation", text: "Regarde les icônes du bureau. Trois symboles cachent un code ! Quand vous l’avez trouvé sur la carte papier, confirmez ici.", next: [2, 3] },
+        1: { name: "Le bureau", kind: "Observation", text: "Observe les cartes physiques : les icônes et les petits symboles cachent des indices. Discutez-en autour de la table.", next: [2, 3] },
         2: { name: "Le Wi-Fi", kind: "Observation", text: "Regarde qui est connecté au Wi-Fi. Cherche les appareils des élèves sur ta carte.", next: [7, 8, 10, 11] },
-        3: { name: "Le dossier fermé", kind: "Code", text: "Le dossier est fermé. Trouve les trois chiffres cachés sur le bureau et entre-les dans l’ordre indiqué.", code: "241", hint: "Lis les chiffres dans cet ordre : soleil, étoile, lune.", success: "Bravo ! Le dossier s’ouvre !", item: "password", next: [4, 5, 6] },
+        3: { name: "Le dossier fermé", kind: "Code", text: "Le dossier est fermé. Observe les cartes physiques pour trouver les indices, puis utilisez le code ensemble autour de la table.", success: "Bravo ! Le dossier s’ouvre !", item: "password", next: [4, 5, 6] },
         4: { name: "La clé USB", kind: "Fichiers", text: "La clé USB contient des fichiers utiles. Trouve la clé et le papier dans les fichiers de ta carte.", items: ["usb", "admin"], success: "Tu as trouvé la clé USB et le papier !", next: [7] },
         5: { name: "Les messages", kind: "Observation", text: "Ouvre les messages. Arthur t’a écrit et a besoin de ton aide !", next: [9] },
         6: { name: "Le tableau", kind: "Fichier", text: "Regarde le tableau et trouve les prénoms de tes quatre amis : Noam, Julien, Liam et Loan.", next: [12] },
@@ -597,28 +770,21 @@
         9: { name: "Message d’Arthur", kind: "Histoire", text: "Arthur est de l’autre côté de l’écran ! Elderic, le directeur, a caché des élèves dans l’ordinateur. Aidons-les ensemble !", requires: ["cable"], next: [13, 14, 15, 17] },
         10: { name: "Le câble magique", kind: "Objet", text: "Trouve le câble et le répéteur sur la carte. Ils aident le Wi-Fi à aller plus loin.", item: "cable", success: "Super ! Tu as trouvé le câble et le répéteur.", next: [9] },
         11: { name: "Oups, écran bleu !", kind: "Échec", text: "Oups ! L’ordinateur a perdu une petite information. Pas grave : le filtre transparent pourra la retrouver. Tu ne peux pas perdre la partie !" },
-        12: { name: "Noam appelle", kind: "Sauvetage", text: "Noam t’appelle ! Cherche son image sur tes cartes. Quand vous l’avez trouvé, confirmez pour le sauver.", student: 0, success: "Hourra ! Noam est avec toi !" },
+        12: { name: "Noam appelle", kind: "Sauvetage", text: "Noam t’appelle ! Cherche son image sur les cartes et aidez-le ensemble.", student: 0, success: "Hourra ! Noam est avec toi !" },
         13: { name: "La Loupe", kind: "Objet", text: "La Loupe aide à voir les tout petits détails. Ajoute-la à ton sac !", item: "magnifier", success: "Tu as trouvé la Loupe !" },
         14: { name: "La souris", kind: "Objet", text: "La souris peut viser les petits endroits. Ajoute-la à ton sac !", item: "mouse", success: "Tu as trouvé la souris !", next: [18] },
         15: { name: "Le filtre transparent", kind: "Objet", text: "Le filtre transparent montre les choses cachées. Il retrouve aussi l’information perdue !", item: "filter", restore: true, success: "Tu as trouvé le filtre transparent !" },
-        16: { name: "L’image cachée", kind: "Code", text: "Regarde l’image avec la Loupe et le filtre. Trouve les chiffres et entre-les ici.", code: "4826", requires: ["magnifier", "filter"], requiresRestored: true, hint: "Utilise la Loupe et le filtre ensemble.", success: "Bravo ! Le fichier est réparé. La salle d’arcade est ouverte !", next: [19] },
+        16: { name: "L’image cachée", kind: "Code", text: "Observe les cartes physiques avec la Loupe et le filtre. Réunissez les indices et réparez le fichier autour de la table.", requires: ["magnifier", "filter"], requiresRestored: true, hint: "Utilise la Loupe et le filtre ensemble.", success: "Bravo ! Le fichier est réparé. La salle d’arcade est ouverte !", next: [19] },
         17: { name: "Soleil ou nuage ?", kind: "Bonus", text: "Choisis le chemin du soleil ou celui du nuage. Les deux chemins sont bons !", item: "heart", routeMode: true, success: "Tu as gagné un jeton pour demander de l’aide !" },
-        18: { name: "Julien est caché", kind: "Sauvetage", text: "Où est Julien ? Utilise la souris pour viser sa petite cachette. Quand vous l’avez trouvé, confirmez pour le sauver.", requires: ["mouse"], student: 1, success: "Hourra ! Julien est avec toi !" },
+        18: { name: "Julien est caché", kind: "Sauvetage", text: "Où est Julien ? Utilise la souris pour chercher sa petite cachette sur les cartes physiques.", requires: ["mouse"], student: 1, success: "Hourra ! Julien est avec toi !" },
         19: { name: "Porte de l’arcade", kind: "Passage", text: "Suis le chemin du soleil ou du nuage pour rejoindre la salle d’arcade.", requiresCard: 16, success: "La salle d’arcade est ouverte !", next: [20] },
         20: { name: "Borne Salamandre", kind: "Interaction", text: "Branche la clé USB et le câble sur la borne Salamandre pour l’allumer.", requires: ["usb", "cable"], success: "La borne Salamandre s’allume !", next: [21] },
-        21: { name: "Loan dans la borne", kind: "Sauvetage", text: "La borne a trouvé Loan ! Quand vous l’avez retrouvé sur la carte, confirmez pour le sauver.", requires: ["usb", "cable"], student: 3, success: "Hourra ! Loan est avec toi !", next: [22] },
-        22: { name: "Le code de sortie", kind: "Code", text: "Le papier trouvé dans la clé USB donne le code. Lis-le et entre les chiffres pour ouvrir la sortie.", code: "4826", requires: ["admin", "usb", "cable"], requiresRestored: true, hint: "Demande à un grand de t’aider à lire le papier du dossier USB.", success: "Bravo ! La sortie est ouverte. Tu peux libérer Liam ou sortir maintenant !", next: [23, 24] },
-        23: { name: "Liam est tout près", kind: "Sauvetage", text: "Ouvre la sauvegarde pour retrouver Liam. Quand vous l’avez trouvé, confirmez pour le sauver !", requiresCard: 22, student: 2, success: "Hourra ! Liam est avec toi !" },
-        24: { name: "La sortie", kind: "Sortie", text: "La borne te ramène dehors ! Quand toute l’équipe est prête, confirmez pour sortir de l’ordinateur.", requiresCard: 22, ending: true }
+        21: { name: "Loan dans la borne", kind: "Sauvetage", text: "La borne a trouvé Loan ! Cherche son fichier sur la carte et retrouve-le avec ton équipe.", requires: ["usb", "cable"], student: 3, success: "Hourra ! Loan est avec toi !", next: [22] },
+        22: { name: "Le code de sortie", kind: "Code", text: "Le document de la clé USB contient les indices de sortie. Examinez la carte et le document physique ensemble.", requires: ["admin", "usb", "cable"], requiresRestored: true, hint: "Demande à un grand de t’aider à lire le papier du dossier USB.", success: "Bravo ! La sortie est ouverte. Tu peux libérer Liam ou sortir maintenant !", next: [23, 24] },
+        23: { name: "Liam est tout près", kind: "Sauvetage", text: "Ouvre la sauvegarde indiquée sur les cartes physiques pour retrouver Liam.", requiresCard: 22, student: 2, success: "Hourra ! Liam est avec toi !" },
+        24: { name: "La sortie", kind: "Sortie", text: "La borne te ramène dehors ! Suivez les dernières étapes sur vos cartes physiques pour sortir de l’ordinateur.", requiresCard: 22, ending: true }
       };
 
-      const itemInfo = {
-        usb: ["Clé USB", "🔑"], admin: ["Papier de l’école", "📄"],
-        password: ["Code du dossier", "🔐"],
-        cable: ["Câble et répéteur Wi-Fi", "🧵"], magnifier: ["Loupe", "🔍"],
-        mouse: ["Souris magique", "🖱️"], filter: ["Filtre transparent", "🪟"],
-        star: ["Jeton étoile", "⭐"], heart: ["Jeton cœur", "💛"]
-      };
       const cardVisuals = {
         1: ["🖥️", "Le bureau rassemble l’explorateur, les paramètres, le dossier verrouillé et la clé USB."],
         2: ["📶", "La liste des appareils Wi-Fi révèle qui est coincé dans l’ordinateur."],
@@ -647,9 +813,9 @@
       };
       const sceneVisuals = {
         1: { type: "desktop", title: "Bureau de l’ordinateur", tag: "Bureau", items: [
-          ["📁", "Explorateur de fichiers", "Dossier de l’école", "☀ 2"],
-          ["⚙️", "Paramètres", "Réseau Wi-Fi", "★ 4"],
-          ["📂", "Dossier verrouillé", "Accès protégé", "🌙 1"],
+          ["📁", "Explorateur de fichiers", "Dossier de l’école"],
+          ["⚙️", "Paramètres", "Réseau Wi-Fi"],
+          ["📂", "Dossier verrouillé", "Accès protégé"],
           ["🔑", "Clé-USB", "Périphérique détecté"]
         ] },
         2: { type: "window", title: "Le Wi-Fi de l’école", tag: "Connecté", items: [
@@ -678,10 +844,10 @@
         ] },
         6: { type: "sheet", title: "Fichier · Dates de naissance.xlsx", tag: "Tableau", items: [
           ["▦", "Nom", "Date de naissance"],
-          ["👦", "Noam", "XX/XX/0X12"],
-          ["👦", "Julien", "XX/XX/0X70"],
-          ["👦", "Liam", "XX/XX/0X56"],
-          ["👦", "Loan", "XX/XX/0X32"],
+          ["👦", "Élève", "Date inscrite sur la carte"],
+          ["👦", "Élève", "Date inscrite sur la carte"],
+          ["👦", "Élève", "Date inscrite sur la carte"],
+          ["👦", "Élève", "Date inscrite sur la carte"],
           ["👩‍🏫", "Professeur", "Personnel"],
           ["🧑‍💼", "Assistant", "Personnel"],
           ["🗂️", "Secrétaire", "Personnel"],
@@ -739,7 +905,7 @@
           ["🔍", "Loupe", "Agrandis la zone"],
           ["🪟", "Filtre", "Révèle les marques"],
           ["🧩", "Image", "Replace les détails"],
-          ["🔢", "Code", "4 chiffres à retrouver"]
+          ["🔢", "Indices", "À chercher sur les cartes physiques"]
         ] },
         17: { type: "window", title: "Météo · Apparence du bureau", tag: "Choisis une route", items: [
           ["☀️", "Chemin du soleil", "Une route lumineuse"],
@@ -768,10 +934,10 @@
           ["👦", "Loan", "Je suis libre, merci !"]
         ] },
         22: { type: "console", title: "Console d’administration", tag: "Code requis", items: [
-          ["📄", "Document administratif", "Code de sortie"],
+          ["📄", "Document administratif", "Indices à lire sur la carte"],
           ["🔑", "Clé USB", "Connectée"],
           ["🧵", "Câble Ethernet", "Connecté"],
-          ["⌨️", "Console", "Saisie du code"]
+          ["🔎", "Indices", "À réunir avec les cartes"]
         ] },
         23: { type: "messages", title: "Sauvegarde · Liam", tag: "Fichier retrouvé", items: [
           ["💾", "Fichier de Liam", "Restauration en cours"],
@@ -786,74 +952,10 @@
       };
       const studentNames = ["Noam", "Julien", "Liam", "Loan"];
       const state = {
-        items: new Set(), consulted: new Set(),
-        resolved: new Set(), students: new Set(), lostData: false,
-        bonusHints: 0, hintLevels: new Map(), currentCard: 1, routeMode: null, timerSeconds: 0, timerRunning: true,
-        timerId: null, ended: false, windowOpen: true, availableCards: new Set([1])
+        consulted: new Set(), hintLevels: new Map(), currentCard: 1,
+        timerSeconds: 0, timerRunning: true, timerId: null, windowOpen: true
       };
       const $ = (selector) => document.querySelector(selector);
-      const overlay = $("#overlay");
-
-      function resolveCard(id) {
-        const card = cards[id];
-        state.resolved.add(id);
-        for (const nextCard of card.next || []) state.availableCards.add(nextCard);
-        if (state.resolved.has(9) && state.items.has("magnifier") && state.items.has("filter")) {
-          state.availableCards.add(16);
-        }
-      }
-
-      function completeCard(id) {
-        const card = cards[id];
-        if (state.resolved.has(id)) return;
-        if (id === 11) state.lostData = !state.items.has("filter");
-        const reward = collectCardItems(card);
-        const messages = [reward || (card.student === undefined ? card.success : "") || "Bien joué ! Vous pouvez continuer l’aventure."];
-        if (card.student !== undefined) {
-          if (state.students.has(card.student)) {
-            messages.push(`${studentNames[card.student]} est déjà avec toi.`);
-          } else {
-            state.students.add(card.student);
-            messages.push(card.success);
-          }
-        }
-        resolveCard(id);
-        showResult(card, messages.join(" "));
-        render();
-        $("#announcer").textContent = `Carte ${id} terminée.`;
-        if (!card.ending) return;
-
-        state.ended = true;
-        render();
-        $("#modal-title").textContent = state.students.size === studentNames.length
-          ? "Toute la bande est libre !"
-          : "Bravo, tu es sorti de l’ordinateur !";
-        $("#ending-text").textContent = state.students.size === studentNames.length
-          ? "Kat, Arthur, Noam, Julien, Liam et Loan sont enfin réunis. Vous avez réussi ensemble !"
-          : state.students.size
-            ? `Kat sort de l’ordinateur avec ${state.students.size} ami${state.students.size > 1 ? "s" : ""}. Vous pourrez revenir sauver les autres !`
-            : "Kat a retrouvé le monde réel ! Rejoue avec ton équipe pour aider les élèves restés dans l’ordinateur.";
-        overlay.hidden = false;
-      }
-
-      function collectCardItems(card) {
-        const keys = card.items || (card.item ? [card.item] : []);
-        const found = [];
-        for (const key of keys) {
-          if (!state.items.has(key)) {
-            state.items.add(key);
-            found.push(itemInfo[key][0]);
-            if (key === "star" || key === "heart") state.bonusHints++;
-          }
-        }
-        const restoredData = card.restore && state.lostData;
-        if (restoredData) {
-          state.lostData = false;
-          found.push("données restaurées");
-        }
-        if (!found.length) return "";
-        return `${card.success}${restoredData ? " Les données sont restaurées !" : ""}`;
-      }
 
       function renderScene(id) {
         const scene = sceneVisuals[id];
@@ -861,41 +963,28 @@
           desktop: "scene-desktop", window: "scene-window", sheet: "scene-sheet",
           messages: "scene-messages", alert: "scene-alert", console: "scene-console"
         };
-        const route = id >= 17 && state.routeMode ? ` route-${state.routeMode}` : "";
-        const visibleItems = id === 19 && state.routeMode
-          ? scene.items.filter((item) => item[1] !== (state.routeMode === "light" ? "Chemin du nuage" : "Chemin du soleil"))
-          : scene.items;
-        const items = visibleItems.map(([icon, name, detail, clue]) => {
-          const clueBadge = clue ? `<span class="scene-clue">${clue}</span>` : "";
-          return `<div class="scene-item"><span class="scene-item-icon" aria-hidden="true">${icon}</span><span class="scene-item-name">${name}</span><span class="scene-item-detail">${detail}</span>${clueBadge}</div>`;
+        const items = scene.items.map(([icon, name, detail]) => {
+          return `<div class="scene-item"><span class="scene-item-icon" aria-hidden="true">${icon}</span><span class="scene-item-name">${name}</span><span class="scene-item-detail">${detail}</span></div>`;
         }).join("");
-        const modeTag = id >= 17 && state.routeMode
-          ? `${state.routeMode === "light" ? "☀️ Chemin du soleil" : "☁️ Chemin du nuage"}`
-          : scene.tag;
+        const modeTag = scene.tag;
         renderDesktopIcons();
         const card = cards[id];
         const appIcon = cardVisuals[id][0];
         $("#computer-window").classList.toggle("home-window", id === 1 && !state.windowOpen);
         $("#computer-window").style.display = state.windowOpen ? "flex" : "none";
-        $("#computer-window").innerHTML = `<header class="window-titlebar"><span class="window-app-icon" aria-hidden="true">${appIcon}</span><span class="window-title">${scene.title}</span><div class="window-controls"><button class="window-control" type="button" data-window-minimize aria-label="Réduire la fenêtre">—</button><button class="window-control close" type="button" data-window-close aria-label="Fermer la fenêtre">×</button></div></header><div class="window-content"><div class="scene-screen ${classes[scene.type]}${route}"><div class="scene-chrome"><span class="scene-lights" aria-hidden="true"><i></i><i></i><i></i></span><span class="scene-window-title">${scene.title}</span><span class="scene-chip">${modeTag}</span></div><div class="scene-body">${items}</div></div><div class="preview-action" id="preview-action" aria-live="polite"><h3 class="preview-card-title">Carte ${String(id).padStart(2, "0")} · ${card.name}</h3><p class="preview-card-copy">${card.text}</p></div></div>`;
+        $("#computer-window").innerHTML = `<header class="window-titlebar"><span class="window-app-icon" aria-hidden="true">${appIcon}</span><span class="window-title">${scene.title}</span><div class="window-controls"><button class="window-control" type="button" data-window-minimize aria-label="Réduire la fenêtre">—</button><button class="window-control close" type="button" data-window-close aria-label="Fermer la fenêtre">×</button></div></header><div class="window-content"><div class="scene-screen ${classes[scene.type]}"><div class="scene-chrome"><span class="scene-window-title">${scene.title}</span><span class="scene-chip">${modeTag}</span></div><div class="scene-body">${items}</div></div><div class="preview-action" id="preview-action" aria-live="polite"><h3 class="preview-card-title">Carte ${String(id).padStart(2, "0")} · ${card.name}</h3><p class="preview-card-copy">${card.text}</p></div></div>`;
       }
 
       function render() {
         $("#cards-grid").innerHTML = Object.entries(cards).map(([number, card]) => {
           const id = Number(number);
           const discovered = state.consulted.has(id);
-          const resolved = state.resolved.has(id);
-          const available = state.availableCards.has(id);
           const art = cardVisuals[id][0];
-          const className = `card-tile${discovered ? " discovered" : " hidden-card"}${!discovered && available ? " available-card" : ""}${resolved ? " resolved" : ""}`;
+          const className = `card-tile${discovered ? " discovered" : " hidden-card"}`;
           if (!discovered) {
-            const status = available ? "À découvrir" : "Cachée";
-            if (available) {
-              return `<button class="${className}" type="button" data-reveal-card="${id}" aria-label="Révéler la carte ${id}, disponible"><span class="tile-number">#${String(id).padStart(2, "0")}</span><span class="tile-content" aria-hidden="true"><span class="tile-art">🧩</span><span class="tile-title">Carte inconnue</span></span><span class="tile-status">${status}</span></button>`;
-            }
-            return `<div class="${className}" aria-label="Carte ${id}, verrouillée et pixelisée"><span class="tile-number">#${String(id).padStart(2, "0")}</span><span class="tile-content" aria-hidden="true"><span class="tile-art">🧩</span><span class="tile-title">Carte inconnue</span></span><span class="tile-status">${status}</span></div>`;
+            return `<div class="${className}" aria-label="Carte ${id}, pas encore consultée et pixelisée"><span class="tile-number">#${String(id).padStart(2, "0")}</span><span class="tile-content" aria-hidden="true"><span class="tile-art">🧩</span><span class="tile-title">Carte inconnue</span></span><span class="tile-status">À consulter</span></div>`;
           }
-          return `<button class="${className}" type="button" data-reveal-card="${id}" aria-label="Afficher l’aide de la carte ${id} : ${card.name}"><span class="tile-number">#${String(id).padStart(2, "0")}</span><span class="tile-content"><span class="tile-visual" aria-hidden="true">${art}</span><span class="tile-title">${card.name}</span></span><span class="tile-kind">${card.kind}</span><span class="tile-status">${resolved ? "✓ Jouée" : "Découverte"}</span></button>`;
+          return `<button class="${className}" type="button" data-reveal-card="${id}" aria-label="Afficher l’image de la carte ${id} : ${card.name}"><span class="tile-number">#${String(id).padStart(2, "0")}</span><span class="tile-content"><span class="tile-visual" aria-hidden="true">${art}</span><span class="tile-title">${card.name}</span></span><span class="tile-kind">${card.kind}</span><span class="tile-status">Vue</span></button>`;
         }).join("");
         $("#cards-grid").querySelectorAll("[data-reveal-card]").forEach((button) => {
           button.addEventListener("click", () => {
@@ -905,19 +994,15 @@
         });
         $("#gallery-status").innerHTML = `<span>Cartes découvertes</span><strong>${state.consulted.size} / 24</strong>`;
 
-        $("#inventory").innerHTML = state.items.size
-          ? [...state.items].map((key) => `<div class="inventory-item"><span class="inventory-icon" aria-hidden="true">${itemInfo[key][1]}</span>${itemInfo[key][0]}${key === "admin" && state.lostData ? " · donnée effacée" : ""}</div>`).join("")
-          : '<div class="inventory-empty">Ton sac est encore vide. Trouve des objets sur tes cartes !</div>';
-        $("#students").innerHTML = studentNames.map((name, index) => `<span class="student${state.students.has(index) ? " found" : ""}">${state.students.has(index) ? "✓ " : "• "}${name}</span>`).join("");
-        $("#student-note").textContent = state.students.size === studentNames.length
-          ? "Toute la bande est prête à rentrer !"
-          : "Aide tous tes amis à rentrer avec toi !";
+        $("#inventory").innerHTML = '<div class="inventory-empty">Les objets se trouvent sur les cartes physiques : gardez-les près de vous.</div>';
+        $("#students").innerHTML = studentNames.map((name) => `<span class="student">• ${name}</span>`).join("");
+        $("#student-note").textContent = "Retrouvez-les et sauvez-les avec les cartes physiques.";
 
         const progress = Math.round((state.consulted.size / 24) * 100);
         $("#progress-value").textContent = `${state.consulted.size} / 24`;
         $("#progress-fill").style.width = `${progress}%`;
         $("#history-list").innerHTML = state.consulted.size
-          ? [...state.consulted].reverse().map((id) => `<button class="history-entry${state.resolved.has(id) ? " resolved" : ""}" type="button" data-history-card="${id}" aria-label="Revoir la carte ${id}, ${cards[id].name}"><span class="history-icon" aria-hidden="true">${cardVisuals[id][0]}</span><span><span class="history-number">CARTE ${String(id).padStart(2, "0")}</span><span class="history-name">${cards[id].name}</span><span class="history-state">${state.resolved.has(id) ? "Jouée !" : "À reprendre"}</span></span></button>`).join("")
+          ? [...state.consulted].reverse().map((id) => `<button class="history-entry" type="button" data-history-card="${id}" aria-label="Revoir l’image de la carte ${id}, ${cards[id].name}"><span class="history-icon" aria-hidden="true">${cardVisuals[id][0]}</span><span><span class="history-number">CARTE ${String(id).padStart(2, "0")}</span><span class="history-name">${cards[id].name}</span><span class="history-state">Guide visuel</span></span></button>`).join("")
           : '<span class="inventory-empty">Les cartes utilisées apparaîtront ici, de la plus récente à la première.</span>';
         $("#history-list").querySelectorAll("[data-history-card]").forEach((button) => {
           button.addEventListener("click", () => showCard(Number(button.dataset.historyCard)));
@@ -949,8 +1034,7 @@
           { icon: "🗑️", label: "Corbeille", action: "trash", trash: true }
         ];
         $("#desktop-icons").innerHTML = shortcuts.map(({ icon, label, action, cardId, trash }) => {
-          const locked = cardId && !state.availableCards.has(cardId);
-          return `<button class="desktop-icon${locked ? " pixel-locked" : ""}${trash ? " trash-icon" : ""}" type="button" data-desktop-action="${action}"${cardId ? ` data-card-id="${cardId}"` : ""} aria-label="${label}${locked ? ", verrouillé" : ""}" title="${locked ? "À découvrir" : "Ouvrir"} : ${label}"><span class="desktop-icon-glyph" aria-hidden="true">${icon}</span><span class="desktop-icon-label">${label}</span></button>`;
+          return `<button class="desktop-icon${trash ? " trash-icon" : ""}" type="button" data-desktop-action="${action}"${cardId ? ` data-card-id="${cardId}"` : ""} aria-label="${label}" title="Ouvrir : ${label}"><span class="desktop-icon-glyph" aria-hidden="true">${icon}</span><span class="desktop-icon-label">${label}</span></button>`;
         }).join("");
       }
 
@@ -973,14 +1057,13 @@
         if (open) $("#card-number").focus();
       }
 
-      function showResult(card, text, controls = "") {
+      function showResult(card) {
         const id = state.currentCard || 1;
         renderScene(id);
-        const feedback = text === card.text ? "" : `<p class="preview-message">${text}</p>`;
         const voiceButton = "speechSynthesis" in window
           ? `<button class="voice-button" type="button" data-read-card="${id}">🔊 Écouter avec Arthur</button>`
           : "";
-        $("#preview-action").innerHTML = `<h3 class="preview-card-title">Carte ${String(id).padStart(2, "0")} · ${card.name}</h3><p class="preview-card-copy">${card.text}</p>${feedback}${controls}${voiceButton}`;
+        $("#preview-action").innerHTML = `<h3 class="preview-card-title">Carte ${String(id).padStart(2, "0")} · ${card.name}</h3><p class="preview-card-copy">${card.text}</p>${voiceButton}`;
       }
 
       function message(text) {
@@ -1008,24 +1091,11 @@
             return;
           }
           if (action === "school-folder") {
-            if (!state.availableCards.has(3)) {
-              const text = "Le dossier de l’école est verrouillé. Trouve les chiffres cachés sur le bureau !";
-              $("#hint-text").innerHTML = `<span class="hint-level">Dossier verrouillé</span>${text}`;
-              $("#announcer").textContent = text;
-              return;
-            }
             showCard(3);
             return;
           }
           if (action === "card") {
             const id = Number(desktopAction.dataset.cardId);
-            if (!state.availableCards.has(id)) {
-              const text = "Cette icône est verrouillée. Continue les cartes découvertes pour l’ouvrir !";
-              message(text);
-              $("#hint-text").innerHTML = `<span class="hint-level">Application verrouillée</span>${text}`;
-              $("#announcer").textContent = text;
-              return;
-            }
             showCard(id);
             return;
           }
@@ -1045,89 +1115,19 @@
           readCardAloud(Number(button.dataset.readCard));
           return;
         }
-        const completeButton = event.target.closest("[data-complete-card]");
-        if (completeButton) completeCard(Number(completeButton.dataset.completeCard));
       });
 
       function showCard(id) {
         const card = cards[id];
         if (!card) return;
         if ("speechSynthesis" in window) window.speechSynthesis.cancel();
-        if (!state.availableCards.has(id)) {
-          message("Cette carte est encore cachée. Joue les cartes découvertes pour la trouver !");
-          $("#announcer").textContent = `La carte ${id} est encore verrouillée.`;
-          return;
-        }
         state.currentCard = id;
         state.windowOpen = true;
         $("#hint-text").textContent = "";
         $("#card-number").value = id;
         message("");
-        if (state.ended) {
-          showResult(card, "L’aventure est finie ! Appuie sur « Recommencer l’aventure » pour rejouer.");
-          return;
-        }
         state.consulted.add(id);
-        if (state.resolved.has(id)) {
-          showResult(card, "Tu as déjà joué cette carte ! Reprends ton paquet pour continuer l’aventure.");
-          render();
-          return;
-        }
-        const missing = (card.requires || []).filter((key) => !state.items.has(key));
-        if (missing.length) {
-          showResult(card, `Il te faut : ${missing.map((key) => itemInfo[key][0]).join(", ")}. Garde cette carte et cherche l’objet avec les autres cartes !`);
-          render();
-          return;
-        }
-        if (card.requiresCard && !state.resolved.has(card.requiresCard)) {
-          showResult(card, `Joue d’abord la carte ${card.requiresCard} avec tes cartes.`);
-          render();
-          return;
-        }
-        if (card.requiresRestored && state.lostData) {
-          showResult(card, "Il manque une information. Trouve le filtre transparent pour la retrouver !");
-          render();
-          return;
-        }
-        if (card.routeMode) {
-          const choices = '<div class="route-choices"><button class="small-button" type="button" data-route-mode="light">☀️ Le chemin du soleil</button><button class="small-button" type="button" data-route-mode="dark">☁️ Le chemin du nuage</button></div>';
-          showResult(card, card.text, choices);
-          document.querySelectorAll("[data-route-mode]").forEach((button) => {
-            button.addEventListener("click", () => {
-              state.routeMode = button.dataset.routeMode;
-              const reward = collectCardItems(card);
-              resolveCard(id);
-              showResult(card, `Tu as choisi le mode ${state.routeMode === "light" ? "clair" : "sombre"}. ${reward}`, '<p class="preview-message success">Le chemin a changé !</p>');
-              render();
-            });
-          });
-          render();
-          return;
-        }
-        if (card.code) {
-          showResult(card, card.text, `<form class="answer-form" id="answer-form"><label class="sr-only" for="answer-input">Réponse à l’énigme</label><input class="answer-input" id="answer-input" inputmode="numeric" autocomplete="off" placeholder="Code" aria-label="Écris les chiffres du code"><button class="primary-button" type="submit">Essayer !</button></form><p class="answer-feedback" id="answer-feedback" role="status"></p>`);
-          $("#answer-form").addEventListener("submit", (event) => {
-            event.preventDefault();
-            const answer = $("#answer-input").value.trim().replace(/\s/g, "").toLowerCase();
-            const feedback = $("#answer-feedback");
-            if (answer !== card.code.toLowerCase()) {
-              feedback.textContent = card.hint ? `Pas tout à fait. ${card.hint}` : "Pas tout à fait. Regarde encore l’image et tes cartes !";
-              return;
-            }
-            feedback.textContent = card.success;
-            feedback.classList.add("success");
-            $("#answer-form button").disabled = true;
-            const reward = collectCardItems(card);
-            resolveCard(id);
-            showResult(card, reward || card.success);
-            render();
-          });
-          render();
-          $("#answer-input").focus();
-          return;
-        }
-
-        showResult(card, card.text, `<button class="primary-button complete-card-button" type="button" data-complete-card="${id}">✅ C’est fait, on continue !</button>`);
+        showResult(card);
         render();
       }
 
@@ -1139,7 +1139,7 @@
           return;
         }
         showCard(value);
-        if (state.availableCards.has(value)) setCardsMenu(false);
+        setCardsMenu(false);
       });
 
       $("#hint-button").addEventListener("click", () => {
@@ -1149,9 +1149,7 @@
         const level = Math.min(state.hintLevels.get(id) || 0, hintList.length - 1);
         const hint = hintList[level];
         state.hintLevels.set(id, Math.min(level + 1, hintList.length));
-        const bonus = state.bonusHints > 0;
-        if (bonus) state.bonusHints--;
-        $("#hint-text").innerHTML = `<span class="hint-level">Indice ${level + 1} sur ${hintList.length}</span>Arthur : « ${hint}${bonus ? " Tu as utilisé ton jeton bonus !" : ""} »`;
+        $("#hint-text").innerHTML = `<span class="hint-level">Indice ${level + 1} sur ${hintList.length}</span>Arthur : « ${hint} »`;
         $("#announcer").textContent = `Arthur donne un indice : ${hint}`;
         if ("speechSynthesis" in window) {
           const speech = new SpeechSynthesisUtterance(`Arthur dit : ${hint}`);
@@ -1179,17 +1177,9 @@
 
       $("#reset-button").addEventListener("click", () => {
         if ("speechSynthesis" in window) window.speechSynthesis.cancel();
-        state.items.clear();
         state.consulted.clear();
-        state.resolved.clear();
         state.hintLevels.clear();
-        state.availableCards = new Set([1]);
-        state.students.clear();
-        state.lostData = false;
-        state.bonusHints = 0;
         state.currentCard = 1;
-        state.routeMode = null;
-        state.ended = false;
         state.windowOpen = true;
         state.timerRunning = true;
         state.timerSeconds = 0;
@@ -1197,16 +1187,12 @@
         $("#hint-text").textContent = "";
         $("#card-number").value = "";
         $("#entry-error").textContent = "";
-        showResult(cards[1], cards[1].text, '<button class="primary-button complete-card-button" type="button" data-complete-card="1">✅ C’est fait, on continue !</button>');
-        overlay.hidden = true;
-        render();
+        setCardsMenu(false);
+        showCard(1);
       });
 
-      $("#ending-close").addEventListener("click", () => { overlay.hidden = true; });
-      overlay.addEventListener("click", (event) => { if (event.target === overlay) overlay.hidden = true; });
       document.addEventListener("keydown", (event) => {
         if (event.key === "Escape") {
-          overlay.hidden = true;
           setCardsMenu(false);
         }
       });
