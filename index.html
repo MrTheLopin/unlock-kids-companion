@@ -727,7 +727,9 @@
           const clueBadge = clue ? `<span class="scene-clue">${clue}</span>` : "";
           return `<div class="scene-item"><span class="scene-item-icon" aria-hidden="true">${icon}</span><span class="scene-item-name">${name}</span><span class="scene-item-detail">${detail}</span>${clueBadge}</div>`;
         }).join("");
-        const modeTag = id >= 17 && state.routeMode ? `Mode ${state.routeMode === "light" ? "clair · route A" : "sombre · route B"}` : scene.tag;
+        const modeTag = id >= 17 && state.routeMode
+          ? `${state.routeMode === "light" ? "☀️ Chemin du soleil" : "☁️ Chemin du nuage"}`
+          : scene.tag;
         $("#scene-display").innerHTML = `<div class="scene-screen ${classes[scene.type]}${route}"><div class="scene-chrome"><span class="scene-lights" aria-hidden="true"><i></i><i></i><i></i></span><span class="scene-window-title">${scene.title}</span><span class="scene-chip">${modeTag}</span></div><div class="scene-body">${items}</div></div>`;
       }
 
@@ -813,7 +815,7 @@
         }
         if (!state.availableCards.has(id)) {
           message("Cette carte est encore cachée. Joue les cartes déjà découvertes pour la trouver !");
-          $("#scene-display").innerHTML = '<div class="scene-screen scene-console"><div class="scene-chrome"><span class="scene-lights" aria-hidden="true"><i></i><i></i><i></i></span><span class="scene-window-title">Fichier inaccessible</span><span class="scene-chip">Verrouillé</span></div><div class="scene-body"><div class="scene-item"><span class="scene-item-icon" aria-hidden="true">🔒</span><span class="scene-item-name">Carte verrouillée</span><span class="scene-item-detail">Continue l’aventure pour la découvrir.</span></div></div></div>';
+          $("#scene-display").innerHTML = '<div class="scene-screen scene-console"><div class="scene-chrome"><span class="scene-lights" aria-hidden="true"><i></i><i></i><i></i></span><span class="scene-window-title">Carte cachée</span><span class="scene-chip">Pas encore</span></div><div class="scene-body"><div class="scene-item"><span class="scene-item-icon" aria-hidden="true">🔒</span><span class="scene-item-name">Encore un peu de patience !</span><span class="scene-item-detail">Joue les cartes découvertes et reviens.</span></div></div></div>';
           $("#preview-action").innerHTML = '<p class="preview-message">Cette carte est encore cachée. Joue les cartes déjà découvertes pour la trouver !</p>';
           return;
         }
